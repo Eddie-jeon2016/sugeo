@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    
+      <bean name="egovBbsNttIdGnrService" class="egovframework.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="egov.dataSource" />
+        <property name="strategy"   ref="bbsNttIdtrategy" />
+        <property name="blockSize"  value="1"/>
+        <property name="table"      value="COMTECOPSEQ"/>
+        <property name="tableName"  value="NTT_ID"/>
+    </bean>
+    <bean name="bbsNttIdtrategy" class="egovframework.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix"   value="NTT_" />
+        <property name="cipers"   value="11" />
+        <property name="fillChar" value="0" />
+    </bean> 
+
+
+	 <bean name="egovPressContentIdGnrService" class="egovframework.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="egov.dataSource" />
+        <property name="strategy"   ref="pressContentStrategy" />
+        <property name="blockSize"  value="1"/>
+        <property name="table"      value="COMTECOPSEQ"/>
+        <property name="tableName"  value="PC_ID"/>
+    </bean>
+    <bean name="pressContentStrategy" class="egovframework.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix"   value="PC_ID_" />
+        <property name="cipers"   value="9" />
+        <property name="fillChar" value="0" />
+    </bean>
+    
+    
+     <bean name="egovVideoMngIdGnrService" class="egovframework.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="egov.dataSource" />
+        <property name="strategy"   ref="videoMngStrategy" />
+        <property name="blockSize"  value="1"/>
+        <property name="table"      value="COMTECOPSEQ"/>
+        <property name="tableName"  value="VIDEO_ID"/>
+    </bean>
+    <bean name="videoMngStrategy" class="egovframework.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix"   value="VIDEO_" />
+        <property name="cipers"   value="9" />
+        <property name="fillChar" value="0" />
+    </bean>
+
+	  <bean name="egovFaqMngIdGnrService" class="egovframework.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="egov.dataSource" />
+        <property name="strategy"   ref="faqMngStrategy" />
+        <property name="blockSize"  value="1"/>
+        <property name="table"      value="COMTECOPSEQ"/>
+        <property name="tableName"  value="FAQ_ID"/>
+    </bean>
+    <bean name="faqMngStrategy" class="egovframework.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+        <property name="prefix"   value="FAQ_" />
+        <property name="cipers"   value="11" />
+        <property name="fillChar" value="0" />
+    </bean>
+
+</beans>

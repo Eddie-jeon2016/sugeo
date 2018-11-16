@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bannerDAO">
+
+	
+	<insert id="bannerDAO.bannerInsert" parameterType="BannerVO">
+		INSERT INTO BANNER_MNG( <if test="fileId1 != '' || fileId1!=null">FILE_ID1</if>
+								<if test="fileId2 != '' || fileId2!=null">,FILE_ID2</if>
+								<if test="fileId3 != '' || fileId2!=null">,FILE_ID3</if> )
+		VALUES(  <if test="fileId1 != '' || fileId1!=null">#{fileId1}</if>
+				<if test="fileId2 != '' || fileId2!=null">,#{fileId2}</if>
+				<if test="fileId3 != '' || fileId2!=null">,#{fileId3}</if>
+			)
+	</insert>
+</mapper>

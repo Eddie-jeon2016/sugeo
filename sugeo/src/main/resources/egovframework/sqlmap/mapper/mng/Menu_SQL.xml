@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuDAO">
+
+ 	<resultMap id="selectMenuTopMap" type="MenuVO">
+ 		<id column="MENU_ID" property="menuId"/>
+ 		<result column="MENU_SC_ID" property="menuScId" />
+ 		<result column="TITLE" property="title" />
+ 		<result column="MENU_DEPTH" property="menuDepth" />
+ 		<result column="URL" property="url" />
+ 		<result column="SEQ" property="seq" />
+ 		<collection property="subMenues" javaType="list" column="MENU_ID" ofType="MenuVO"  select="selectSubMenuSetter"/>
+ 	</resultMap>
+
+ 	<resultMap id="selectMenuSecondMap" type="MenuVO">
+		<id column="MENU_ID" property="menuId"/>
+ 		<result column="MENU_SC_ID" property="menuScId" />
+ 		<result column="TITLE" property="title" />
+ 		<result column="MENU_DEPTH" property="menuDepth" />
+ 		<result column="URL" property="url" />
+ 		<result column="SEQ" property="seq" />
+ 		<collection property="thrdMenues" javaType="list" column="MENU_ID" ofType="MenuVO"  select="selectThdMenuSetter"/>
+	</resultMap>
+	
+	
+	<!-- 3뎁스에 따른 추가된 코드 -->
+	<resultMap id="selectCurrentMenuMap" type="MenuVO">
+        <id column="MENU_ID" property="menuId"/>
+        <result column="MENU_SC_ID" property="menuScId"/>
+        <result column="TITLE" property="title"/>
+        <result column="MENU_DEPTH" property="menuDepth"/>
+        
+        <result column="URL" property="url"/>
+        <result column="SEQ" property="seq"/>
+        <collection property="parentMenuMap" javaType="menuVO" column="MENU_SC_ID" ofType="MenuVO"
+                    select="selectParentMenuMap"/>
+    </resultMap>
+	<!-- 3뎁스에 따른 추가된 코드 끝 -->
+
+ 
+
+ 	<select id="MenuDAO.selectMenuList" parameterType="ComDefaultVO" resultType="MenuVO">
+
+			SELECT
+				MENU_ID, MENU_SC_ID, TITLE, MENU_DESC, MENU_DEPTH, URL, USE_YN , SEQ
+			FROM
+				MENU_MNG
+			WHERE 1=1
+ 		      AND USE_YN = 'Y'
+<!-- 			<if test="searchCnd == 0">AND -->
+<!-- 					CONTENT_NAME LIKE CONCAT('%', #{searchWrd},'%') 		 -->
+<!-- 			</if> -->
+
+<!-- 			ORDER BY USER_NM  -->
+<!-- 			LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
+
+ 	</select>
+
+ 	<insert id="MenuDAO.insertMenu" parameterType="MenuVO">
+ 		INSERT INTO MENU_MNG
+ 					(
+					MENU_ID
+					, MENU_SC_ID
+					, TITLE
+					, MENU_DESC
+					, MENU_DEPTH
+					, URL
+					, USE_YN
+					, SEQ
+ 					)
+ 				VALUES
+ 					(
+ 				    #{menuId}
+ 				   ,#{menuScId}
+ 				   ,#{title}
+ 				   ,#{menuDesc}
+ 				   ,#{menuDepth}
+ 				   ,#{url}
+ 				   ,'Y'
+ 				   ,#{seq}
+ 				   )
+
+ 	</insert>
+
+ 	<update id="MenuDAO.updateMenu" parameterType="MenuVO">
+ 		UPDATE MENU_MNG
+ 			SET MENU_SC_ID = #{menuScId}
+ 				,TITLE = #{title}
+ 				,MENU_DESC = #{menuDesc}
+ 				,MENU_DEPTH = #{menuDepth}
+ 				,URL = #{url}
+ 				,SEQ = #{seq}
+ 			WHERE MENU_ID = #{menuId}
+ 	</update>
+
+ 	<select id="MenuDAO.selectMenuView" parameterType="MenuVO" resultType="MenuVO">
+ 		SELECT
+					MENU_ID
+					, MENU_SC_ID
+					, TITLE
+					, MENU_DESC
+					, MENU_DEPTH
+					, URL
+					, USE_YN
+					, SEQ
+ 					FROM MENU_MNG
+ 					WHERE MENU_ID = #{menuId}
+ 	</select>
+
+
+
+ 	<select id="MenuDAO.selectMenuTopList" resultMap="selectMenuTopMap">
+		SELECT MENU_ID
+			, MENU_SC_ID
+			, TITLE
+			, MENU_DESC
+			, MENU_DEPTH
+			, URL
+			, USE_YN
+			, SEQ
+		FROM MENU_MNG
+		WHERE MENU_SC_ID = '0'
+			AND USE_YN = 'Y'
+		ORDER BY SEQ
+ 	</select>
+
+ 	<select id="selectSubMenuSetter" resultMap="selectMenuSecondMap">
+	 	SELECT MENU_ID 
+			, MENU_SC_ID
+			, TITLE
+			, MENU_DESC
+			, MENU_DEPTH
+			, URL
+			, USE_YN
+			, SEQ
+	 	FROM MENU_MNG
+	 	WHERE MENU_SC_ID = #{menuId}
+	 		 AND USE_YN = 'Y'
+	 	ORDER BY SEQ
+ 	</select>
+
+ 	<select id="selectThdMenuSetter" resultType="MenuVO">
+	 	SELECT MENU_ID
+			, MENU_SC_ID
+			, TITLE
+			, MENU_DESC
+			, MENU_DEPTH
+			, URL
+			, USE_YN
+			, SEQ
+	 	FROM MENU_MNG
+	 	WHERE MENU_SC_ID = #{menuId}
+	 		 AND USE_YN = 'Y'
+	 	ORDER BY SEQ
+ 	</select>
+
+	<select id="MenuDAO.selectParentMenu" parameterType="string" resultType="MenuVO">
+		SELECT * FROM MENU_MNG WHERE  URL = #{_parameter}
+	        ORDER BY MENU_DEPTH DESC LIMIT 1
+	</select>
+
+	<select id="MenuDAO.FSTselector" parameterType="string" resultType="map">
+	SELECT
+		(SELECT TITLE FROM MENU_MNG S1 WHERE S1.MENU_ID = M.SECOND_MENU_SC_ID) AS FIRST_TITLE,
+		(SELECT MENU_DEPTH FROM MENU_MNG S1 WHERE S1.MENU_ID = M.SECOND_MENU_SC_ID) AS FIRST_DEPTH,
+		(SELECT MENU_ID FROM MENU_MNG S1 WHERE S1.MENU_ID = M.SECOND_MENU_SC_ID) AS FIRST_MENU_ID,
+		'0' AS FIRST_MENU_SC_ID,
+		(SELECT URL FROM MENU_MNG S1 WHERE S1.MENU_ID = M.SECOND_MENU_SC_ID) AS FIRST_URL,
+	M.* FROM (
+	SELECT
+	IF(S.MENU_DEPTH = 2,(SELECT S1.TITLE FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_SC_ID),
+			     IF(S.MENU_DEPTH = 1 ,(SELECT S1.TITLE FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_ID),"") ) AS SECOND_TITLE
+	,IF(S.MENU_DEPTH = 2,(SELECT S1.MENU_DEPTH FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_SC_ID),
+			     IF(S.MENU_DEPTH = 1 ,1,"")) AS SECOND_DEPTH
+	,IF(S.MENU_DEPTH = 2,(SELECT S1.MENU_ID FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_SC_ID),
+			     IF(S.MENU_DEPTH = 1 ,(SELECT S1.MENU_ID FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_ID),"") ) AS SECOND_MENU_ID
+	,IF(S.MENU_DEPTH = 2,(SELECT S1.MENU_SC_ID FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_SC_ID),
+			     IF(S.MENU_DEPTH = 1 ,(SELECT S1.MENU_SC_ID FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_ID),"") ) AS SECOND_MENU_SC_ID
+	,IF(S.MENU_DEPTH = 2,(SELECT S1.URL FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_SC_ID),
+			     IF(S.MENU_DEPTH = 1 ,(SELECT S1.URL FROM MENU_MNG S1 WHERE S1.MENU_ID = S.MENU_ID),"") ) AS SECOND_URL
+	,IF(S.MENU_DEPTH = 2,S.TITLE,"") AS THIRD_TITLE
+	,IF(S.MENU_DEPTH = 2,S.MENU_DEPTH,"") AS THIRD_DEPTH
+	,IF(S.MENU_DEPTH = 2,S.MENU_ID,"") AS THIRD_MENU_ID
+	,IF(S.MENU_DEPTH = 2,S.MENU_SC_ID,"") AS THIRD_MENU_SC_ID
+	,IF(S.MENU_DEPTH = 2,S.URL,"") AS THIRD_URL
+	FROM MENU_MNG S
+	WHERE MENU_ID = #{menuId}
+	) M
+	</select>
+	
+	<!-- 3뎁스에 따른 추가된 코드 -->
+	<select id="MenuDAO.selectCurrentMenuMap" parameterType="string" resultMap="selectCurrentMenuMap">
+		SELECT * FROM MENU_MNG
+			WHERE URL = #{url}
+				AND USE_YN = 'Y'
+			ORDER BY MENU_ID DESC
+			LIMIT 1
+		</select>
+		
+		 <select id="selectParentMenuMap" parameterType="string" resultMap="selectCurrentMenuMap">
+		SELECT * FROM MENU_MNG
+			WHERE MENU_ID = #{menuScId}
+			  AND MENU_ID != 'MENU_0000000001'
+			  AND USE_YN = 'Y'
+		ORDER BY SEQ
+	</select>
+	
+	<select id="MenuDAO.selectSecondTopSecondList" parameterType="map" resultType="MenuVO">
+		SELECT * FROM MENU_MNG
+			WHERE MENU_SC_ID = #{menuScId}
+			   AND MENU_ID != #{existId}
+			   AND USE_YN = 'Y'
+		ORDER BY SEQ
+	</select>
+</mapper>

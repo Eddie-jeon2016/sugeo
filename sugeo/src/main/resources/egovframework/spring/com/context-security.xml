@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+xmlns:beans="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+<http pattern="/**/js/**" security="none"/>
+<http pattern="/**/images/**" security="none"/>
+<http pattern="/**/css/**" security="none"/>
+
+    <http auto-config="true" >
+
+        <!--remove X-frame Option filter-->
+        <headers>
+<!--             <frame-options disabled="true"/> -->
+            <!--<frame-options policy="SAMEORIGIN"/>-->
+        </headers>
+
+        <access-denied-handler ref="tem4AccessDeniedHandler"/>
+
+        <intercept-url pattern="/uat/uia/egovLoginUsr.do" access="permitAll"/>
+        <intercept-url pattern="/mng/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="permitAll"/>
+
+
+        <form-login login-page="/uat/uia/egovLoginUsr.do"
+                    username-parameter="id"
+                    password-parameter="password"
+                    login-processing-url="/uat/uia/actionLogin.do"
+                    authentication-failure-url="/uat/uia/egovLoginUsr.do"
+                    authentication-success-handler-ref="tem4AuthenticationHandler"
+                    authentication-failure-handler-ref="tem4AuthenticationHandler"
+        />
+
+        <logout logout-url="/uat/uia/actionLogout.do"
+                          invalidate-session="true"
+                          success-handler-ref="tem4AuthenticationHandler"
+    />
+
+
+        <csrf disabled="true"/>
+
+        <session-management>
+            <concurrency-control max-sessions="999" expired-url="/uat/uia/egovLoginUsr.do"/>
+        </session-management>
+    </http>
+
+    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+    <authentication-manager>
+        <authentication-provider ref="tem4AuthenticationProvider"/>
+    </authentication-manager>
+
+	<beans:bean id="tem4AuthenticationHandler" class="four.common.util.security.tem4AuthenticationHandler"/>
+	<beans:bean id="tem4AuthenticationProvider" class="four.common.util.security.tem4AuthenicationProvider"/>   
+	<beans:bean id="tem4AccessDeniedHandler" class="four.common.util.security.tem4AccessDeniedHandler"/>
+</beans:beans>

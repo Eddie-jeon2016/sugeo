@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CmmUseDAO">
+
+	<resultMap id="CmmCodeDetail" type="egovframework.com.cmm.service.CmmnDetailCode">
+		<result property="code" column="CODE"/>
+		<result property="subCode" column="SUB_CODE"/>
+		<result property="subCodeName" column="SUB_CODE_NAME"/>
+		<result property="subcodeDesc" column="SUB_CODE_DESC"/>
+	</resultMap>
+ 
+	<select id="CmmUseDAO.selectCmmCodeDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
+		 
+			SELECT 
+			CODE, SUB_CODE, SUB_CODE_NAME, SUB_CODE_DESC
+			FROM 
+			CODE_SUB
+			WHERE
+			USE_YN = 'Y'
+			AND CODE = #{code}
+		
+	</select>
+
+    <select id="CmmUseDAO.selectGroupIdDetail" parameterType="ComDefaultCodeVO" resultMap="CmmCodeDetail">
+             
+            SELECT 
+                #{tableNm}     CODE_ID, 
+                GROUP_ID     CODE, 
+                GROUP_NM     CODE_NM, 
+                GROUP_DC     CODE_DESC
+            FROM 
+                COMTNAUTHORGROUPINFO
+            WHERE 1=1
+            
+            <if test="haveDetailCondition == &quot;Y&quot;">AND
+                GROUP_ID  LIKE  #{detailConditionValue}
+            </if>
+    </select>
+    
+
+</mapper>

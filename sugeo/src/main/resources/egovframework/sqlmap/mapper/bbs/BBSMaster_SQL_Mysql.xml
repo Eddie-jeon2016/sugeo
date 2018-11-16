@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Sun Mar 05 14:04:15 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsManageDAO">
+
+	<insert id="BbsManageDAO.insertBbsManage" parameterType="BbsManageVO">
+
+			INSERT INTO BBSMASTER
+			(BBS_ID, BBS_TY_CODE, BBS_NAME, USE_YN,
+			ANSWER_YN, WRITE_AUTH, READ_AUTH, REPLY_AUTH, ANSWER_AUTH, FILE_ATCH_POSBL_YN,ATCH_POSBL_FILE_NUMBER,MENU_NO,
+			 REG_ID, REG_DATE)
+			VALUES
+			( #{bbsId}, 'NORMAL', #{bbsName}, #{useYn},
+			  #{answerYn}, #{writeAuth}, #{readAuth}, #{replyAuth}, #{answerAuth},
+			  #{fileAtchPosblYn},#{atchPosblFileNumber},#{menuNo},
+			  #{regId}, NOW()
+			 )
+
+	</insert>
+
+	<select id="BbsManageDAO.selectNextBbs_id" parameterType="BbsManageVO" resultType="java.lang.Integer">
+
+			SELECT
+				ifnull(max(bbs_id),0)+1 as bbs_id
+			FROM
+				BBSMASTER
+
+	</select>
+
+	<select id="BbsManageDAO.selectBbsManageList" resultType="BbsManageVO">
+			SELECT
+				B.BBS_ID , B.BBS_TY_CODE,
+				(SELECT CODE_NAME FROM CODE_MAIN WHERE CODE=B.BBS_TY_CODE) BBS_TY_CODE_NM,
+				B.BBS_NAME, B.USE_YN, B.ANSWER_YN, B.WRITE_AUTH,B.MENU_NO,
+				B.READ_AUTH, B.REPLY_AUTH, B.ANSWER_AUTH
+			FROM
+				BBSMASTER B
+			ORDER BY B.BBS_NAME desc
+	</select>
+
+	<select id="BbsManageDAO.selectBbsListbyBbsTyCode" parameterType="String" resultType="BbsManageVO">
+
+			SELECT
+				BBS_ID, BBS_TY_CODE,
+				BBS_NAME
+			FROM
+				BBSMASTER
+
+	</select>
+
+	<select id="BbsManageDAO.selectBbsManageListCnt" parameterType="BbsManageVO" resultType="java.lang.Integer">
+			SELECT
+				COUNT(BBS_ID)
+			FROM
+				BBSMASTER
+	</select>
+
+	<select id="BbsManageDAO.selectBbsManage" parameterType="BbsManageVO" resultType="BbsManageVO">
+
+			SELECT
+				B.BBS_ID
+				, B.BBS_TY_CODE
+				, B.BBS_NAME
+				, B.USE_YN
+				, B.ANSWER_YN
+				, B.WRITE_AUTH
+				, B.READ_AUTH
+				, B.REPLY_AUTH
+				, B.ANSWER_AUTH
+				, B.FILE_ATCH_POSBL_YN
+				, B.ATCH_POSBL_FILE_NUMBER
+				, B.REG_ID
+				, B.REG_DATE
+				, B.MENU_NO
+			FROM
+				BBSMASTER B
+			WHERE 1=1
+
+ 			<if test="bbsId != null and bbsId != ''">AND
+ 				B.BBS_ID = #{bbsId}
+ 			</if>
+ 			<if test="menuNo != null and menuNo != ''">AND
+ 				B.MENU_NO = #{menuNo}
+ 			</if>
+ 	</select>
+
+ 	<update id="BbsManageDAO.updateBbsManage" parameterType="BbsManageVO">
+
+			UPDATE BBSMASTER SET
+				BBS_NAME = #{bbsName},
+				BBS_TY_CODE = 'NORMAL',
+				USE_YN = #{useYn},
+				ANSWER_YN = #{answerYn},
+				WRITE_AUTH = #{writeAuth},
+				READ_AUTH = #{readAuth},
+				REPLY_AUTH = #{replyAuth},
+				ANSWER_AUTH = #{answerAuth},
+				MENU_NO = #{menuNo},
+				FILE_ATCH_POSBL_YN = #{fileAtchPosblYn},
+				ATCH_POSBL_FILE_NUMBER = #{atchPosblFileNumber},
+				MOD_ID = #{modId},
+				MOD_DATE = NOW()
+			WHERE BBS_ID = #{bbsId}
+
+	</update>
+
+ 	<delete id="BbsManageDAO.deleteBbsManage" parameterType="int">
+
+			DELETE FROM BBSMASTER
+            WHERE BBS_ID=#{bbs_id}
+
+	</delete>
+
+</mapper>

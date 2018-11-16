@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FaqDAO">
+	
+	<select id="FaqDAO.selectFaqListCnt" parameterType="ComDefaultVO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM FAQ
+		WHERE 
+		   1=1
+		   AND USE_YN = 'Y'
+		<if test="searchCondition == 1">
+			AND
+			(QUEST LIKE CONCAT('%', #{searchKeyword} ,'%') OR
+			ANSWER LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>
+		<if test="searchCondition == 2">
+			AND
+			QUEST LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 3">
+			AND
+			ANSWER LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchGubun != null and searchGubun != ''">
+			AND
+			FAQ_TYPE = #{searchGubun}
+		</if>
+		ORDER BY FAQ_TYPE, SORT_NUM
+	</select>
+	
+	<select id="FaqDAO.selectFaqList" parameterType="ComDefaultVO" resultType="FaqVO">
+		SELECT FAQ_ID
+			, FAQ_TYPE
+			, QUEST
+			, ANSWER
+			, USE_YN
+			, SORT_NUM
+			, (SELECT SUB_CODE_NAME FROM CODE_SUB WHERE SUB_CODE = FAQ_TYPE) AS TYPE_NAME
+		FROM FAQ
+		WHERE 
+		   1=1
+		   AND USE_YN = 'Y'
+		<if test="searchCondition == 1">
+			AND
+			(QUEST LIKE CONCAT('%', #{searchKeyword} ,'%') OR
+			ANSWER LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>
+		<if test="searchCondition == 2">
+			AND
+			QUEST LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 3">
+			AND
+			ANSWER LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchGubun != null and searchGubun != ''">
+			AND
+			FAQ_TYPE = #{searchGubun}
+		</if>
+		ORDER BY FAQ_TYPE, SORT_NUM
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	
+	<!--관리자페이지 FAQ 리스트 가져오기 -->
+	<select id="FaqDAO.selectFaqMngList" parameterType="ComDefaultVO" resultType="FaqVO">
+		SELECT 
+			FAQ_ID
+			, QUEST
+			, ANSWER
+			, FAQ_TYPE
+			, USE_YN
+			, SORT_NUM
+			, (SELECT SUB_CODE_NAME FROM CODE_SUB WHERE SUB_CODE = FAQ_TYPE) AS TYPE_NAME
+			, REG_DATE
+			, REG_ID
+			, MOD_DATE
+			, MOD_ID
+		FROM 
+			FAQ
+		WHERE  
+			1=1
+		   AND USE_YN = 'Y'
+		<if test="searchCondition == 1">
+			AND
+			(QUEST LIKE CONCAT('%', #{searchKeyword} ,'%') OR
+			ANSWER LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>
+		<if test="searchCondition == 2">
+			AND
+			QUEST LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 3">
+			AND
+			ANSWER LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchGubun != null and searchGubun != ''">
+			AND
+			FAQ_TYPE = #{searchGubun}
+		</if>
+		ORDER BY FAQ_ID DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<!--관리자페이지 FAQ 리스트 갯수 가져오기 -->
+	<select id="FaqDAO.selectFaqMngListCnt" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(FAQ_ID)
+		FROM 
+			FAQ
+		WHERE  
+			1=1
+		   AND USE_YN = 'Y'
+		<if test="searchCondition == 1">AND
+			(QUEST LIKE CONCAT('%', #{searchKeyword} ,'%') OR
+			ANSWER LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>
+		<if test="searchCondition == 2">AND
+			QUEST LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 3">AND
+			ANSWER LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test="searchGubun != null and searchGubun != ''">
+		AND  FAQ_TYPE = #{searchGubun}			
+		</if>
+	</select>
+		
+	<!-- FAQ 등록 -->
+	<insert id="FaqDAO.insertFaqMng" parameterType="FaqVO">	
+		INSERT
+		INTO FAQ
+			( FAQ_ID
+			, FAQ_TYPE
+			, QUEST
+			, ANSWER
+			, USE_YN
+			, SORT_NUM
+			, REG_DATE
+			, REG_ID
+			)
+		VALUES
+			( #{faqId}
+			, #{faqType}
+			, #{quest}
+			, #{answer}
+			, 'Y'
+			, (SELECT * FROM(SELECT MAX(SORT_NUM)+1 FROM FAQ)AS A)
+			, now()
+			, #{regId}			
+			)
+	</insert>
+	
+	<!--faq 수정을 위해 리스트 조회 -->
+	<select id="FaqDAO.selectFaqMngOneList" resultType="FaqVO">
+		SELECT 
+			FAQ_ID
+			, QUEST
+			, ANSWER
+			, FAQ_TYPE
+			, USE_YN
+			, SORT_NUM
+			, (SELECT SUB_CODE_NAME FROM CODE_SUB WHERE SUB_CODE = FAQ_TYPE) AS TYPE_NAME
+			, REG_DATE
+			, REG_ID
+			, MOD_DATE
+			, MOD_ID
+		FROM 
+			FAQ
+		WHERE 
+			FAQ_ID = #{faqId}
+	
+	</select>
+	
+	<!--faq 글 수정 -->
+	<update id="FaqDAO.updateFaqMng" parameterType="FaqVO">
+		UPDATE FAQ
+			SET FAQ_TYPE = #{faqType}
+				, QUEST = #{quest}
+				, ANSWER = #{answer}
+				, MOD_ID = #{modId}
+				, MOD_DATE = now()
+			WHERE FAQ_ID = #{faqId}
+	</update>
+	
+	<!--faq 글 삭제  -->
+	<update id="FaqDAO.deleteFaqMng" parameterType="String">
+		UPDATE FAQ
+			SET USE_YN = 'N'
+			WHERE FAQ_ID = #{faqId}
+	</update>	
+			
+</mapper>

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Mar 06 17:32:13 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsDAO">
+
+	<insert id="BbsDAO.insertBbs" parameterType="BbsVO">
+
+			INSERT INTO BBS
+			(
+			  NTT_ID
+			, BBS_ID
+			, NTT_NO
+			, TITLE
+			, CONTENT
+			, NOTICE_YN
+			, BBSCATE_ID
+			, RDCNT
+			, ATCH_FILE_ID
+			, THUMB_ATCH_FILE_ID
+			, REG_DATE
+			, REG_ID
+			, USE_YN
+			)
+			VALUES
+			(
+			  #{nttId}
+			, #{bbsId}
+			, #{nttNo}
+			, #{title}
+			, #{content}
+			, #{noticeYn}
+			, #{bbscateId}
+			, #{rdcnt}
+			, #{atchFileId}
+			, #{thumbAtchFileId}
+			, now()
+			, #{regId}
+			, #{useYn}
+			 )
+
+	</insert>
+
+	<select id="BbsDAO.selectNextNtt_id" parameterType="BbsVO" resultType="String">
+
+			SELECT
+				ifnull(max(ntt_id),0)+1 as ntt_id
+			FROM
+				BBS
+
+	</select>
+	<select id="BbsDAO.selectNextNtt_no" parameterType="BbsVO" resultType="java.lang.Integer">
+
+			SELECT
+				ifnull(max(ntt_no),0)+1 as ntt_no
+			FROM
+				BBS
+
+	</select>
+
+	<select id="BbsDAO.selectBbsList" parameterType="BbsDefaultVO" resultType="BbsVO">
+
+			SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.THUMB_ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , IF((A.REG_DATE) >= (SELECT SUBDATE(NOW(),interval 3 day)), 'false', 'true') AS NEWDATE
+			FROM
+				BBS A
+				WHERE A.USE_YN = 'Y'
+					AND A.BBS_ID = #{bbsId}
+			<if test="searchCondition == 1">AND
+				(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+			</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+			<!-- ORDER BY REG_DATE DESC -->
+			ORDER BY A.REG_DATE DESC
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	<select id="BbsDAO.selectBbsListCnt" parameterType="BbsDefaultVO" resultType="java.lang.Integer">
+
+			SELECT
+				COUNT(A.NTT_ID)
+			FROM
+				BBS A
+			WHERE A.USE_YN = 'Y'
+				AND A.BBS_ID = #{bbsId}
+			<if test="searchCondition == 1">AND
+					(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+					A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+				</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+	</select>
+	<select id="BbsDAO.selectBbsListReplyCnt" parameterType="BbsDefaultVO" resultType="java.lang.Integer">
+
+	SELECT COUNT(*) AS CNT
+	  FROM (SELECT *
+				   FROM BBS A
+				 WHERE A.USE_YN 	= 'Y'
+					 AND A.BBS_ID 		= #{bbsId}
+			 ORDER BY A.NTT_NO DESC
+				LIMIT  0, #{firstIndex} ) AA
+			<if test="searchCondition == 1">AND
+				(TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+				CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+			</if>
+			<if test="searchCondition == 2">AND
+				TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				BBSCATE_ID = #{searchCateId}
+			</if>
+	</select>
+	<select id="BbsDAO.selectBbsListnoticeYn" parameterType="BbsDefaultVO" resultType="BbsVO">
+
+			SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , IF((A.REG_DATE) >= (SELECT SUBDATE(NOW(),interval 3 day)), 'false', 'true') AS NEWDATE
+				FROM
+				BBS A
+				WHERE A.USE_YN = 'Y'
+					AND A.NOTICE_YN = 'Y'
+					AND A.BBS_ID = #{bbsId}
+				ORDER BY A.REG_DATE DESC
+
+	</select>
+	<select id="BbsDAO.selectBbs" parameterType="int" resultType="BbsVO">
+
+            SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.THUMB_ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d %H:%i')  frst_date_time
+              FROM
+				BBS A
+             WHERE
+             	A.USE_YN = 'Y'
+				AND A.NTT_ID = #{ntt_id}
+
+	</select>
+	<delete id="BbsDAO.deleteRealBbs" parameterType="Integer">
+
+            DELETE FROM BBS
+             WHERE NTT_ID   = #{ntt_id}
+
+	</delete>
+	<update id="BbsDAO.deleteBbs" parameterType="Integer">
+
+            UPDATE BBS SET
+            	USE_YN = 'N'
+             WHERE NTT_ID   = #{nttId}
+
+	</update>
+	<update id="BbsDAO.updateBbs" parameterType="BbsVO">
+
+			UPDATE BBS SET
+				  TITLE = #{title}
+				, CONTENT = #{content}
+				, NOTICE_YN = #{noticeYn}
+				, BBSCATE_ID = #{bbscateId}
+				, ATCH_FILE_ID = #{atchFileId}
+				, THUMB_ATCH_FILE_ID = #{thumbAtchFileId}
+				, MOD_DATE = now()
+				, MOD_ID = #{modId}
+				WHERE NTT_ID = #{nttId}
+
+	</update>
+	<update id="BbsDAO.updateRdCnt" parameterType="int">
+				UPDATE BBS SET
+				 RDCNT = RDCNT + 1
+				WHERE NTT_ID   = #{ntt_id}
+	</update>
+	<select id="BbsDAO.selectBbsListByUser" parameterType="BbsDefaultVO" resultType="BbsVO">
+
+			SELECT
+				A.BBS_ID
+			  , B.BBS_NAME
+			  , A.NTT_ID
+			  , A.TITLE
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , B.MENU_NO AS smenuNo
+			FROM
+				BBS A
+				LEFT JOIN
+				BBSMASTER B ON A.BBS_ID=B.BBS_ID
+				WHERE
+					A.USE_YN = 'Y'
+					AND B.BBS_TY_CODE NOT IN ('COM1003', 'COM1007')
+
+			ORDER BY A.NTT_NO DESC
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	<select id="BbsDAO.selectBbsListByUserCnt" parameterType="BbsDefaultVO" resultType="java.lang.Integer">
+
+			SELECT
+				COUNT(A.NTT_ID)
+			FROM
+				BBS A
+				LEFT JOIN
+				BBSMASTER B ON A.BBS_ID=B.BBS_ID
+				WHERE
+					A.USE_YN = 'Y'
+					AND B.BBS_TY_CODE NOT IN ('COM1003', 'COM1007')
+
+	</select>
+
+	<select id="BbsDAO.selectBbsForMain" parameterType="BbsDefaultVO" resultType="BbsVO">
+            SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.THUMB_ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d-%H-%i')  frst_date_time
+              FROM
+				BBS A
+             WHERE
+             	A.USE_YN = 'Y'
+             AND A.BBS_ID = #{bbsId}
+             ORDER BY REG_DATE DESC
+             LIMIT #{recordCountPerPage}
+
+
+	</select>
+
+	<select id="BbsDAO.selectBbsListforSearch" parameterType="BbsDefaultVO" resultType="BbsVO">
+
+			SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.THUMB_ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , IF((A.REG_DATE) >= (SELECT SUBDATE(NOW(),interval 3 day)), 'false', 'true') AS NEWDATE
+			  , (SELECT BBS_NAME FROM BBSMASTER WHERE BBS_ID = A.BBS_ID) AS BBS_NAME
+			FROM
+				BBS A
+				WHERE A.USE_YN = 'Y'
+				<if test="bbsId != 0">
+					AND A.BBS_ID = #{bbsId}
+				</if>
+
+			<if test="searchCondition == 1">AND
+				(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+			</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+			<!-- ORDER BY REG_DATE DESC -->
+			ORDER BY A.NTT_NO DESC
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	<select id="BbsDAO.selectBbsListCntforSearch" parameterType="BbsDefaultVO" resultType="java.lang.Integer">
+
+			SELECT
+				COUNT(A.NTT_ID)
+			FROM
+				BBS A
+			WHERE A.USE_YN = 'Y'
+				<if test="bbsId != 0">
+					AND A.BBS_ID = #{bbsId}
+				</if>
+
+			<if test="searchCondition == 1">AND
+					(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+					A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+				</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+	</select>
+
+	<select id="BbsDAO.nextSelectBoardArticle" parameterType="BbsVO" resultType="BbsVO">
+		<![CDATA[
+		SELECT NTT_ID
+			, BBS_ID
+			, NTT_NO
+			, TITLE
+			, CONTENT
+			, NOTICE_YN
+			, BBSCATE_ID
+			, RDCNT
+			, USE_YN
+			, ATCH_FILE_ID
+			, REG_DATE
+		FROM BBS
+		WHERE NTT_ID > #{nttId}
+			AND BBS_ID = #{bbsId}
+		]]>
+			<if test="searchCateId != null and searchCateId != ''">
+			AND BBSCATE_ID = #{searchCateId}
+			</if>
+		    AND USE_YN = 'Y'
+		ORDER BY NTT_ID ASC
+		LIMIT 1;
+
+	</select>
+
+	<select id="BbsDAO.prevSelectBoardArticle" parameterType="BbsVO" resultType="BbsVO">
+		<![CDATA[
+		SELECT NTT_ID
+			, BBS_ID
+			, NTT_NO
+			, TITLE
+			, CONTENT
+			, NOTICE_YN
+			, BBSCATE_ID
+			, RDCNT
+			, USE_YN
+			, ATCH_FILE_ID
+			, REG_DATE
+		FROM BBS
+		WHERE NTT_ID < #{nttId}
+			AND BBS_ID = #{bbsId}
+		    AND USE_YN = 'Y'
+		]]>
+		    <if test="searchCateId != null and searchCateId != ''">
+		    AND BBSCATE_ID = #{searchCateId}
+			</if>
+		ORDER BY NTT_ID DESC
+		LIMIT 1;
+
+	</select>
+	
+
+	
+	
+	<select id="BbsDAO.selectEvnetNoticeNList" resultType="BbsVO" parameterType="BbsDefaultVO">
+		SELECT
+				A.BBS_ID
+			  , A.NTT_ID
+			  , A.NTT_NO
+			  , A.TITLE
+			  , A.CONTENT
+			  , A.NOTICE_YN
+			  , A.ATCH_FILE_ID
+			  , A.THUMB_ATCH_FILE_ID
+			  , A.BBSCATE_ID
+			  , A.REG_DATE
+			  , A.RDCNT
+			  , DATE_FORMAT(A.REG_DATE, '%Y-%m-%d')  frst_date
+			  ,  (SELECT BBSCATE_NAME FROM BBSCATE WHERE BBSCATE_ID=A.BBSCATE_ID) AS BBSCATE_NAME
+			  , IF((A.REG_DATE) >= (SELECT SUBDATE(NOW(),interval 3 day)), 'false', 'true') AS NEWDATE
+			FROM
+				BBS A
+				WHERE A.USE_YN = 'Y'
+				AND A.BBS_ID = #{bbsId}
+				AND NOTICE_YN = 'N'
+			<if test="searchCondition == 1">AND
+				(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+			</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+			<!-- ORDER BY REG_DATE DESC -->
+			ORDER BY A.REG_DATE DESC
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="BbsDAO.selectEvnetNoticeNListCnt" parameterType="BbsDefaultVO" resultType="java.lang.Integer">
+
+			SELECT
+				COUNT(A.NTT_ID)
+			FROM
+				BBS A
+			WHERE A.USE_YN = 'Y'
+				AND A.BBS_ID = #{bbsId}
+				AND NOTICE_YN = 'N'
+			<if test="searchCondition == 1">AND
+					(A.TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+					A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%'))
+				</if>
+			<if test="searchCondition == 2">AND
+				A.TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCondition == 3">AND
+				A.CONTENT LIKE CONCAT('%', #{searchKeyword},'%')
+			</if>
+			<if test="searchCateId != null and searchCateId != ''">AND
+				A.BBSCATE_ID = #{searchCateId}
+			</if>
+	</select>
+	
+	<select id="BbsDAO.prevSelectEventNotice" parameterType="BbsVO" resultType="BbsVO">
+		<![CDATA[
+		SELECT NTT_ID
+			, BBS_ID
+			, NTT_NO
+			, TITLE
+			, CONTENT
+			, NOTICE_YN
+			, BBSCATE_ID
+			, RDCNT
+			, USE_YN
+			, ATCH_FILE_ID
+			, REG_DATE
+		FROM BBS
+		WHERE NTT_ID < #{nttId}
+			AND BBS_ID = #{bbsId}
+		    AND USE_YN = 'Y'
+		    AND NOTICE_YN = 'N'
+		]]>
+		 
+		ORDER BY NTT_ID DESC
+		LIMIT 1;
+	</select>
+	
+	<select id="BbsDAO.nextSelectEventNotice" parameterType="BbsVO" resultType="BbsVO">
+		<![CDATA[
+		SELECT NTT_ID
+			, BBS_ID
+			, NTT_NO
+			, TITLE
+			, CONTENT
+			, NOTICE_YN
+			, BBSCATE_ID
+			, RDCNT
+			, USE_YN
+			, ATCH_FILE_ID
+			, REG_DATE
+		FROM BBS
+		WHERE NTT_ID > #{nttId}
+			AND BBS_ID = #{bbsId}
+		]]>
+		    AND USE_YN = 'Y'
+		    AND NOTICE_YN = 'N'
+		ORDER BY NTT_ID ASC
+		LIMIT 1;
+
+	</select>
+</mapper>

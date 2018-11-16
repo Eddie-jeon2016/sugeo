@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WorkLogDAO">
+
+
+	<insert id="WorkLogDAO.insertWorkLog" parameterType="WorkLogVO">
+		INSERT INTO WORK_LOG(LOG_ID,USER_ID, ACCESS_IP, URL, CONTENT, LOG_DATE, LOG_TYPE)	
+		VALUES(#{logId}, #{userId}, #{accessIp},#{url}, #{content}, now(), #{logType});
+	</insert>
+</mapper>

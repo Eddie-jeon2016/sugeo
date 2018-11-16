@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PressContentDAO">
+
+	<!--언론보도자료 리스트  건색-->
+	<select id="PressContentDAO.selectPressContentList" resultType="PressContentVO">
+		SELECT 
+			PC_ID
+			, TITLE
+			, PRESS_NAME
+			, URL
+			, REG_DATE
+			, REG_ID
+			, MOD_DATE
+			, MOD_ID
+			, USE_YN
+		FROM 
+			PRESS_CONTENT
+		WHERE 
+			USE_YN = 'Y'
+		<if test = "searchCondition == 1">
+			AND
+			(TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+			PRESS_NAME LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>	
+		<if test = "searchCondition == 2">
+			AND
+			TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test = "searchCondition == 3">
+			AND
+			PRESS_NAME LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		
+		ORDER BY PC_ID DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<!--언론보도자료 리스트 갯수 조회  -->
+	<select id="PressContentDAO.selectPressContentListCnt" resultType="java.lang.Integer">
+		SELECT
+			COUNT(PC_ID)
+		FROM 
+			PRESS_CONTENT
+		WHERE
+			USE_YN = 'Y'
+		<if test = "searchCondition == 1">
+			AND
+			(TITLE LIKE CONCAT('%', #{searchKeyword},'%') OR
+			PRESS_NAME LIKE CONCAT('%', #{searchKeyword} ,'%'))
+		</if>	
+		<if test = "searchCondition == 2">
+			AND
+			TITLE LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		<if test = "searchCondition == 3">
+			AND
+			PRESS_NAME LIKE CONCAT('%', #{searchKeyword},'%')
+		</if>
+		
+	</select>
+
+	<!--언론보도자료 글 등록  -->
+	<insert id="PressContentDAO.insertPressContent" parameterType="PressContentVO">
+		INSERT 
+		INTO PRESS_CONTENT
+			( PC_ID
+			, TITLE
+			, PRESS_NAME
+			, URL
+			, REG_DATE
+			, REG_ID
+			, USE_YN
+			)
+		VALUES
+			( #{pcId}
+			, #{title}
+			, #{pressName}
+			, #{url}
+			, now()
+			, #{regId}
+			, 'Y'
+			)
+	</insert>
+	
+	<!--수정을 위한 리스트 조회  -->
+	<select id="PressContentDAO.selectPressContentOneList" resultType="PressContentVO">
+		SELECT 
+			PC_ID
+			, TITLE
+			, PRESS_NAME
+			, URL
+			, REG_DATE
+			, REG_ID
+			, MOD_DATE
+			, MOD_ID
+			, USE_YN
+		FROM 
+			PRESS_CONTENT
+		WHERE 
+			PC_ID = #{pcId}
+	</select>
+	
+	<update id="PressContentDAO.updatePressContent" parameterType="PressContentVO">
+		UPDATE PRESS_CONTENT
+			SET TITLE = #{title}
+				, PRESS_NAME = #{pressName}
+				, URL = #{url}
+				, MOD_DATE = NOW()
+				, MOD_ID = #{modId}
+			WHERE PC_ID = #{pcId}
+	</update>
+	
+	<!--언론보도자료 글 삭제  -->
+	<update id="PressContentDAO.deletePressContent" parameterType="string">
+		UPDATE PRESS_CONTENT
+			SET USE_YN = 'N'
+			WHERE PC_ID = #{pcId}
+	</update>
+		
+	
+
+</mapper>

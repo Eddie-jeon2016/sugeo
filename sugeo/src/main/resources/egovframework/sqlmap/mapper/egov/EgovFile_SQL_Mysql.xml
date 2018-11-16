@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Mon Mar 13 14:39:42 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FileManageDAO">
+
+ 
+	<resultMap id="fileList" type="FileVO">
+		<result property="atchFileId" column="FILE_ID"/>
+		<result property="fileCn" column="FILE_CN"/>
+		<result property="fileExtsn" column="FILE_EXT"/>
+		<result property="fileMg" column="FILE_SIZE"/>
+		<result property="fileSn" column="SEQ"/>
+		<result property="fileStreCours" column="SYS_PATH"/>
+		<result property="orignlfileName" column="ORG_FILE_NAME"/>
+		<result property="strefileName" column="SYS_FILE_NAME"/>
+		<result property="creatDt" column="REG_DATE"/>	
+	</resultMap>
+
+	<resultMap id="fileDetail" type="FileVO">
+		<result property="atchFileId" column="FILE_ID"/>
+		<result property="fileCn" column="FILE_CN"/>
+		<result property="fileExtsn" column="FILE_EXT"/>
+		<result property="fileMg" column="FILE_SIZE"/>
+		<result property="fileSn" column="SEQ"/>
+		<result property="fileStreCours" column="SYS_PATH"/>
+		<result property="orignlfileName" column="ORG_FILE_NAME"/>
+		<result property="strefileName" column="SYS_FILE_NAME"/>
+	</resultMap>	
+
+
+ 	<select id="FileManageDAO.selectFileList" parameterType="FileVO" resultMap="fileList">
+ 		
+			SELECT 
+				a.FILE_ID, b.SEQ, b.SYS_PATH, b.SYS_FILE_NAME,
+				b.FILE_EXT, b.ORG_FILE_NAME, b.FILE_SIZE, a.REG_DATE
+			FROM
+				FILE_MNG_MAIN a, FILE_MNG_SUB b
+			WHERE
+				a.FILE_ID = #{atchFileId}
+			AND 
+				a.FILE_ID = b.FILE_ID
+			AND 
+				a.USE_YN = 'Y'			
+				
+			<if test="user_id != null and user_id != ''">AND
+				REG_ID = #{user_id}
+			</if>	
+			<if test="filecode == &quot;E&quot;">
+				filecode = 'E'
+			</if>
+		
+			ORDER BY b.SEQ	
+ 		
+ 	</select>
+ 	
+	<insert id="FileManageDAO.insertFileMaster" parameterType="FileVO">
+		
+			INSERT INTO FILE_MNG_MAIN
+			(FILE_ID, REG_DATE, USE_YN, REG_ID)
+			VALUES
+			( #{atchFileId}, SYSDATE(), 'Y', #{user_id})			
+		
+	</insert>
+	
+	<insert id="FileManageDAO.insertFileDetail" parameterType="FileVO">
+		
+			INSERT INTO FILE_MNG_SUB
+			( FILE_ID, SEQ, SYS_PATH, SYS_FILE_NAME, 
+			  ORG_FILE_NAME, FILE_EXT, FILE_SIZE )
+			VALUES
+			( #{atchFileId}, #{fileSn}, #{fileStreCours}, #{strefileName}, 
+			  #{orignlfileName}, #{fileExtsn}, #{fileMg} )			
+		
+	</insert>
+	<update id="FileManageDAO.updateFileDetail" parameterType="FileVO">
+	
+		UPDATE FILE_MNG_SUB SET 
+				  SYS_PATH = #{fileStreCours}
+				, SYS_FILE_NAME = #{strefileName}
+				, ORG_FILE_NAME = #{orignlfileName}
+				, FILE_EXT = #{fileExtsn}
+				, FILE_SIZE = #{fileMg}
+			WHERE FILE_ID = #{atchFileId}
+			    AND SEQ = #{fileSn} 
+	
+	</update>
+	
+	<delete id="FileManageDAO.deleteFileDetail" parameterType="FileVO">
+		
+			DELETE FROM FILE_MNG_SUB
+			WHERE
+				FILE_ID = #{atchFileId}
+			AND
+				SEQ = #{fileSn}
+			
+	</delete>
+	<delete id="FileManageDAO.deleteFileDetailAll" parameterType="FileVO">
+		
+			DELETE FROM FILE_MNG_SUB
+			WHERE
+				FILE_ID = #{atchFileId}
+			
+	</delete>
+	
+	<delete id="FileManageDAO.deleteFileMaster" parameterType="FileVO">
+		
+			DELETE FROM FILE_MNG_MAIN
+			WHERE
+				FILE_ID = #{atchFileId}			
+			
+	</delete>
+ 	
+	<select id="FileManageDAO.getMaxFileSN" parameterType="FileVO" resultType="java.lang.Integer">
+		
+			SELECT IFNULL(MAX(SEQ),0)+1 AS FILE_SN
+			FROM FILE_MNG_SUB
+			WHERE FILE_ID =  #{atchFileId}		
+		
+	</select>
+	<select id="FileManageDAO.getMaxFileCnt" parameterType="FileVO" resultType="java.lang.Integer">
+		
+			SELECT COUNT(SEQ) AS FILE_SN
+			FROM FILE_MNG_SUB
+			WHERE FILE_ID =  #{atchFileId}		
+		
+	</select>
+	<select id="FileManageDAO.getMaxFileID" resultType="java.lang.Integer">
+		
+			SELECT IFNULL(MAX(FILE_ID),0)+1 AS ATCH_FILE_ID
+			FROM FILE_MNG_MAIN		
+		
+	</select>
+	
+ 	<select id="FileManageDAO.selectFileInf" parameterType="FileVO" resultMap="fileDetail">
+ 		
+			SELECT 
+				FILE_ID, SEQ, SYS_PATH, SYS_FILE_NAME,
+				FILE_EXT, ORG_FILE_NAME, FILE_SIZE
+			FROM
+				FILE_MNG_SUB
+			WHERE
+				FILE_ID = #{atchFileId}
+			AND 
+				SEQ = #{fileSn}	
+ 		
+ 	</select>
+
+	<update id="FileManageDAO.deleteCOMTNFILE" parameterType="FileVO">
+		
+			UPDATE FILE_MNG_MAIN
+			SET USE_YN = 'N'
+			WHERE FILE_ID = #{atchFileId}
+		
+	</update>
+
+ 	<select id="FileManageDAO.selectFileListByFileNm" parameterType="FileVO" resultMap="fileList">
+ 		
+			SELECT 
+				a.FILE_ID, b.SEQ, b.SYS_PATH, b.SYS_FILE_NAME,
+				b.FILE_EXT, b.ORG_FILE_NAME, b.FILE_SIZE, a.REG_DATE
+			FROM
+				FILE_MNG_MAIN a, FILE_MNG_SUB b
+			WHERE
+				a.FILE_ID = b.FILE_ID
+			AND 
+				a.USE_YN = 'Y'
+ 		
+			<if test="searchCnd == &quot;strefileName&quot;">AND
+					b.SYS_FILE_NAME LIKE CONCAT('%', #{searchWrd},'%') 		
+			</if>
+			<if test="searchCnd == &quot;orignlfileName&quot;">AND
+					b.ORG_FILE_NAME LIKE CONCAT('%', #{searchWrd},'%') 		
+			</if>	
+					
+			ORDER BY a.FILE_ID, b.SEQ	
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+				 		
+ 	</select>
+
+ 	<select id="FileManageDAO.selectFileListCntByFileNm" parameterType="FileVO" resultType="java.lang.Integer">
+ 		
+			SELECT 
+				COUNT(a.FILE_ID)
+			FROM
+				FILE_MNG_MAIN a, FILE_MNG_SUB b
+			WHERE
+				a.FILE_ID = b.FILE_ID
+			AND 
+				a.USE_YN = 'Y'				
+ 		
+			<if test="searchCnd == &quot;strefileName&quot;">AND
+					b.SYS_FILE_NAME LIKE CONCAT('%', #{searchWrd},'%') 		
+			</if>
+			<if test="searchCnd == &quot;orignlfileName&quot;">AND
+					b.ORG_FILE_NAME LIKE CONCAT('%', #{searchWrd},'%') 		
+			</if>	 		
+ 	</select>
+ 	
+  	<select id="FileManageDAO.selectImageFileList" parameterType="FileVO" resultMap="fileList">
+ 		
+			SELECT 
+				a.FILE_ID, b.SEQ, b.SYS_PATH, b.SYS_FILE_NAME,
+				b.FILE_EXT, b.ORG_FILE_NAME, b.FILE_SIZE, a.REG_DATE
+			FROM
+				FILE_MNG_MAIN a, FILE_MNG_SUB b
+			WHERE
+				a.FILE_ID = #{atchFileId}
+			AND 
+				a.FILE_ID = b.FILE_ID
+			AND
+				UPPER(b.FILE_EXT) IN ('GIF','JPG','BMP','PNG')
+			AND 
+				a.USE_YN = 'Y'
+			
+			<if test="user_id != null and user_id != ''">AND
+				REG_ID = #{user_id}
+			</if>	
+			<if test="filecode == &quot;E&quot;">
+				filecode = 'E'
+			</if>
+					
+			ORDER BY b.SEQ
+ 			
+ 	</select>
+ 	<select id="FileManageDAO.selectFileUpLoadList" parameterType="FileDefaultVO" resultType="FileVO">
+ 		
+			SELECT 
+					a.FILE_ID AS atchFileId 
+					, b.SEQ AS fileSn
+					, b.SYS_PATH AS fileStreCours
+					, b.SYS_FILE_NAME AS strefileName
+					, b.FILE_EXTSN AS fileExtsn
+					, b.ORG_FILE_NAME AS orignlfileName
+					, b.FILE_SIZE AS fileMg
+					, a.REG_DATE AS creatDt
+					, DATE_FORMAT (a.REG_DATE , '%Y-%m-%d') frst_date
+			FROM
+				FILE_MNG_MAIN a, FILE_MNG_SUB b
+			WHERE
+				a.FILE_ID = b.FILE_ID
+			AND 
+				a.USE_YN = 'Y'	
+			
+			<if test="user_id != null and user_id != ''">AND
+				a.REG_ID = #{user_id}
+			</if>	
+			<if test="filecode == &quot;E&quot;">AND
+				a.FILECODE = 'E'
+			</if>
+		
+				ORDER BY b.FILE_ID DESC
+				LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+ 		
+ 	</select>
+ 	<select id="FileManageDAO.selectFileUpLoadListCnt" parameterType="FileDefaultVO" resultType="java.lang.Integer">
+		
+			SELECT 
+				COUNT(FILE_ID)
+			FROM
+				FILE_MNG_MAIN 
+			WHERE USE_YN = 'Y'
+			AND REG_ID = #{user_id}
+		
+			<if test="filecode == &quot;E&quot;">AND
+				FILECODE = 'E'
+			</if>
+	</select>
+	
+	<select id="FileManageDAO.selectMainImg" resultMap="fileDetail">
+		SELECT MAX(FILE_ID)as FILE_ID
+		FROM FILE_MNG_SUB
+		WHERE FILE_ID LIKE '%M_IMG1_%'
+		ORDER BY FILE_ID DESC
+	</select>
+
+</mapper>

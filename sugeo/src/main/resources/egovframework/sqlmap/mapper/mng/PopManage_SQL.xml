@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PopManageDAO">
+	
+	<insert id="PopManageDAO.insertPopManage" parameterType="PopManageVO">
+		INSERT INTO POPUP_MNG
+					(
+					POPUP_ID
+					,POPUP_NAME
+					,START_DATE
+					,END_DATE
+					,CONTENT
+					,USE_YN
+					,URL
+					,FILE_ID
+					,CLOSE_TYPE
+					)
+				VALUES
+					(
+					#{popupId}
+					,#{popupName}
+					,#{startDate}
+					,#{endDate}
+					,#{content}
+					,'Y'
+					,#{url}
+					,#{fileId}
+					,#{closeType}
+					)
+	</insert>
+	
+	
+	
+	<select id="PopManageDAO.selectPopManageList" resultType="PopManageVO">
+		SELECT 
+			POPUP_ID
+			,POPUP_NAME
+			,DATE_FORMAT(START_DATE, '%Y-%m-%d %H:%i') as START_DATE
+			,DATE_FORMAT(END_DATE, '%Y-%m-%d %H:%i') as END_DATE
+			,CONTENT
+			,USE_YN
+			,URL
+			,FILE_ID
+			,CLOSE_TYPE
+		FROM POPUP_MNG
+		WHERE USE_YN = 'Y'
+		ORDER BY POPUP_ID DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="PopManageDAO.selectPopManageListCnt" resultType="int">
+		SELECT COUNT(POPUP_ID)
+		FROM POPUP_MNG
+		WHERE USE_YN = 'Y'
+		ORDER BY POPUP_ID DESC
+	</select>
+	
+	<select id="PopManageDAO.selectPopList" resultType="PopManageVO">
+		SELECT 
+			POPUP_ID
+			,POPUP_NAME
+			,DATE_FORMAT(START_DATE, '%Y-%m-%d %H:%i') as START_DATE
+			,DATE_FORMAT(END_DATE, '%Y-%m-%d %H:%i') as END_DATE
+			,CONTENT
+			,USE_YN
+			,URL
+			,FILE_ID
+			,CLOSE_TYPE
+		FROM POPUP_MNG
+		WHERE USE_YN = 'Y'
+        	AND DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i') BETWEEN START_DATE AND END_DATE
+		ORDER BY POPUP_ID DESC
+		LIMIT 3
+	</select>
+	
+	<update id="PopManageDAO.updatePopManage" parameterType="PopManageVO">
+		UPDATE POPUP_MNG
+		SET POPUP_NAME = #{popupName}
+			,START_DATE = #{startDate}
+			,END_DATE = #{endDate}
+			,CONTENT = #{content}
+			,FILE_ID = #{fileId}
+			,URL = #{url}
+			,USE_YN = 'Y'
+			,CLOSE_TYPE = #{closeType}
+		WHERE POPUP_ID = #{popupId}	
+	</update>
+	
+	<update id="PopManageDAO.deletePopManage" parameterType="string">
+		UPDATE POPUP_MNG
+		SET USE_YN = 'N'
+		WHERE POPUP_ID =  #{value}
+	</update>
+	
+	<select id="PopManageDAO.selectPopManage" parameterType="string" resultType="PopManageVO">
+		SELECT 
+			POPUP_ID
+			,POPUP_NAME
+			,DATE_FORMAT(START_DATE, '%Y-%m-%d %H:%i') as START_DATE
+			,DATE_FORMAT(END_DATE, '%Y-%m-%d %H:%i') as END_DATE
+			,CONTENT
+			,USE_YN
+			,URL
+			, FILE_ID
+			,(SELECT ORG_FILE_NAME 
+			  FROM FILE_MNG_SUB
+			  WHERE FILE_ID = P.FILE_ID ) AS FILE_NAME
+			,CLOSE_TYPE
+		FROM POPUP_MNG P
+		WHERE POPUP_ID = #{value}
+	</select>
+	
+</mapper>

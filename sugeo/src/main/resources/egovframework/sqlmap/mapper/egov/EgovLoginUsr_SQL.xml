@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 
+	KST 2017 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LoginDAO">
+
+	<!-- 일반 로그인 -->
+	<select id="LoginDAO.actionLogin" resultType="LoginVO">
+		<!-- 일반회원 -->
+			<![CDATA[
+			SELECT UNIQ_ID as uniqId
+				 , USER_ID as id
+			     , USER_NAME as name
+			     , PSWD as password
+			     , ROLE_CODE as role
+			  FROM USR_TBL
+			 WHERE USER_ID = #{id}
+			   AND PSWD = #{password}
+			   AND USE_YN = 'Y'
+			]]>
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="LoginDAO.searchId" resultType="String">
+		<!-- 일반회원 -->
+			<![CDATA[
+			SELECT mber_id AS id
+			  FROM COMTNGNRLMBER
+			 WHERE mber_nm = #name#
+			   AND mber_email_adres = #email#
+			   AND mber_sttus = 'P'
+			]]>
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="LoginDAO.searchPassword" resultType="String">
+		<!-- 일반회원 -->
+			<![CDATA[
+			SELECT password AS password
+			  FROM COMTNGNRLMBER
+			 WHERE mber_id = #id#
+			   AND mber_nm = #name#
+			   AND mber_email_adres = #email#
+			   AND password_hint = #passwordHint#
+			   AND password_cnsr = #passwordCnsr#
+			   AND mber_sttus = 'P'
+			]]>
+	</select>
+
+	<!-- 변경된 비밀번호를 저장 -->
+	<update id="LoginDAO.updatePassword">
+		<!-- 일반회원 -->
+			<![CDATA[
+			UPDATE COMTNGNRLMBER
+			   SET password = #password#
+			 WHERE mber_id = #id#
+			]]>
+	</update>
+	
+	
+	<insert id="LoginDAO.insertLoginLog" parameterType="LoginVO">
+		INSERT INTO ACCESS_LOG
+			(
+			UNIQ_ID
+        	, LOG_DATE
+        	, USER_ID
+        	, ACCESS_IP
+        	)
+        VALUES
+        	(
+        	#{uniqId}
+        	, NOW()
+        	, #{id}
+        	, #{ip}
+        )
+	</insert>
+	
+	<insert id="LoginDAO.insertAccessLog" parameterType="LoginVO">
+		INSERT INTO PATH_LOG
+			(
+			UNIQ_ID
+        	, PATH
+        	, REG_DATE
+        	)
+        VALUES
+        	(
+        	#{uniqId}
+        	, #{url}
+        	, SYSDATE()
+        	)
+	</insert>
+</mapper>

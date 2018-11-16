@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AuthDAO">
+
+	<select id="AuthDAO.selectAuthorList" parameterType="ComDefaultVO" resultType="AuthVO">
+			SELECT UNIQ_ID, USER_ID, USER_NAME, REG_DATE, ( SELECT MAX(LOG_DATE)
+													FROM  ACCESS_LOG A
+													WHERE A.USER_ID = U.USER_ID
+													) AS LOG_DATE
+			FROM USR_TBL U
+			WHERE USE_YN = 'Y'
+			ORDER BY REG_DATE DESC
+			LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+		
+		<!-- SELECT UNIQ_ID
+			, USER_ID
+		    , PSWD
+		    , USER_NAME
+		    , (SELECT ROLE_NAME FROM ROLE_MNG WHERE ROLE_CODE = A.ROLE_CODE) AS ROLE_CODE
+		    , REG_DATE
+		    , MOD_DATE
+		    , EXT_DATE
+		    , USE_YN
+		FROM USR_TBL A
+		WHERE 1=1
+			<if test="searchCondition != null and searchCondition != ''">
+				<choose>
+					<when test="searchCondition == 1">
+						AND
+						(USER_NAME LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</when>
+					<when test="searchCondition == 2">
+						AND
+						 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND
+						 USER_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+					</otherwise>
+				</choose>
+			</if>
+		ORDER BY REG_DATE DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex} -->
+	</select>
+	
+	<select id="AuthDAO.selectAuthorListCnt" parameterType="ComDefaultVO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM USR_TBL
+		WHERE 1=1
+			<if test="searchCondition != null and searchCondition != ''">
+				<choose>
+					<when test="searchCondition == 1">
+						AND
+						(USER_NAME LIKE CONCAT('%', #{searchKeyword}, '%') OR
+						 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</when>
+					<when test="searchCondition == 2">
+						AND
+						 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND
+						 USER_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+					</otherwise>
+				</choose>
+			</if>
+	</select>
+	
+	<select id="AuthDAO.selectMaxUniqId" resultType="java.lang.Integer">
+		SELECT MAX(UNIQ_ID)+1
+		FROM USR_TBL
+	</select>
+	
+	<insert id="AuthDAO.insertAuthorUser" parameterType="AuthVO">
+		INSERT
+		INTO USR_TBL
+			( UNIQ_ID
+			 , USER_ID
+			 , PSWD
+			 , USER_NAME
+			 , ROLE_CODE
+			 , REG_DATE
+			 , USE_YN
+			)
+		VALUES
+			( #{uniqId}
+			, #{userId}
+			, #{pswd}
+			, #{userName}
+			, 'ROLE_ADMIN'
+			, NOW()
+			, 'Y'
+			)
+	</insert>
+	
+	<select id="AuthDAO.selectAuthorUser" parameterType="string" resultType="AuthVO">
+		SELECT UNIQ_ID
+			, USER_ID
+			, PSWD
+			, USER_NAME
+			, ROLE_CODE
+			, REG_DATE
+			, USE_YN
+		FROM USR_TBL
+		WHERE 1=1
+			AND UNIQ_ID = #{_parameter}
+	</select>
+	
+	<update id="AuthDAO.updateAuthorUser" parameterType="AuthVO">
+		UPDATE USR_TBL
+		SET	USER_NAME = #{userName}
+			, USE_YN = #{useYn}
+		WHERE 1=1
+			AND UNIQ_ID = #{uniqId}
+	</update>
+	
+	<update id="AuthDAO.deleteAuthorUser" parameterType="string">
+		UPDATE USR_TBL
+		SET USE_YN = 'N'
+		WHERE 1=1
+			AND UNIQ_ID = #{_parameter}
+	</update>
+	
+	<select id="AuthDAO.updateAuthorCheck" parameterType="AuthVO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM USR_TBL
+		WHERE 1=1
+			AND UNIQ_ID = #{uniqId}
+	</select>
+	
+	<select id="AuthDAO.selectAccessUserList" parameterType="ComDefaultVO" resultType="AuthVO">
+		SELECT UNIQ_ID
+			, USER_ID
+			, ACCESS_IP
+			, DATE_FORMAT(LOG_DATE, '%Y-%m-%d %H:%i:%s') AS LOG_DATE
+		FROM ACCESS_LOG
+		WHERE 1=1 
+		<if test="searchCondition != null and searchCondition != ''">
+			<choose>
+				<when test="searchCondition == 1">
+					AND
+					(ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</when>
+				<when test="searchCondition == 2">
+					AND
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND
+					 ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
+		</if>
+		<if test="searchStartDate != null and !searchStartDate.equals('') and searchEndDate != null and !searchEndDate.equals('')">
+			AND DATE_FORMAT(LOG_DATE, '%Y%m%d') BETWEEN DATE_FORMAT(#{searchStartDate},'%Y%m%d') AND
+            DATE_FORMAT(#{searchEndDate},'%Y%m%d')
+			
+		</if>
+
+		ORDER BY LOG_DATE DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="AuthDAO.selectAccessUserListCnt" parameterType="ComDefaultVO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM ACCESS_LOG
+		WHERE 1=1 
+		<if test="searchCondition != null and searchCondition != ''">
+			<choose>
+				<when test="searchCondition == 1">
+					AND
+					(ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</when>
+				<when test="searchCondition == 2">
+					AND
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND
+					 ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
+			<if test="searchStartDate != null and !searchStartDate.equals('') and searchEndDate != null and !searchEndDate.equals('')">
+				AND DATE_FORMAT(LOG_DATE, '%Y%m%d') BETWEEN DATE_FORMAT(#{searchStartDate},'%Y%m%d') AND
+	            DATE_FORMAT(#{searchEndDate},'%Y%m%d')				
+			</if>
+		</if>
+	</select>
+	
+	<select id="AuthDAO.selectWorkLogList" parameterType="ComDefaultVO" resultType="AuthVO">
+		SELECT LOG_ID
+			, USER_ID
+			, ACCESS_IP
+			, URL
+			, CONTENT
+			, DATE_FORMAT(LOG_DATE, '%Y-%m-%d %H:%i:%s') AS LOG_DATE
+			, LOG_TYPE
+		FROM WORK_LOG
+		WHERE 1=1 
+		<if test="searchCondition != null and searchCondition != ''">
+			<choose>
+				<when test="searchCondition == 1">
+					AND
+					(ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</when>
+				<when test="searchCondition == 2">
+					AND
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND
+					 ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
+		</if>
+		<if test="searchStartDate != null and !searchStartDate.equals('') and searchEndDate != null and !searchEndDate.equals('')">
+			AND DATE_FORMAT(LOG_DATE, '%Y%m%d') BETWEEN DATE_FORMAT(#{searchStartDate},'%Y%m%d') AND
+            DATE_FORMAT(#{searchEndDate},'%Y%m%d')
+			
+		</if>
+		ORDER BY LOG_DATE DESC
+		LIMIT  #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="AuthDAO.selectWorkLogListCnt" parameterType="ComDefaultVO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM WORK_LOG
+		WHERE 1=1 
+		<if test="searchCondition != null and searchCondition != ''">
+			<choose>
+				<when test="searchCondition == 1">
+					AND
+					(ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%') OR
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+					)
+				</when>
+				<when test="searchCondition == 2">
+					AND
+					 USER_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					AND
+					 ACCESS_IP LIKE CONCAT('%', #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
+			<if test="searchStartDate != null and !searchStartDate.equals('') and searchEndDate != null and !searchEndDate.equals('')">
+				AND DATE_FORMAT(LOG_DATE, '%Y%m%d') BETWEEN DATE_FORMAT(#{searchStartDate},'%Y%m%d') AND
+	            DATE_FORMAT(#{searchEndDate},'%Y%m%d')				
+			</if>
+		</if>
+	</select>
+	
+	<select id="AuthDAO.selectWorkLogOneList" resultType="AuthVO" parameterType="String">
+		SELECT LOG_ID
+			, USER_ID
+			, ACCESS_IP
+			, URL
+			, CONTENT
+			, DATE_FORMAT(LOG_DATE, '%Y-%m-%d %H:%i:%s') AS LOG_DATE
+			, LOG_TYPE
+		FROM WORK_LOG
+		WHERE LOG_ID = #{logId}
+			
+	
+	</select>
+	
+	<select id="AuthDAO.idCheck" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM USR_TBL
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<update id="AuthDAO.updateAuthorUserPw" parameterType="AuthVO">
+		UPDATE USR_TBL
+		SET USER_NAME = #{userName}
+			, PSWD = #{pswd}
+			, USE_YN = #{useYn}
+		WHERE 1=1
+			AND UNIQ_ID = #{uniqId}
+	</update>
+	
+	
+</mapper>

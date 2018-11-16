@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Sun Mar 05 14:04:15 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsCommentDAO">
+
+<!--  쿼리문 -->
+
+<insert id="BbsCommentDAO.insertBbsComment" parameterType="BbsCommentVO">
+
+			INSERT INTO COMMENT
+			(
+			  NTT_ID
+			, BBS_ID
+			, ANSWER_NO
+			, P_ANSWER_NO
+			, ANSWER_GNO
+			, CONTENT
+			, REG_DATE
+			, REG_ID
+			, USE_YN
+			)
+			VALUES
+			(
+			  #{nttId}
+			, #{bbsId}
+			, #{answerNo}
+			, #{p_answerNo}
+			, #{answerGno}
+			, #{cotent}
+			, now()
+			, #{regId}
+			,'Y'
+			)
+		
+</insert>
+<select id="BbsCommentDAO.selectNextAnswer_no" parameterType="BbsCommentVO" resultType="int">
+
+			SELECT 
+				ifnull(max(answer_no),0)+1 as answer_no
+			FROM
+				COMMENT
+		
+</select>
+<select id="BbsCommentDAO.selectNextAnswer_gno" parameterType="BbsCommentVO" resultType="int">
+
+			SELECT 
+				ifnull(max(answer_gno),0)+1 as answer_gno
+			FROM
+				COMMENT
+		
+</select>
+ 
+ 
+ 
+<select id="BbsCommentDAO.selectBbsCommentList" parameterType="BbsCommentDefaultVO" resultType="BbsCommentVO">
+ 
+			SELECT 
+				  C.NTT_ID
+				, C.BBS_ID
+				, C.ANSWER_NO
+				, C.P_ANSWER_NO
+				, C.ANSWER_GNO
+				, C.CONTENT
+				, C.REG_DATE
+				, C.REG_ID
+			FROM
+				COMMENT C
+			WHERE C.NTT_ID = #{nttId}
+				AND C.BBS_ID = #{bbsId}
+				AND C.USE_YN = 'Y'
+			ORDER BY C.ANSWER_GNO DESC, C.P_ANSWER_NO ASC
+            LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+				
+ 		 		 
+</select>
+<select id="BbsCommentDAO.selectBbsCommentListCnt" parameterType="BbsCommentDefaultVO" resultType="java.lang.Integer">
+
+			SELECT 
+				COUNT(ANSWER_NO)
+			FROM
+				COMMENT
+			WHERE NTT_ID = #{nttId}
+				AND BBS_ID = #{bbsId}
+				AND USE_YN = 'Y'
+			
+</select> 
+
+ <!-- 수정하는 쿼리문 -->
+ 
+ <update id="BbsCommentDAO.updateBbsComment" parameterType="BbsCommentVO">
+
+			UPDATE COMMENT SET 
+				COTENT = #{content} ,
+				MOD_DATE = NOW() ,
+				MOD_ID = #{modId}
+			WHERE ANSWER_NO = #{answerNo}
+ 		
+</update>
+
+<select id="BbsCommentDAO.selectCmtAnswer" parameterType="BbsCommentDefaultVO" resultType="BbsCommentVO">
+ 
+			SELECT 
+				  ANSWER_NO
+				, CONTENT
+				, ANSWER_GNO
+				, DATE_FORMAT(FRST_REGIST_DATE, '%Y-%m-%d')  frst_date
+			  	, DATE_FORMAT(FRST_REGIST_DATE, '%Y-%m-%d-%H-%i')  frst_date_time
+			FROM
+				COMMENT
+			WHERE ANSWER_NO = #{answerNo}
+ 		 		 
+</select>
+
+
+ <!-- 삭제하는 쿼리문 -->
+
+<update id="BbsCommentDAO.deleteBbsComment" parameterType="BbsCommentVO">
+
+			UPDATE COMMENT SET
+					USE_YN = 'N'	
+            WHERE ANSWER_NO = #{answerNo}
+ 		
+</update>
+</mapper>

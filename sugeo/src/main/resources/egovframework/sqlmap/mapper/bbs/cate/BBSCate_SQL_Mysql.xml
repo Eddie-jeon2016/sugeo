@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Sun Mar 05 14:04:14 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsCateDAO">
+
+	<!-- typeAlias  alias="BoardMaster" type="egovframework.com.cop.bbs.service.BoardMaster"/-->
+
+	<!-- <resultMap id="BbsMasterList" class="mediacenter.com.bbs.service.BbsCateVO">
+		<result property="bbs_id" column="BBS_ID" columnIndex="1"/>
+		<result property="BBS_NAME" column="BBS_NAME" columnIndex="2"/>
+		<result property="use_at" column="USE_AT" columnIndex="2"/>
+		<result property="bbs_ty_code" column="BBS_TY_CODE" columnIndex="3"/>
+		<result property="ANSWER_YN" column="ANSWER_YN" columnIndex="4"/>
+		<result property="write_auth" column="WRITE_AUTH" columnIndex="5"/>
+		<result property="read_auth" column="READ_AUTH" columnIndex="6"/>
+		<result property="reply_auth" column="REPLY_AUTH" columnIndex="7"/>
+		<result property="answer_auth" column="ANSWER_AUTH" columnIndex="8"/>
+	</resultMap> -->
+
+<!--  쿼리문 -->
+
+<insert id="BbsCateDAO.insertBbsCate" parameterType="BbsCateVO">
+
+			INSERT INTO BBSCATE
+			(BBSCATE_ID, BBS_ID, BBSCATE_NAME)
+			VALUES
+			(
+			#{bbscateId}, #{bbsId}, #{bbscateName}
+			)
+		
+</insert>
+
+<!-- 아이디값 +1 해주는 쿼리문 파라미터클래스= 넘어온값 , 리절트클래스는 보낼값 -->
+
+ <select id="BbsCateDAO.selectNextBbscate_id" resultType="java.lang.Integer">
+
+			SELECT 
+				ifnull(max(BBSCATE_ID),0)+1 as bbscate_id
+			FROM
+				BBSCATE
+		
+</select>
+ 
+ <!-- Detail ( List ) 페이지에 보여줄 쿼리문 -->
+ 
+	 <select id="BbsCateDAO.selectBbsCateList" parameterType="BbsCateVO" resultType="BbsCateVO">
+	<!-- <![CDATA[ -->
+			SELECT 
+				BBSCATE_ID, BBSCATE_NAME, BBS_ID
+			FROM
+				BBSCATE
+			WHERE BBS_ID = #{bbsId}
+ 		<!-- ]]>	 --> 
+	 </select>
+ 
+
+ <!-- 수정하는 쿼리문 -->
+ 
+ 	<update id="BbsCateDAO.updateBbsCate" parameterType="BbsCateVO">
+
+			UPDATE BBSCATE SET 
+				BBSCATE_NAME = #{bbscateName}
+			WHERE BBSCATE_ID = #{bbscateId}
+ 		
+</update>
+
+
+
+ <!-- 삭제하는 쿼리문 -->
+
+ 	<delete id="BbsCateDAO.deleteBbsCate" parameterType="int">
+
+			DELETE FROM BBSCATE
+            WHERE BBSCATE_ID=#{bbscateId}
+ 		
+</delete>
+</mapper>
