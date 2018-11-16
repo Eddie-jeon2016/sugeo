@@ -1,0 +1,306 @@
+@charset "utf-8";  
+
+a.top_btn {position: fixed; right: 2%; bottom: 65px;   z-index: 999; background:url(../images/common/btn_top.png) no-repeat; background-size:45px 45px;   width:45px; height:45px; text-indent:99999em; opacity:0.9}
+
+/*************** 메인품목 ***************/ 
+.main_Box{position:relative;width:100%;height:100%; -webkit-box-pack:center;}
+.main_Box dl> * {-webkit-box-flex: 1;} 
+.main_Box dl{position: relative;width: 48.5%;height: 150px;background: #fff;box-shadow: 1px 2px 2px 0px #e9e7f0;border-radius: 4px; float: left; margin-bottom:10px} 
+.main_Box dl dt{ }
+.main_Box dl dt img{position:absolute; display:block; width:48px; height:48px; left:50%; margin-left:-24px; top:15px}
+.main_Box dl dt a{position:absolute; display:block; width:3px; height:20px; right:10px; top:10px; text-indent: -99999em; background: url(../images/common/btn_more.gif) no-repeat; background-size: 3px 20px}
+.main_Box dl dd.item_txt{ text-align:center; margin-top:65px; }
+.main_Box dl dd.item_txt strong{font-size:16px;  }
+.main_Box dl dd.item_txt span{display:block; font-size: 12px; color:#aaaaaa; margin-top:-2px}
+ 
+.main_Box dl dd.item_unit{height:30px;margin:0;width:100%;text-align: center;margin-top: 6px;}
+.main_Box dl dd.item_unit input[type="button"]{background: url(../images/icon/btn_pm.png) no-repeat;background-size: 72px 72px;width:36px;height:36px;border:0px;padding:0px; }
+
+.main_Box dl dd.item_unit input.minus[type="button"]{position: absolute; left: 10px;}
+.main_Box dl dd.item_unit input.plus[type="button"] {position: absolute; background-position:-36px 0; right: 10px;} 
+
+.main_Box dl dd.item_unit.active input.minus[type="button"]{background-position: 0px  -36px;}
+.main_Box dl dd.item_unit.active input.plus[type="button"]{background-position: -36px -36px;}
+.main_Box dl dd.item_unit strong{font-size:15px; color:#444; line-height: 2em}
+.main_Box dl dd.item_unit strong i{font-size:17px;}
+.mgl3p{margin-left:3%}
+
+.container.active{padding-bottom:85px}
+.main_Box dl dd.item_unit button.sale[type="button"]{background-image:none; width:105px; height:28px; border-radius:50px; box-shadow:0px 1px 5px 0px #d4d4d4; margin-top:3px; font-weight:700; color:#444; }
+ 
+.item_sum{position:fixed; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.7); height:100px;}
+.item_sum a{position:absolute; bottom:0px}
+.item_sum p{color:#fff;margin-top:18px;padding:0 20px;letter-spacing: -0.3px;}
+.item_sum p span.be_p{ font-size: 15px; font-weight: 300;}
+.item_sum p span.be_p em{color:#12dc89}
+.item_sum p span.be_p em strong{color:#12dc89}
+.item_sum p span.total_p{font-size: 11px;float: right;margin-top: -8px;letter-spacing: 0px;}
+.item_sum p span.total_p i{ font-size: 25px; font-weight: 300; margin-left: 5px;}
+.item_sum p span.total_p i strong{margin-right: 3px;}
+ 
+/********* Layer_popup ************/
+.inquiryBox{ position:relative; width:320px; display:none; background:#fff; box-shadow:2px 2px 4px #333; -moz-box-shadow:2px 2px 4px #333; -o-box-shadow:2px 2px 4px #333; -webkit-box-shadow:2px 2px 4px #333; }
+.inquiryBox .inqu_top{height:45px; width:100%; background:#1b8b39;  }
+.inquiryBox .inqu_top.item1:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item1.png) no-repeat;background-size: 38px 55px; }
+.inquiryBox .inqu_top.item2:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item2.png) no-repeat;background-size: 38px 55px; }
+.inquiryBox .inqu_top.item3:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item3.png) no-repeat;background-size: 38px 55px; }
+.inquiryBox .inqu_top.item4:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item4.png) no-repeat;background-size: 38px 55px; }
+.inquiryBox .inqu_top.item5:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item5.png) no-repeat;background-size: 38px 55px; }
+.inquiryBox .inqu_top.item6:after{content:'';position: absolute;top: 0px;left:15px;display:inline-block;width:38px;height: 55px;background:url(../images/icon/bg_pop_item6.png) no-repeat;background-size: 38px 55px; }
+
+.inquiryBox .inqu_top p{ position: absolute; top: 10px; left: 60px;}
+.inquiryBox .inqu_top p strong{color:#fff;font-size:20px;margin-right: 5px;}
+.inquiryBox .inqu_top p i{color:#dcffe5}
+.inquiryBox span.b-close{position: absolute;clear: both;top: 12px;right:15px;} 
+
+.inquiryBox dl{padding: 10px 15px 0;}
+.inquiryBox dl dt{margin: 17px 0 8px 0;font-size: 15px;color:#aaaaaa;}
+.inquiryBox dl dd{font-size:13px;line-height: 1.6em;padding-bottom: 14px;border-bottom: 1px solid #ededed;} 
+.inquiryBox dl dt.inqu_bottom{ margin: 10px 0 6px 0px;}
+.inquiryBox dl dd.inqu_bottom{color:#1b8b39;position:relative;border: none;padding-bottom: 18px; }
+.inquiryBox dl dd.inqu_bottom:before{content:'';position: absolute;bottom: 0px;right:0px;display:inline-block;width:48px;height:38px;background:url(../images/icon/bg_pop_bottom.png) no-repeat; background-size:48px 38px; }
+@media screen and (orientation: landscape) {
+.inquiryBox{top:3.5% !important;width: 80% !important;}
+.inquiryBox dl dd.inqu_bottom{ padding-right:50px}
+}
+
+/*************** 방문예약 ***************/
+.daypicker{position:relative;}
+.daypicker_weekHeader{ background: none;}
+.daypicker_weekHeader ul{ font-weight: 700; height:40px; line-height: 40px; color:#fff; background: #474747; display: table; width:100%;}
+.daypicker_weekHeader ul li{float:left; width:14.2%; text-align: center;}
+.daypicker_weekHeader ul li:first-child{  color:#FF3478}
+.daypicker_weekHeader ul li:last-child{width:14.3%; color:#00AEFF}
+.daypicker_Month{padding:15px 10px 0; text-align: left; font-size: 16px; color:#474747; border-bottom:1px solid #ddd; background: #fff;}
+.daypicker_Month table{}
+.daypicker_Month table tr td{text-align: center; width:14.2%; font-weight: 300; font-size: 13px; padding:12px 0;}
+.daypicker_Month table tr td:focus, .daypicker_Month table tr td:hover, .daypicker_Month table tr td:active{background:#ddfae4;  }
+.daypicker_Month table tr td.blocked_out{opacity:0.2}
+.daypicker_Month table tr td:first-child, .daypicker_Month table tr td.holiday{ color:#FF3478}
+.daypicker_Month table tr td:last-child{width:14.3%; color:#00AEFF}
+.daypicker_Month table tr td.select{color: #fff;background: #05c879; font-weight:700}
+
+.caption{position:relative;}
+.caption strong{margin-left:20px}
+.caption a{position:absolute;text-indent: -9999em; display: inline-block; width:18px; height: 16px; background: url(../images/icon/button_event.png) no-repeat; background-size: 32px 14px; top:4px}
+.caption a:last-child{background-position:-12px 0}
+
+.select_day{margin-top:15px;}
+.select_day ul{width:100%;}
+.select_day li{float: left; width:32%}
+.select_day li:first-child{ width:33%}
+.select_day li:last-child{ width:100%; margin-top:5px}
+.select_day li select{width:100%}
+
+.area_info{margin-top:10px;float: left;width: 100%;}
+.area_info li{margin:5px 0;}
+.area_info li.num{position:relative; padding-right: 80px}
+.area_info li button.btn.gray.small{position: absolute; width:80px; top:0px; right: 0px}
+ 
+.inquiryBox.reserv .inqu_top p{left:10px}
+.inquiryBox.reserv .reserv_ul{width:100%;padding:15px 10px 10px;float: left; border-bottom:1px solid #ccc; margin-bottom: 15px} 
+.inquiryBox.reserv .reserv_ul li strong{display:block;width: 25%;float:left;}
+.inquiryBox.reserv .reserv_ul li span{display: block;float:left;width: 75%;margin: 0px 0 10px;}
+
+/*************** 수거의뢰 ***************/
+.request_Box{position:relative;width:100%;height:100%; -webkit-box-pack:center;}
+.request_Box div> * {-webkit-box-flex: 1;} 
+.request_Box div{position: relative;width: 48.5%;height: 125px;background: #fff;box-shadow: 1px 2px 2px 0px #e9e7f0;border-radius: 4px; float: left; margin-bottom:10px; overflow: hidden}
+.request_Box div:nth-child(even){margin-left:3%}
+.request_Box div button.picture{display: block;text-indent: -9999em;background: url(../images/icon/btn_pm.png) no-repeat;background-size: 76px 76px;width: 40px;height: 40px;border:0px;padding:0px;background-position: -37px -37px;margin: 43px auto;}
+button.icon_camera{height:35px;line-height: 34px;font-size: 15px;} 
+button.icon_camera span{display:inline-block;background: url(../images/icon/bg_camera.png) no-repeat;background-size: 18px 14px;width:18px;height: 14px;position:relative;top: 1px;left: -5px;}
+
+.request_Box div img{display:block; height:125px;margin:0 auto;position: absolute;z-index: 10;}
+.request_Box div button.pictureDel{display: inline-block;text-indent: -9999em;background: url(../images/icon/btn_pdel.png) no-repeat;background-size: 40px 40px;width: 40px;height: 40px;border:0px;padding:0px;margin: 43px auto 43px -20px;position: absolute;z-index: 11;left: 50%;}
+
+/*************** 마이페이지 ***************/
+.container.reserv{top:144px} 
+.top_my a.btn.green{height: 28px; width: 72px; line-height: 27px; font-size: 13px; top: 53px; position: absolute; right: 20px; border-radius: 4px;}
+
+.myTab{position:relative; width:100%;  }
+.myTab ul{width:100%;height: 46px;border-bottom: 1px solid #ddd;}
+.myTab ul li{position:relative; width:25%;height: 46px;line-height: 44px;float:left;text-align:center;padding: 2px 0;}
+.myTab ul li:after{content:'';position: absolute;top: 15px;right:0px;display:inline-block; width:1px; height: 17px; background:#ddd }
+.myTab ul li:last-child:after{display:none}
+.myTab ul li a{font-size: 17px;color:#aaaaaa;display: inline-block;word-break:keep-all;line-height: 20px;}  
+.myTab ul li a.on{color:#1b8b39;  font-weight: 700;   }
+
+/*** 예약현황***/
+.reservBox{padding:15px; border:1px solid #eee; background:#fff; box-shadow: 1px 2px 2px 0px #e9e7f0;border-radius:4px;margin-bottom: 15px;}
+.reservBox .reserv_table{  } 
+.reservBox .reserv_table th{ vertical-align:top; color:#888}
+.reservBox .reserv_table td{padding:0 0 12px}
+
+/*** 수거내역***/
+.breakBox{position: absolute;left:0px;background: #fff;top: 10px;padding: 19px 10px;border-bottom: 1px solid #ddd; width: 100%;}
+
+/*** 포인트내역***/
+.pointBox{position: absolute;left:0px;top: 10px;width: 100%;padding: 10px; }
+.pointBox ul{padding: 14px 20px 10px;margin: 0 0 10px;border: 1px solid #ddd;}
+.pointBox ul li{line-height:20px}
+.pointBox ul li.date{width:100%;font-size: 13px;color: #666;text-align: right;margin-top: 7px;border-top: 1px solid #ddd;padding-top: 5px;} 
+.pointBox .minusP li span, .pointBox .plusP li span{font-size: 15px;display: inline-block;font-weight: 700;}
+.pointBox .minusP li strong, .pointBox .plusP li strong{display: inline-block;float: right; }
+.pointBox ul li.bank strong{font-size: 18px;color:#222;margin-right: 3px;}
+.pointBox .minusP{background: #eef9fe;box-shadow: 0px 3px 0px #dce6ef;}
+.pointBox .minusP li.data{color: #009fe9;margin-bottom: 8px;} 
+.pointBox .minusP li.data strong{position:relative;margin-right: 3px;padding-left:10px;font-size: 16px; }
+.pointBox .minusP li.data strong:after{content:'-';position: absolute;top: -1px;left:0px;display:inline-block;color: #00AEFF;}
+.pointBox .plusP{background: #fff7ec;box-shadow: 0px 2px 0px #f3e9e1;}
+.pointBox .plusP li.data{color: #FF3478;margin-bottom:8px;line-height: 22px;} 
+.pointBox .plusP li.data strong{position:relative;margin-right: 3px;padding-left:12px;font-size: 16px;}
+.pointBox .plusP li.data strong:after{content:'+';position: absolute;top: 0px;left:0px;display:inline-block;}
+
+/*************** 고객센터 ***************/
+.centerBox{position: absolute;left:0px; top:10px;  width: 100%; }
+.ceter_top{padding: 20px 0 15px;background: #fff;border-bottom:1px solid #e0e0e0;}
+h1.title{position:relative;font-size: 19px;font-weight: 700;padding-bottom:10px;text-align: center;}
+h1.title button.btn.small{width: 64px;position:absolute;right: 15px;top: 0px;height: 24px;line-height: 21px;font-size: 14px;font-weight: bold;border-radius: 5px;border-bottom: 2px solid #000;}
+p.c_txt{width:100%;text-align: center;line-height: 19px;color: #666;}
+p.c_txt img{display: block;margin: 10px auto 7px;}
+.centerBox .reservBox{border-radius: 0;padding: 15px;border: none;border-bottom: 1px solid #e0e0e0;box-shadow: none;margin-top: 5px;}
+.centerBox .reservBox th, .centerBox .reservBox td{padding-bottom:10px}
+.centerBox .reservBox th{letter-spacing:-0.5px;}
+.centerBox .reservBox td ::-webkit-input-placeholder{ font-size:14px}
+.centerBox .reservBox td input{padding:0 5px;}
+
+div.common{padding: 0 20px 10px;}
+div.common h3{font-size: 15px;font-weight: bold;margin-bottom: 5px;border-bottom: 1px solid #dbdbdb;padding-bottom: 5px; position: relative; padding-left:22px}
+div.common h3:after{content:'';position: absolute;top: 0px;left:0px;display:inline-block; background: url(../images/icon/icon_comm.png)no-repeat; width:15px; height:15px; background-size: 15px 15px}
+
+/*************** faq ***************/
+.faq_box{background: #fff;  border-bottom: 1px solid #e0e0e0; margin-top: 5px;}
+
+div.faq{width: 100%; margin: 0 auto;}
+div.faq dl{margin:0;}  
+div.faq dl dt{border-bottom:1px solid #ddd} 
+div.faq .faq_list dt p{vertical-align:middle;padding: 15px 35px 15px 35px;cursor:pointer;font-size: 16px;line-height:23px;position:relative;margin:0;font-weight: bold;} 
+div.faq .faq_list dt p:after{content:'Q';position: absolute;top: 13px;left: 15px;display:inline-block;color: #47b749;}
+div.faq .faq_list span.search_btn{display:inline-block;zoom:1;content:'';background:url(../images/icon/search_btn.png) no-repeat;width: 17px;height:15px;background-size:17px 10px;background-position:50%;float:right;position:absolute;top: 41%;right: 15px;}
+div.faq .faq_list span.search_btn.selected{background:url(../images/icon/search_btn_select.png) no-repeat;background-size:17px 10px;background-position:50%}
+div.faq dl dd{background:#f8f8f8;padding: 15px 30px 15px 34px;border-bottom:1px solid #ddd;position: relative;}
+div.faq dl dd p{margin:0;line-height:23px;font-size: 15px; } 
+div.faq dl dd p:after{content:'A';position: absolute;top: 15px;left: 17px;display:inline-block;color: #ff3478;font-weight: bold;font-size: 16px;}
+
+.faq_box button.btn{font-weight: 700; color:#222 !important; border:none; border-top:4px solid #f7f5ff}
+
+/*************** q&a ***************/
+.qa_box{background: #fff;  border-bottom: 1px solid #e0e0e0; margin-top: 5px;}
+
+div.qa{width: 100%; margin: 0 auto;}
+div.qa dl{margin:0; padding:10px 15px;border-bottom:1px solid #ddd}   
+div.qa dl dt a{display:inline-block; font-size: 16px;line-height:23px;font-weight: bold; width:100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; marign-bottom:3px}
+div.qa dl dd{ margin-top:-4px; position:relative;}
+div.qa dl dd span{ display:block; font-size:13px; color:#888; margin-top:5px;}
+div.qa dl dd span em{display:inline-block; margin-left:3px; font-weight:300}
+a.a_stand{display:inline-block;position:absolute;font-size:13px;right:0px;bottom: 0px;border: 1px solid #e0e0e0; background: #f3f3f3e6;padding: 1px 6px; cursor:default}
+a.a_finish{display:inline-block;position:absolute;font-size:13px;right:0px;bottom: 0px;border: 1px solid #FF3478; color:#FF3478; background:#fff;padding: 1px 6px; cursor:default} 
+
+button.btn.aq{font-weight: 700; color:#222 !important; border:none; border-top:4px solid #f7f5ff}
+
+div.write_table{padding:20px 15px;}
+div.write_table th{font-weight:bold;padding:10px 0; font-size:15px }
+div.write_table td{padding:10px 0; font-size:15px}
+
+div.qa.write dl dt{font-size: 17px;line-height:23px;font-weight:700}
+div.qa.write dl dd.Qbox{position:relative;border-bottom:1px solid #e0e0e0;border-top:1px solid #e0e0e0;padding: 15px 0;line-height: 19px; padding-left: 20px;}
+div.qa.write dl dd.Qbox:after{content:'Q';position: absolute;top: 12px;left: 0;display:inline-block;font-weight: bold;font-size: 19px;color:#05c978;}
+div.qa.write dl dd img{display:block;  margin:5px auto }
+
+div.qa.write dl dd.Abox{position:relative;border-bottom:1px solid #e0e0e0; padding: 15px 0;line-height: 19px; padding-left: 19px;}
+div.qa.write dl dd.Abox:after{content:'A';position: absolute;top: 13px;left: 0;display:inline-block;font-weight: bold;font-size: 19px;color:#222;}
+
+div.qa.write dl dd.reply{position:relative;padding-top: 15px;}
+div.qa.write dl dd.reply span{font-size:12px;position:relative;}
+div.qa.write dl dd.reply span i{padding-left: 10px;}
+div.qa.write dl dd.reply span i:after{content:"";position: absolute;top: 4px;left: 28px;display:inline-block;background: #c1c1c1;width:1px;height: 10px;}
+div.qa.write dl dd.reply input{padding-right:75px; margin-top:3px;}
+div.qa.write dl dd.reply button{position:absolute;right: 0px;top: 40px;width:70px;}
+
+div.qa.write dl dd.reply p{border-top:1px solid #e0e0e0; padding: 10px; }
+div.qa.write dl dd.reply p span{margin: 0 0 5px;}
+
+dd.txtbox{border-bottom:1px solid #e0e0e0; border-top:1px solid #e0e0e0; padding: 15px 0; line-height: 19px; }
+
+div.qa.notice dl dd p{ max-height:38px;  overflow: hidden; text-overflow: ellipsis;}
+.slider div dl:after{content:'';position: absolute;top: 4px;left: 21px;display:inline-block;background: url(../images/icon/icon_best.png) no-repeat;width: 47px;height: 47px;background-size: 47px 47px;}
+
+div.event{width: 100%; margin: 0 auto;}
+div.event dl{margin:0;padding:10px 15px;border-bottom:1px solid #ddd;position:relative;height: 115px;}   
+div.event dl dt{width:20%;float: left;border: 1px solid #eee;margin-right: 2%;}
+div.event dl dt a{display:block;width:100%;height:93px;overflow:hidden;position: relative;}
+div.event dl dt a img{ max-height: 93px;margin: auto;display: block;position: absolute;right: 0;top: 0;bottom: 0;left: 0;}
+div.event dl dd a{display:inline-block;font-size: 16px;line-height:23px;font-weight: bold;width:100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin: 3px 0;}
+div.event dl dd{top:0px;width: 78%;float: left;}
+div.event dl dd p{height: 36px;overflow:hidden;line-height: 18px;}
+div.event dl dd span{display:block;font-size:13px;color:#0f86e2;margin-top:5px;}
+
+
+/*************** 포인트몰 ***************/
+div.event.pointM dl{height:96px; position:relative;}
+div.event.pointM dl dt{width:20%;float: left;border: 1px solid #eee;margin-right: 2%;}
+div.event.pointM dl dt a{  height:73px;}
+div.event.pointM dl dt a img{max-height:73px}
+div.event.pointM dl dd{top:0px;width: 78%;float: left;font-size: 19px;}
+div.event.pointM dl dd:first-child{padding-right:22px}
+div.event.pointM dl dd a{line-height:20px;margin-top: 5px;}
+div.event.pointM dl dd p{height:22px;}
+div.event.pointM dl dd p em{font-size: 13px;margin-left: 3px;}
+div.event.pointM span{text-decoration:line-through;color:#ccc;font-weight:300;margin-top: -2px;}
+div.event.pointM span em{font-size:11px; margin-left:4px}
+
+div.event.pointM span.rd_ck{position:absolute; right:20px; bottom:22px}
+div.event.pointM span.rd_ck > input + label{padding-left:22px; margin-top:0px}
+div.event.pointM span.rd_ck > input[type='radio'] + label{height: 20px;line-height: 42px;}
+div.event.pointM span.rd_ck > input[type='radio'] + label:after {content:"";position:absolute;left: 0px;top: 0;display:block;height: 20px;padding-left: 22px;background:url(../images/icon/bg_species.png)  no-repeat 0 0;background-size: 22px 42px;}
+div.event.pointM span.rd_ck > input[type="radio"]:checked+label:after {content:"";background: url(../images/icon/bg_species.png) no-repeat 0px -22px;background-size: 22px 42px;} 
+
+.pointV ul{padding:10px 15px 15px}
+.pointV ul li span.event1{ display:inline-block; padding: 0px 10px; height:25px; line-height:25px; background:#FF3478; color:#fff;}
+.pointV ul li span.event2{ display:inline-block; padding: 0px 10px; height:25px; line-height:25px; background:#0f86e2; color:#fff;}
+.pointV ul li span.event3{ display:inline-block; padding: 0px 10px; height:25px; line-height:24px; border:1px solid #1b8b39 ; color:#1b8b39;}
+.pointV ul li img{  display:block; margin:15px auto;} 
+.pointV ul li p{font-size:21px; font-weight:700}
+.pointV ul li span.sale{text-decoration:line-through;color:#ccc;} 
+
+ul.tabs{margin: 0px;padding: 0px; list-style: none; width:100%}
+ul.tabs li{position:relative;display: inline-block;cursor: pointer;width:33.3%;float:left;text-align:center;border-bottom:1px solid #ddd;height: 40px;line-height: 40px;font-size: 15px;}
+ul.tabs li span{font-weight:700; color:#aaa}
+ul.tabs li.current span{display:inline-block; width:100%; border-bottom:2px solid #1b8b39;color: #1b8b39;font-weight:700;height: 40px;} 
+ul.tabs li:after{content:'';position:absolute; width:1px; height:15px; background:#e0e0e0; display:inline-block; right:0; top:13px}
+ul.tabs li:last-child:after{ display:none}
+
+.tab-content{display: none; padding:40px 0 45px; width:100%; } 
+.tab-content.current{display: inherit;}
+
+.ceter_top .title.txt_l.pdl10{line-height:25px; padding-bottom:5px; }
+
+.hugi_list ul{padding:10px;border-bottom:1px solid #e0e0e0}
+.hugi_list ul li{width:100%;min-height: 82px; position: relative;border-bottom: 1px dashed #e0e0e0;} 
+.hugi_list ul li p{text-align: left;width: 100%; margin: 5px 0 0px;padding: 0 10px;}
+p.star{height:25px;}
+p.star span{width: 20px;height: 20px;display:inline-block;background: url(../images/icon/bg_grade.png) no-repeat 0 -21px;background-size: 20px;cursor:  pointer;margin-top: 5px;}
+p.star span.on{background-position: 0 0; } 
+.hugi_list ul li p.hugi{display: inline-block;font-weight:700;font-size: 14px;text-align: left;line-height: 19px;}
+.hugi_list ul li p.n_date{ display:block; font-size:13px; color:#888; margin-top:5px; font-weight:400} 
+.hugi_list ul li p.n_date em{display:inline-block; margin-left:3px; font-weight:300}
+
+.tab-content div.faq .faq_list dt p{padding:15px 35px 15px 10px;font-size: 14px;  line-height:19px}
+.tab-content div.faq dl dd{padding:15px}
+.tab-content div.faq dl dd p{font-size: 14px; line-height:19px}
+.tab-content div.faq .faq_list dt p:after, .tab-content div.faq dl dd p:after{display:none;}
+.tab-content div.faq .faq_list span.search_btn{top:35%}
+
+.tab-content div.faq .faq_list dt p a{position:inherit;padding: 0 4px;font-size: 12px;height: 21px;line-height: 19px; margin-right:3px} 
+ 
+
+ @media screen and (max-width:320px) {
+	.myTab ul li a{font-size:15px;}
+	 .top_my a.btn.green{right:10px}
+	 .top_my{padding:7px 10px}
+	.item_sum p{padding:0 10px;}
+	.item_sum p span.total_p i{font-size:21px;}
+}
+ 
+ 

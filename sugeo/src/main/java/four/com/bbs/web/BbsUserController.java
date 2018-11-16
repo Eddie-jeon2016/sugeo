@@ -1,18 +1,14 @@
 package four.com.bbs.web;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.aspectj.apache.bcel.generic.ReturnaddressType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,14 +42,12 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 //공통코드에 관한 코드
 import four.com.bbs.cate.service.BbsCateService;
 import four.com.bbs.cate.service.BbsCateVO;
-import four.com.bbs.cmt.service.BbsCommentDefaultVO;
 import four.com.bbs.cmt.service.BbsCommentService;
 import four.com.bbs.service.BbsDefaultVO;
 import four.com.bbs.service.BbsManageService;
 import four.com.bbs.service.BbsManageVO;
 import four.com.bbs.service.BbsService;
 import four.com.bbs.service.BbsVO;
-import four.com.evnet.service.EventService;
 import four.common.util.security.tem4UserDetails;
 
 
@@ -99,9 +93,6 @@ import four.common.util.security.tem4UserDetails;
 	    @Resource(name = "egovBbsNttIdGnrService")
 		private EgovIdGnrService idgenService;
 
-	    @Resource(name = "EventService")
-		private EventService eventService;
-	    
 	    @Autowired
 	    private DefaultBeanValidator beanValidator;
 
@@ -1339,23 +1330,6 @@ import four.common.util.security.tem4UserDetails;
 		    	return "/mng/bbs/detail/eventNoticeInsertView";
 		    }
 
-		    
-		    @RequestMapping("/mng/event/checkYCnt.do")
-			@ResponseBody
-		    public String checkYCnt() throws Exception {
-		    	
-		    	HashMap result = new HashMap();
-		    	int yCnt = eventService.checkYCnt();
-		    	
-		    	if(yCnt >= 5) {
-		    		result.put("result_cd", 500);
-		    		result.put("result_mng", "Fail");
-		    	}else {
-		    		result.put("result_cd", 200);
-		    		result.put("result_mng", "Success");
-		    	}
-		    	return new Gson().toJson(result);
-		    }
 		    
 		 //관련글 등록 페이지로 이동   
 		 @RequestMapping({"/mng/bbs/relatedContent/relatedContentInsertView.do"})

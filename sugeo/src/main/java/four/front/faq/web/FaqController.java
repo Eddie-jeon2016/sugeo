@@ -20,9 +20,6 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import four.common.util.security.tem4UserDetails;
 import four.front.faq.service.FaqService;
 import four.front.faq.service.FaqVO;
-import four.mng.code.service.CodeManageService;
-import four.mng.code.service.CodeManageVO;
-import four.mng.press.sevice.PressContentVO;
 
 @Controller
 public class FaqController {
@@ -30,15 +27,11 @@ public class FaqController {
 	@Resource(name = "faqService")
 	private FaqService faqService;
 	
-	@Resource(name = "codeManageService")
-	private CodeManageService codeManageService;
-	
 	@RequestMapping(value="/front/faq/faqList.do")
 	public String selectFaqList(@ModelAttribute ComDefaultVO comVO, Model model) throws Exception {
 		
 		// faq 서브코드를 불러온다.
 		String faqSubcode = "A0004";
-		CodeManageVO faqCate = codeManageService.selectAllCodeList(faqSubcode);
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
 	    System.out.println(comVO);
@@ -64,7 +57,6 @@ public class FaqController {
 		model.addAttribute("totcnt", totCnt);
         model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("faqList", faqList);
-		model.addAttribute("faqCate", faqCate);
         
 		return "front/faq/faqList";
 	}

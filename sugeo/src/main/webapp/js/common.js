@@ -1,103 +1,62 @@
-$(document).ready(function($) {
-
-/*180906 수정 추가(s)*/
-gnbMenu();
-function gnbMenu(){
-	$('.gnb_bt').on('click', function() {
-		$('#totalview').toggleClass('on');
-		$('.gnbTotalBack').toggle();
-	});
-
-	$('#totalview .allmenu .d1').on('click',function(){
-		$(this).toggleClass('active');
-		$(this).find('.gnb_depth').slideToggle();
-	});
-	$('#totalview .allmenu .d1 faq').on('click',function(){
-		/*$(this).toggleClass('active');
-		$(this).find('.gnb_depth').slideToggle();*/
-	});
-
-	var winW = $(window).width();
-	var winH = $(window).height();
-
-	$('#totalview').css('min-height',winH);
-	$('.gnbTotalBack').css('min-height',winH);
-	$( window ).resize(function() {
-		if(winW<1025){
-			$('#totalview').css('min-height',winH);
-			$('.gnbTotalBack').css('min-height',winH);
-		}
-	});	
-	}
-	/*180906 수정 추가(e)*/
-});
-
-
-/* 모바일 전체보기 */
+/****** 전체 메뉴 ******/
+function openMobileMenu() {
+	$('.total_menu').show().toggleClass('on'); 
+	$('body').append('<div class="mask" style="display:none"></div>');
+	$('.mask').fadeIn(); 
+	$('html').css({position:"fixed", width:"100%"});
+}
 $(function(){
-	var toggleList='.lst_menu_mbi';
-	var toggleListBtn=toggleList+'>li>ul>li>a.btn_menu_open';
-	$(toggleListBtn).next().hide();
-	//$(lst_menu_mbi+'>li:first-child>.title').addClass('on').next().show();
-	$(toggleListBtn).click(function(){
-		//$(this).parent().siblings().children().removeClass('on').next().hide();
-		//$(this).addClass('on');
-		$('.btn_menu_depth1').next().children().siblings().children('a').removeClass('on').next().hide();
-		//$(this).parent().siblings().children('a').removeClass('on').next().hide();
-		$(this).toggleClass('on');
-		$(this).next().slideToggle(200);
+	var wh = $(window).height();
+	$('.total_menu').height(wh).css({overflowY:"auto", height:"100%"});
+	
+	// 닫기버튼
+	$('.total_menu .txt button').click(function(){ 
+		$(this).parent().parent().removeClass('on'); 
+		$('.mask').remove(); 
+		$('html').css({position:"relative"});
 	});
 });
+ 
+ 
+/****** top Button ******/
 
-
-/* GNB */ 
-jQuery(function(){
-
-	$('.gnb>li>a').bind('keyup mouseover',function(){
-		if($(window).width()>=768){
-			$('.gnb>li>ul').show();
-			$('.gnb>li>ul').show();
-			$('.bG').show();
-			$('.gnb>li').each(function(){
-				$(this).removeClass('on');
-			});
-			$(this).parent().addClass('on');
-		}else{
-			$('.gnb').css('display','none');
-			
-		}
-	});
-		$('.header').bind('mouseleave',function(){
-			$(window).resize(function(){
-				if($(window).width()>=768){
-					$('.gnb>li>ul').hide();
-					$('.bG').hide();
-					$('.gnb>li>a').each(function(){
-						$(this).removeClass('on');
-						
-					});
-				}
-			}).resize();
-		});
-});
-
-
-/* 헤더 스크롤 그림자 */ 
-/* 180913 추가 (S) */ 
-jQuery(function(){
-var header = $('.hdbtm');
-
-    $(window).scroll(function(e){
-        if(header.offset().top !== 28){
-            if(!header.hasClass('shadow')){
-                header.addClass('shadow');
-            }
-        }else{
-            header.removeClass('shadow');
-        }
+$(function() { 
+        $(".top_btn").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 400);
+            return false;
+        });
     });
-});
-/* //180913 추가 (E) */
+  
 
+/****** faq / drop ******/
+$(function () {
+		$('div.faq dl dd').css('display', 'none');
+		$('div.faq dl dt').click(function () {
+			$(this).find('.search_btn').toggleClass('selected');
+			$('div.faq dl dd').slideUp('fast');
+			if ($(this).find('.search_btn').hasClass('selected')) {
+				$('+dd', this).slideDown('fast');
+				$('div.faq dl dt .search_btn').removeClass('selected');
+				$(this).find('.search_btn').addClass('selected');
+			} else {
+				$('+dd', this).slideUp('fast');
+			}
+		});
 
+	});
+	
+/****** 탭 ******/
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+})

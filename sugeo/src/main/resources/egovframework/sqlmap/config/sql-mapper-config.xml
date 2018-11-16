@@ -18,11 +18,8 @@
     	<typeAlias  alias="AuthManageVO" type="egovframework.com.cmm.AuthManageVO"/>
     	
     	<typeAlias alias="FaqVO" type="four.front.faq.service.FaqVO"/>
-    	<typeAlias  alias="ContentVO" type="four.mng.content.service.ContentVO"/>
     	<typeAlias  alias="MenuVO" type="four.mng.menu.service.MenuVO"/>
     	<typeAlias alias="PopManageVO" type="four.mng.pop.service.PopManageVO"/>
-    	<typeAlias alias="CodeManageVO" type="four.mng.code.service.CodeManageVO"/>
-    	<typeAlias alias="SubCodeManageVO" type="four.mng.code.service.SubCodeManageVO"/>
     	
     	
     	<typeAlias alias="BbsVO" type="four.com.bbs.service.BbsVO"/>
@@ -35,10 +32,6 @@
     	
     	<typeAlias alias="AccessIpVO" type="four.mng.access.service.AccessIpVO"/>
     	<typeAlias alias="AuthVO" type="four.mng.auth.service.AuthVO"/>
-    	<typeAlias alias="EventVO" type="four.com.evnet.service.EventVO"/>
-    	<typeAlias alias="PressContentVO" type="four.mng.press.sevice.PressContentVO"/>
-    	<typeAlias alias="VideoMngVO" type="four.com.video.service.VideoMngVO"/>
-    	<typeAlias alias="BannerVO" type="four.mng.banner.service.bannerVO"/>
     	<typeAlias alias="WorkLogVO" type="egovframework.com.cmm.WorkLogVO"/>
     	
     </typeAliases>

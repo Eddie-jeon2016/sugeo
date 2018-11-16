@@ -4,471 +4,218 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<style>
-.mainPopup {
-	max-height: 600px;
-	max-width: 400px;
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
 
-	<c:forEach items="${popups}" var="popup" varStatus="status">
-		if(getCookieData('popupCookie_${popup.popupId }') != 'noPop'){
-			var img ="/cmm/fms/getImage.do?atchFileId=${popup.fileId}&fileSn=0";		
-			var url = urlCheck('${popup.url}');
-			 openPopup('${popup.popupId }','<img src='+img+' alt="이미지" width="100%" height="100%"/>', url,'${popup.popupName}');	
-		}
-	</c:forEach>
-});
-
-function selectBoardView(bbsid, id){
-	
-	document.listForm.selectId.value = id;
-	document.listForm.selectbbsId.value = bbsid;
-	document.listForm.cmd.value = "view";
-	document.listForm.action = "<c:out value='/front/bbs/BbsMain.do?menuNo=1000001'/>";
-	document.listForm.submit();
-}
-
-
-function getRand() {
-    randNumber = Math.floor(Math.random() * randList.length);
-    randResult.push(randList[randNumber]);
-    randList.splice(randNumber, 1);
-}
-
-function scheToggle(idx){
-	$('.tbltr').hide();
-	$('.tbltr'+idx).show();
-
-	$('#tabtab1').removeClass();
-	$('#tabtab2').removeClass();
-	$('#tabtab'+idx).attr('class','on');
-}
-function urlCheck(url) {
-	if(url.indexOf("http://") > -1){
-		return url;
-	} else {
-		return "http://"+url;
-	}
-
-}
-function openPopup(id, data, url,name){
-
-	$("#mainPopup_"+id).show();
-	$("#url_"+id).prop("href", url);
-	$("#popup_display_"+id).html(data);
-	//$("#popup_name_"+id).html(name);
-	
-}
-
-function closePopup(id){
-	$("#mainPopup_"+id).remove();
-}
-
-function setCookieData(opt){
-	opt = (opt) || {};
-	var name = (opt.name) || "";
-	var value = (opt.value) || "";
-	var expires = (opt.expires) || null;
-	var path = (opt.path) || null;
-	var domain = (opt.domain) || null;
-	var secure = (opt.secure) || null;
-
-	var today = new Date();
-	today.setTime( today.getTime() );
-
-	if (expires){
-		expires = expires * 1000 * 60 * 60 * 24;
-	}
-	var expires_date = new Date( today.getTime() + (expires) );
-
-	document.cookie = name + "=" +escape( value ) +
-	( ( expires ) ? ";expires=" + expires_date.toGMTString() : "" ) +
-	( ( path ) ? ";path=" + path : "" ) +
-	( ( domain ) ? ";domain=" + domain : "" ) +
-	( ( secure ) ? ";secure" : "" );
-
-}
-function getCookieData(name) {
-	var nameOfCookie = name + "=";
-	var x = 0;
-	while (x <= document.cookie.length) {
-		var y = (x + nameOfCookie.length);
-		if (document.cookie.substring(x, y) == nameOfCookie) {
-			if ((endOfCookie=document.cookie.indexOf(";", y)) == -1) {
-				endOfCookie = document.cookie.length;
-			}
-			return unescape(document.cookie.substring(y, endOfCookie));
-		}
-		x = document.cookie.indexOf(" ", x) + 1;
-		if (x == 0) {
-			break;
-		}
-	}
-	return "";
-}
-function removeCookieData(opt) {
-	var $this = this;
-
-	opt = (opt) || {};
-	var name = (opt.name) || "";
-	var path = (opt.path) || null;
-	var domain = (opt.domain) || null;
-
-	if ( $this.getCookieData( name ) ) {
-		document.cookie = name + "=" +
-	//( ( path ) ? ";path=" + path : "") +
-	//( ( domain ) ? ";domain=" + domain : "" ) +
-		";expires=Thu, 01-Jan-1970 00:00:01 GMT";
-	}
-}
-function setCookieAndClosePopup(id, expireValue){
-	this.setPopupExpireCookie(id, expireValue);
-	$("#mainPopup_"+id).remove();
-}
-function setPopupExpireCookie(id, expireValue){
-	this.setCookieData({
-        name : 'popupCookie_'+id,
-        value : 'noPop',
-        expires : expireValue,
-        path : "/"
-	});
-}
-function goProMovieList() {
-	document.moveFrm.action = '/front/movie/searchMovie.do';
-	document.moveFrm.submit();
-}
-function goBbs() {
-	document.moveFrm.action = '/front/bbs/BbsMain.do?menuNo=1000001';
-	document.moveFrm.submit();
-}
-function goMasterClass() {
-	document.moveFrm.action = '/front/content/contentViewer.do?contentId=CONTENT_0000181';
-	document.moveFrm.submit();
-}
-</script>
-
-		 <!-- CONTAINER (S) -->
-    <div class="wrap">
-    			<!-- 170314 메인 팝업 /   #main_wrp 안에 위치함(s) -->
-       	<div id="mainPopupWrp">
-       		<c:forEach var="popup" items="${popups }">
-	            <div class="mainPopup" id="mainPopup_${popup.popupId }" style="display: none;">
-	                <div class="innercont" >
-	                	<c:if test="${popup.url ne '' }">
-		                	<a id="url_${popup.popupId }" target="_blank">
-		                		<div id ="popup_name_${popup.popupId }"  align="center">
-		                		
-		                		</div>
-			                    <div id="popup_display_${popup.popupId }">
-
-			                    </div>
-		                    </a>
-	                    </c:if>
-	                    <div id="popup_display_${popup.popupId }">
-
-	                    </div>
-	                    <div class="closebtn">
-	                  
-	                    	<c:if test="${popup.closeType eq 'W'}">
-		                        <span>일주일동안 보이지 않기 <input type="checkbox" title="일주일동안 보이지 않기" onclick="javascript:setCookieAndClosePopup('${popup.popupId}', 7);"></span>                    	
-	                    	</c:if>
-	                    	<c:if test="${popup.closeType eq 'T'}">
-		                        <span>하루동안 보이지 않기 <input type="checkbox" title="하루동안 보이지 않기" onclick="javascript:setCookieAndClosePopup('${popup.popupId}', 1);"></span>                    	
-	                    	</c:if>
-	                    	<c:if test="${popup.closeType eq 'F'}">
-		                        <span>다시 보지 않기 <input type="checkbox" title="다시보지 않기" onclick="javascript:setCookieAndClosePopup('${popup.popupId}', 365);"></span>                    	
-	                    	</c:if>
-	                        <span>닫기 <input type="checkbox" onclick="closePopup('${popup.popupId}'); return false;" title="닫기"></span>
-	                    </div>
-	                </div>
-	            </div>
-            </c:forEach>
-         </div>
-            <!-- 170314 메인 팝업 /   #main_wrp 안에 위치함(e) -->
-
-<!-- 3depth 오른쪽 슬라이더 (E) -->
-        <!-- 메인 비주얼 (S) 이미지:1400이하,640이하 -->
-       <!--  <div class="visual">
-            <ul class="visual_box">
-            <li class="vb_1">
-              <img src="images/main/bg_0.png" alt="메인비주얼">
-              <img src="images/main/bg_1.png" alt="메인비주얼">
-              <img src="images/main/bg_2.png" alt="메인비주얼">
-              <img src="images/main/bg_3.png" alt="메인비주얼">
-            </li>
-            <li class="vb_2">
-              <img src="images/main/bg_0.png" alt="메인비주얼">
-              <img src="images/main/bg_1.png" alt="메인비주얼">
-              <img src="images/main/bg_2.png" alt="메인비주얼">
-              <img src="images/main/bg_3.png" alt="메인비주얼">
-            </li>
-            </ul>
-        </div> -->
-             <!-- 180904 수정 (S) -->
-        <div class="visual">
-            <!-- 180904 수정 (S) -->
-            <div class="visuin"><img src="images/main/bg_txt.png" alt="메인비주얼"></div> 
-            <%-- <div class="visuin"><img src="/cmm/fms/getImage.do?atchFileId=${mainImg}&fileSn=0" alt="메인비주얼"></div> --%>
-            <!-- //180904 수정 (E) -->
-        </div>
-        
-        <!-- //메인 비주얼 (E) -->
-
-        <!-- 2DEPTH (S) -->
-        <div class="wrap secon">
-            <div class="inner">
-            <ul class="adlist">
-              <li class="listin1">
-                <a href="/front/content/contentViewer.do?contentId=CONTENT_0000001" title="바로가기"><img src="images/main/2d_1.png" alt="개인정보환상호흡"></a>
-                <div class="hovback hb1" style="display:none;">
-                    <a class="hovinner" href="/front/content/contentViewer.do?contentId=CONTENT_0000001">
-                    <p class="hovtit">캠페인 소개</p>
-                    <span><img src="images/main/2dhover.png" alt="바로가기이미지" ></span>
-                    </a>
-                    </a>
-                </div>
-              </li>
-              <li class="listin2">
-                <a href="/front/video/videoList.do" title="바로가기"><img src="images/main/2d_2.png" alt="이동전화가입시"></a>
-                <div class="hovback hb2" style="display:none;">
-                    <a class="hovinner" href="/front/video/videoList.do">
-                      <p class="hovtit">동영상 소개</p>
-                      <span><img src="images/main/2dhover.png" alt="바로가기이미지"></span>
-                    </a>
-                </div>
-              </li>
-              <li class="listin3">
-                <a href="/front/content/contentViewer.do?contentId=CONTENT_0000171" title="바로가기"><img src="images/main/2d_3.png" alt="불법텔레마케팅"></a>
-                <div class="hovback hb3" style="display:none;">
-                  <a class="hovinner" href="/front/content/contentViewer.do?contentId=CONTENT_0000171">
-                    <p class="hovtit">카드뉴스 소개</p>
-                    <span><img src="images/main/2dhover.png" alt="바로가기이미지"></span>
-                  </a>
-                </div>
-              </li>
-              <li class="listin4">
-                <a href=" /front/content/contentViewer.do?contentId=CONTENT_0000181" title="바로가기"><img src="images/main/2d_4.png" alt="일상폰반사"></a>
-                <div class="hovback hb4" style="display:none;">
-                  <a class="hovinner" href=" /front/content/contentViewer.do?contentId=CONTENT_0000181">
-                    <p class="hovtit">웹툰 소개</p>
-                    <span><img src="images/main/2dhover.png" alt="바로가기이미지"></span>
-                  </a>
-                </div>
-              </li>
-            </ul>
-            </div>
-        </div>
-        <!-- //2DEPTH (E) -->
-
-        <!-- 3DEPTH (S) -->
-        <div class="wrap third">
-            <div class="inner clfix">
-              <div class="thleft">
-                    <h2>관련글</h2>
-                    <a class="more" title="더보기" href="/front/bbs/BbsMain.do?menuNo=1000001">
-                        <img src="images/main/arw.png" alt="더보기"><span>더보기</span>
-                    </a>
-                    <div class="wrtbox">
-                        <c:forEach var="relatedContent" items="${relatedContents}">
-                    		 <div class="wrtbx bx1">
-                            	<div class="bximg">
-                            		<c:set var="imgSrc" value=""/>
-			                			<c:choose>
-			                    			<c:when test="${relatedContent.thumbAtchFileId!='0'&& relatedContent.thumbAtchFileId!='' && relatedContent.thumbAtchFileId!=null}">
-			                        			<c:set var="imgSrc" value="/cmm/fms/getImage.do?atchFileId=${relatedContent.thumbAtchFileId}&fileSn=0"/>
-			                    			</c:when>			                 
-			                    			<c:otherwise>
-			                        			<c:set var="imgSrc" value="/images/sub/blank2.gif"/>
-			                   				 </c:otherwise>
-			                			</c:choose>
-                               	 	<a alt="바로가기" onClick="javascript:selectBoardView('${relatedContent.bbsId}', '${relatedContent.nttId}'); return false;"><img src="${imgSrc}"></a>
-                            	</div>  
-                            	 <div class="bxtxt">
-                                	<h3><a onClick="javascript:selectBoardView('${relatedContent.bbsId}', '${relatedContent.nttId}'); return false;" title="바로가기" class="dotdot">${relatedContent.title}</a></h3>
-                               		 <div class="txtbox dotdot">${relatedContent.content}</div>
-                          		  </div>
-                        	</div>
-                    	</c:forEach>
-                        
-                       <!--  <div class="wrtbx bx2">
-                            <div class="bximg">
-                                <a href="javascript:;" alt="바로가기"><img src="images/main/wrt_2.png" alt="관련글"></a>
-                            </div>  
-                            <div class="bxtxt">
-                                <h3><a href="javascript:;" title="바로가기" class="dotdot">개인정보 안전하게 지키는 꿀팁개인정보 안전하게 지키는 꿀팁개인정보 안전하게 지키는 꿀팁</a></h3>
-                                <p class="dotdot">한국인터넷진흥원(KISA)이 준비한 '2017 인터넷 내정보 지킴이 캠페인' 카드뉴스! 접근 권한을 확인하면 소중한 개인정보를 보호할 수 있어요!한국인터넷진흥원(KISA)이 준비한 '2017 인터넷 내정보 지킴이 캠페인' 카드뉴스! 접근 권한을 확인하면 소중한 개인정보를 보호할 수 있어요!</p>
-                            </div>
-                        </div> -->
+<jsp:include page="include/head.jsp"/>
+<body>
+	<div id="wrap">
+	<jsp:include page="include/top.jsp"/>
+        <div class="container active"><!-- // [6개이상품목] item에 값이 있을때 클래스 .active 활성화 -->
+        	<div class="main_Box">
+            	<!-- item1 헌 의류 (S) -->
+        		<dl>
+					<dt>
+						<img src="images/icon/bg_item1.png" height="48" alt="icon">
+						<a title="상세설명" href="#" onClick="go_popup('1')"> 상세설명</a>
+					</dt>
+					<dd class="item_txt">
+					<strong>헌 의류</strong><span>헌 옷, 이불, 커튼, 신발 등</span></dd>
+					<dd class="item_unit"><!-- //활성화시 .active -->
+						<input type="button" title="수치 내리기" name="minus" class="minus active">
+						<strong><i>20</i>Kg</strong>
+                        <input type="button" title="수치 올리기" name="plus" class="plus">
+					</dd>
+ 				</dl>
+ 				
+ 				<div class="inquiryBox"  id="popup1" style="display:  ;">
+ 					<div class="inqu_top item1"> <!-- // .item1 ~ .item6 현재 시안기준 -->
+                    	<p><strong>헌 의류</strong> <i>500P / Kg</i></p>
+                    	<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
                     </div>
-              </div>
-              <div class="thright">
-                    <ul class="thrslide">
-                    	<c:forEach var="faq" items="${faqList}">
-                    		<li class="slidelist">
-                    			<a href="javascript:;" title="바로가기">
-                    				 <div class="faq faq_q">
-                    				 	 <strong>FAQ</strong>
-                    				 	 	<span class="cate"> &#91; ${faq.typeName} &#93;</span>
-                    				 	 		<p class="txt">${faq.quest}</p>
-                    				 </div>
-                    				  <div class="faq faq_a">
-                    				  	<strong>FAQ</strong>
-                               				<span class="cate"> &#91; 답변 &#93;</span>
-                               					 <p class="txt">${faq.answer}</p>
-                               		  </div>
-                               	</a>
-                            </li>
-                    	</c:forEach>
-                        <!-- <li class="slidelist">
-                          <a href="javascript:;" title="바로가기">
-                              <div class="faq faq_q">
-                                <strong>FAQ</strong>
-                                <span class="cate"> &#91; 개인정보 &#93;</span>
-                                <p class="txt">070이나 기계음으로 전화가 오면 불법이라고 하는데,확실하나요?070이나 기계음으로 전화가 오면 불법이라고 하는데,확실하나요?070이나 기계음으로 전화가 오면 불법이라고 하는데,확실하나요?</p>
-                              </div>
-                              <div class="faq faq_a">
-                                <strong>FAQ</strong>
-                                <span class="cate"> &#91; 답변 &#93;</span>
-                                <p class="txt">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</p>
-                              </div>
-                          </a>
-                        </li> -->
-                    </ul>
-              </div>
-            </div>
-        </div>
-        <!-- //3DEPTH (E) -->
-
-        <!-- 4DEPTH (S) -->
-        <div class="wrap four">
-            <div class="inner friner">
-                <h2>언론보도자료</h2>
-                    <a class="more" title="더보기" href="/front/pressContent/pressContentList.do">
-                        <img src="images/main/arw.png" alt="더보기"><span>더보기</span>
-                    </a>
-                  <div class="tbl_wrp news"><!--tbl_wrp (s)언론보도자료 리스트 5개-->
-                      <table class="tbl_lst">
-                          <caption>공지사항</caption>
-                          <colgroup>
-                              <col style="width: 70%;" class="rmv_75">
-                              <col style="width: 15%;" class="rmv_35">
-                              <col style="width: 15%;" class="attach">
-                          </colgroup>
-                          <tbody>
-                          	<c:forEach var="pressContent" items="${pressContentList}">
-                          		<tr>
-                                  <td class="subjectwo">
-                                       <c:choose>
-	                                   		<c:when test="${fn:indexOf(pressContent.url, 'http://') == -1 && fn:indexOf(pressContent.url, 'https://') == -1}">
-	                                    		<a target="_blank" href="http://${pressContent.url}" title="바로가기" >${pressContent.title}</a>                                    		
-	                                   		</c:when>
-	                                   		<c:otherwise>
-	                                         	<a target="_blank" href="${pressContent.url}" title="바로가기" >${pressContent.title}</a>
-	                                   		</c:otherwise>
-	                                   	</c:choose>
-                                  </td>
-                                  <td class="author">${pressContent.pressName }</td>
-                                  <td class="day"> ${fn:substring(pressContent.regDate,0,10)}</td>
-                               </tr>
-                          	</c:forEach>
-                          
-                              <!-- <tr>
-                                  <td class="subjectwo">
-                                      <a href="javascript:;" title="바로가기">방통위, 이통사와 함께하는 개인정보보호 캠페인 실시</a>
-                                  </td>
-                                  <td class="author">보안뉴스</td>
-                                  <td class="day">2018-08-08</td>
-                              </tr> -->
-                                                          
-                          </tbody>
-                      </table>
-                  </div><!--tbl_wrp (e)-->
+                    
+                    <dl>
+                    	<dt>수거 가능 품목</dt>
+                        <dd>면 티 / 나시티 / 스커트 / 바지/ 와이셔츠(남방) / 턱시도 / 드레스 / 침의(잠옷) / 핸드백 / 토트백 / 크로스백 / 백팩 / 학생용 가방 / 서류 가방 / 맨즈백 / 가죽 가방 / 운동화 / 구두(남성용, 여성용) / 하이힐 / 등산화 / 단화 / 샌들 / 런닝화 / 축구화 / 누비이불 / 극세사이불</dd>
+                    
+                    	<dt>수거 불가능 품목</dt>
+                        <dd>손상된 옷(곰팡이, 악취, 페인트 칠, 구멍난 옷 등) / 한복 / 단체 매각의류(단체복, 유니폼, 가운, 찜질방 옷) / 원단(자 투리 천) / 솜이불 / 베개 / 차렵이불 / 여행용가방(캐리어) / 하드케이스가방 / 부츠 / 슬리퍼 / 인라인스케이트</dd>
+                        
+                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+                        <dd class="inqu_bottom">헌 옷을 주시면 새 옷으로 드립니다.</dd>
+                                        
+                    </dl>
+				</div>
+				<!-- item1 헌 의류 (E) -->
+                
+                <!-- item2 종이류 (S) -->
+				<dl class="mgl3p"> <!-- //짝수 품목 .mgl3p -->
+					<dt>
+						<img src="images/icon/bg_item2.png" alt="icon">
+						<a title="상세설명" href="#" onClick="go_popup('2')"> 상세설명</a>
+					</dt>
+					<dd class="item_txt">
+					<strong>종이류</strong><span>책, 이면지, A4용지 등</span></dd>
+					<dd class="item_unit"> <!-- //활성화시 .active -->
+						<input type="button" title="수치 내리기" name="minus" class="minus">
+						<strong><i>0</i>Kg</strong>
+                        <input type="button" title="수치 올리기" name="plus" class="plus">
+					</dd>
+ 				</dl>
+                
+                <div class="inquiryBox"  id="popup2" style="display:  ;">
+ 					<div class="inqu_top item2"> <!-- // .item1 ~ .item6 현재 시안기준 -->
+                    	<p><strong>종이류</strong> <i>50원 / Kg</i></p>
+                    	<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
+                    </div>
+                    
+                    <dl>
+                    	<dt>수거 가능 품목</dt>
+                        <dd>책 / 잡지 / 이면지 / A4용지 / 전집 / 자습서 / 사전 / 동화책</dd>
+                    
+                    	<dt>수거 불가능 품목</dt>
+                        <dd>신문 / 박스 / 도배지 / 젖은종이 / 골판지</dd>
+                        
+                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+                        <dd class="inqu_bottom">정리가 되지 않은 상태일 경우 수거가 불가능할 수 있어요. 꼭 박스포장 또는 끈으로 묶어주세요.</dd>
+                                        
+                    </dl>
+				</div>
+                <!-- item2 종이류 (E) -->
+                
+                <!-- item3 컴퓨터 (S) -->
+ 				<dl> 
+					<dt>
+						<img src="images/icon/bg_item3.png" alt="icon">
+						<a title="상세설명" href="#" onClick="go_popup('3')"> 상세설명</a>
+					</dt>
+					<dd class="item_txt">
+					<strong>컴퓨터</strong><span>LCD모니터, 컴퓨터 본체 등</span></dd>
+					<dd class="item_unit active"> <!-- //활성화시 .active -->
+						<input type="button" title="수치 내리기" name="minus" class="minus">
+						<strong><i>0</i>개</strong>
+                        <input type="button" title="수치 올리기" name="plus" class="plus">
+					</dd>
+ 				</dl> 
+                
+                <div class="inquiryBox"  id="popup3" style="display:  ;">
+ 					<div class="inqu_top item3"> <!-- // .item1 ~ .item6 현재 시안기준 -->
+                    	<p><strong>컴퓨터</strong> <i>3000원 / 개</i></p>
+                    	<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
+                    </div>
+                    
+                    <dl>
+                    	<dt>수거 가능 품목</dt>
+                        <dd>본체 / 노트북 / LCD / LED모니터 / CRT모니터(무상수거) / 램, 하드없는 본체(무상수거)</dd>
+                    
+                    	<dt>수거 불가능 품목</dt>
+                        <dd>HDD / 손상된 모니터 / 프린터기 / 복사기 / 주변기기(마우스,키보드등..)</dd>
+                        
+                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+                        <dd class="inqu_bottom">그 외 소형가전제품도 무상처리가 가능합니다. 수거 기사님께 문의하세요.</dd>
+                                        
+                    </dl>
+				</div>
+                <!-- item3 컴퓨터 (E) -->
+                
+                <!-- item4 가전제품 (S) -->
+ 				<dl class="mgl3p"> <!-- //짝수 품목 .mgl3p --> 
+					<dt>
+						<img src="images/icon/bg_item4.png" alt="icon">
+ 					</dt>
+					<dd class="item_txt">
+					<strong>가전제품</strong><span>냉장고, 세탁기, 에어컨 등</span></dd>
+					<dd class="item_unit"> <!-- //활성화시 .active -->
+						<button type="button" title="바로 판매하기" name="sale" class="sale"> 바로 판매하기</button>
+					</dd>
+ 				</dl> 
+                <!-- item4 가전제품 (E) -->
+ 				
+                <!-- item5 휴대폰 (S) -->
+ 				<dl> 
+					<dt>
+						<img src="images/icon/bg_item5.png" alt="icon">
+						<a title="상세설명" href="#" onClick="go_popup('5')"> 상세설명</a>
+					</dt>
+					<dd class="item_txt">
+					<strong>휴대폰</strong><span>2G/3G폰, 피쳐폰, 폴더폰 등</span></dd>
+					<dd class="item_unit"> <!-- //활성화시 .active -->
+						<input type="button" title="수치 내리기" name="minus" class="minus">
+						<strong><i>0</i>개</strong>
+                        <input type="button" title="수치 올리기" name="plus" class="plus">
+					</dd>
+ 				</dl>
+                
+                <div class="inquiryBox"  id="popup5" style="display:  ;">
+ 					<div class="inqu_top item5"> <!-- // .item1 ~ .item6 현재 시안기준 -->
+                    	<p><strong>컴퓨터</strong> <i>700원 / 개</i></p>
+                    	<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
+                    </div>
+                    
+                    <dl>
+                    	<dt>수거 가능 품목</dt>
+                        <dd>폐 폰 / 피쳐 폰 / 2G 폰 / 폴더 폰 / 슬라이드 폰</dd>
+                    
+                    	<dt>수거 불가능 품목</dt>
+                        <dd>깨진 폰 / 망가진 폰 / 부숴진 폰 / 침수 폰 / CD PLAYER / MP3</dd>
+                        
+                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+                        <dd class="inqu_bottom">스마트 폰의 경우 고가로 수거하고 있습니다. 고객센터로 연락하여 주세요.</dd>
+                                        
+                    </dl>
+				</div>
+                <!-- item5 휴대폰 (E) -->
+ 				
+                <!-- item6 고철 (S) -->
+ 				<dl class="mgl3p"> <!-- //짝수 품목 .mgl3p -->
+					<dt>
+						<img src="images/icon/bg_item6.png" alt="icon">
+						<a title="상세설명" href="#" onClick="go_popup('6')"> 상세설명</a>
+					</dt>
+					<dd class="item_txt">
+					<strong>고철</strong><span>아령, 숟가락, 젓가락 등</span></dd>
+					<dd class="item_unit"> <!-- //활성화시 .active -->
+						<input type="button" title="수치 내리기" name="minus" class="minus">
+						<strong><i>0</i>Kg</strong>
+                        <input type="button" title="수치 올리기" name="plus" class="plus">
+					</dd>
+ 				</dl>
+                
+                 <div class="inquiryBox"  id="popup6" style="display:  ;">
+ 					<div class="inqu_top item6"> <!-- // .item1 ~ .item6 현재 시안기준 -->
+                    	<p><strong>고철</strong> <i>400원 / Kg</i></p>
+                    	<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
+                    </div>
+                    
+                    <dl>
+                    	<dt>수거 가능 품목</dt>
+                        <dd>냄비 / 프라이팬 / 스테인리스 그릇,샷시 / 양은냄비 / 주전자</dd>
+                    
+                    	<dt>수거 불가능 품목</dt>
+                        <dd>도자기류(사기그릇,도자기,자기,토기) / 플라스틱류</dd>
+                        
+                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+                        <dd class="inqu_bottom">비철은 수거 가능한 품목이며, 고철과 다르게 자석에 붙지 않는 제품입니다.</dd>
+                                        
+                    </dl>
+				</div>
+                <!-- item6 고철 (E) -->
+                
+                
+			</div>
+            
+            <div class="item_sum" style="display:  ">
+            	<p>
+                	<span class="be_p"><em><strong>5,000</strong>P</em> 이상 방문 가능</span>
+                    <span class="total_p">TOTAL <i><strong>100,000</strong>P</i></span>
+                </p>
+                <div class="btn_wrap pdtb0">
+                    <a title="다음" href="02_4sub.html" class="btn green">다음</a>
                 </div>
-            </div><!-- //4DEPTH (E) -->
+            </div>
+        
+ 		</div><!-- container (E) -->
+ 	</div><!-- wrap (E) -->
+<jsp:include page="include/hideMenu.jsp"/>    
+    
 
-        </div><!-- CONTAINER (E) -->
-
-
-<form id="listForm" name="listForm" method="post" action="">
-<input type="hidden" name="cmd" />
-<input type="hidden" name="selectId" value="" />
-<input type="hidden" name="selectbbsId" value="" />
-</form>
-<form id="moveFrm" name="moveFrm" method="post">
-	<input type="hidden" name="mvNumber">
-</form>
-<!-- 메인비주얼 슬라이더 (S) -->
-<script type="text/javascript"> 
-    $('.visual_box').slick({
-      dots: true,
-      infinite: true,
-      speed: 200,
-      autoplay:true,
-      slidesToShow: 1
-  });
-</script>
-<!-- 메인비주얼 슬라이더 (E) -->
-
-<!-- 마우스오버 (S) -->
-<script type="text/javascript"> 
-    jQuery(function(){
-
-        $(".listin1").mouseover(
-          function () {
-                $('.hb1').show();
-          }
-        );
-        $(".listin1").mouseleave(
-            function () {
-                $('.hb1').hide();
-            }
-        );
-
-        $(".listin2").mouseover(
-            function () {
-                $('.hb2').show();
-            }
-        );
-        $(".listin2").mouseleave(
-            function () {
-                $('.hb2').hide();
-            }
-        );
-
-        $(".listin3").mouseover(
-            function () {
-                $('.hb3').show();
-            }
-        );
-        $(".listin3").mouseleave(
-            function () {
-                $('.hb3').hide();
-            }
-        );
-
-        $(".listin4").mouseover(
-            function () {
-                $('.hb4').show();
-            }
-        );
-        $(".listin4").mouseleave(
-            function () {
-                $('.hb4').hide();
-            }
-        );
-  });
-</script>
-<!-- //마우스오버 (E) -->
-
-<!-- 3depth 오른쪽 슬라이더 (S) -->
-<script type="text/javascript"> 
-    $('.thrslide').slick({
-      infinite: true,
-      speed: 300,
-      autoplay:true,
-      slidesToShow: 1
-    });
-</script>
+</body>
+</html>
