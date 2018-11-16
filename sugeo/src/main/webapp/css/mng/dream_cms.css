@@ -1,0 +1,541 @@
+@charset "utf-8";
+/* -------- 소개-------- */
+.dreamnb{width:1100px;margin:0 auto;padding:20px 0 35px 0}
+.dreamob > .inner{width:1100px;margin:0 auto;padding:25px 0 30px 0;position:relative}
+.dreamtit{background-image:url(/images/front/sub/dreamtit.png);background-repeat:no-repeat;background-position:0 0;margin:0 0 20px 0;font-size:22px;font-weight:bold;height:60px;line-height:29px}
+.dreamtit span{padding:11px 0 0 76px;display:block}
+
+.dream_intro{background-image:url(/images/front/sub/dream_intro.gif);background-repeat:no-repeat;background-position:98% bottom;padding: 20px 0 20px 0;}
+/*.dream_intro p{margin:0;font-size:17px;line-height:27px;padding:0 0 0 80px}*/
+.dream_intro dl{margin: 0;padding: 0 0 0 80px;clear: both;}
+.dream_intro dt{line-height: 22px;font-size: 17px;background-image: url(/images/front/sub_common/orangedot.gif);background-repeat:no-repeat;background-position: 0 10px;background-size: 5px;font-weight:bold;padding: 0 0px 5px 12px;}
+.dream_intro dd{font-size: 15px;font-weight: normal;margin: 0 0 16px 0;line-height: 22px;width: 600px;}
+.dream_goal{background-image:url(/images/front/sub/dream_goalback.gif);background-repeat:repeat;background-position:0 0}
+.dream_goal ul{margin:0;padding:0 0 0 80px}
+.dream_goal p{margin:0 0 11px 0;font-size:16px;line-height:23px}
+.dream_goal strong{background-image:url(/images/front/sub/dream_goaldot.png);background-repeat:no-repeat;background-position:0px 4px;font-weight:bold;padding:0 7px 0 30px;font-size:16px}
+
+.dream_tips ul{margin:0;text-align:center;padding:8px 0 0 0}
+.dream_tips ul li{width:290px;display:inline-block;zoom:1;vertical-align:top}
+.dream_tips p{margin:20px 0 0 0;text-align:center;font-size:15px;line-height:22px;padding:0 10px;letter-spacing:-0.02em}
+.dream_tips img{margin:0 0 0 -30px}
+.dream_history{background-color:#f7fbfe}
+.dream_history p{margin:0;padding:0 0 0 125px}
+.dream_ci ul{margin:0 0 0 0;padding:0 0 0 85px}
+.dream_ci li{width:49%;float:left;position:relative;padding:25px 0 0 0;vertical-align:top}
+.dream_ci li.full{width:100%;float:none;border:0;padding:0 0 2px 0;margin:0;position:relative;border-bottom: 1px solid #ddd}
+.dream_ci li.full .fir{float:left;margin:0 25px 20px 0;width:50%;height:auto;line-height:0}
+.dream_ci li.full .fir img{width:100%}
+.dream_ci li.full .last{background-image:url(/images/front/sub/dream_cistar.jpg);background-repeat:no-repeat;background-position:0 0;margin:0;float:left;width:41%;height:167px}
+.dream_ci li.full .last span{padding:31px 0 0 0px;line-height:30px;font-size:18px;font-weight:bold;color:#444;float:right;display:block;text-align:left;width:57%}
+.dream_ci li.full .last b{color:#0079c0}
+.dream_ci li >img{display:block;float:left}
+.dream_ci dl{margin:0;position:absolute;left:146px;height:auto}
+.dream_ci dt{font-weight:bold;font-size:16px;line-height:23px;margin:0 0 7px 0;padding:0 10px 0 0;font-weight:bold}
+.dream_ci dd{line-height:21px;font-size:14px;letter-spacing:-0.05em;padding:0 10px 0 0}
+.dream_ci dd.last{margin:4px 0 0 0}
+.dream_ci dd p{padding:1px 0 4px 0;font-size:11px;color:#b5b5b5;margin:0}
+.dream_ci dd p strong{background-image:url(/images/front/sub_common/orangedot.gif);background-repeat:no-repeat;background-position:0 6px;font-weight:bold;padding:0 0 0 9px}
+.dream_status{background-color: #edf4fc;}
+.dream_status .inner{height:640px}
+.dream_status .inner >p{padding:0;position:absolute;top:110px;left:160px}
+.dream_status .inner >div{position:absolute;top:140px;left:740px;background:#0079c0;padding:20px 20px 5px 20px;background-image:url(/images/front/sub/dream_statusback.gif);background-repeat:repeat-x;background-position:0 bottom}
+.dream_status .inner >div p{padding:0 0 20px 0;margin:0;text-align:right;float:none;color:#ffdf3c}
+.dream_status ul{margin:0 0 13px 0;border-top:1px solid #fff}
+.dream_status li{color:#fff;font-size:14px;padding:4px 0 7px 0;line-height:22px;border-top:1px solid #fff;clear:both}
+.dream_status li em{float:left;padding:0}
+.dream_status li span{float:right;padding: 0 0 0 20px}
+.dream_way ul{margin:0;padding:0 0 0 91px}
+.dream_way li{float:left;width:33%;text-align:center;position:relative;vertical-align:bottom;margin:0}
+.dream_way li.fir{margin:0 -1% 0 0;z-index:2}
+.dream_way li.sed{padding:42px 0 0 0;z-index:1;margin:0 -1.5% 0 0}
+.dream_way li.last{margin:60px 0 0 0;z-index:0}
+.dream_way li.last p{margin:0;padding:70px 0 0 0;background-image:url(/images/front/sub/dream_waylast.gif);background-repeat:no-repeat;background-position:center 0px;background-size:310px}
+.dream_way li.last p span{padding:20px 10px 0px 16px;display:block;font-size:15px;line-height:24px;color:#264584}
+.dream_way li.last p span u{font-weight: bold}
+.dream_way dl{margin:0;width:89%}
+.dream_way dt{font-size:18px;font-weight:bold;line-height:25px;border-bottom:3px solid #eca83b;color:#eca83b;padding:0 0 10px 0}
+.dream_way dd{background-color:#fef6e9;border-bottom:1px dashed #f7cb86;font-size:14px;line-height:22px;padding:8px 0 11px 0;border-right:3px solid #eca83b}
+.dream_way li.sed dt{color:#0079c0;border-bottom:3px solid #0079c0}
+.dream_way li.sed dd{border-bottom:1px dashed #b4cddc;background-color:#f0f9fe;border-right:3px solid #0079c0}
+.dream_way li.fir img, .dream_way li.sed img{position:absolute;bottom:100px;right:3px}
+.dream_waystep{background-color:#fdfdfd}
+.dream_waystep> .inner{background-image:url(/images/front/sub/dream_waystepback.gif);background-repeat:no-repeat;background-position:6px 40px;background-size:1050px}
+.dreamtit_2{background-image:url(/images/front/sub/dream_waysteptit.png);background-repeat:no-repeat;background-position:0 0;margin:0 0 20px 0;font-size:16px;color:#fff;font-weight:bold;position:absolute;height:44px;padding:0 0 0 20px;line-height:22px;top:25px;width:180px;left:0}
+.dreamtit_2 span{padding:6px 0 0 0;display:block}
+.dream_waystep .step{position:relative;height:500px}
+.dream_waystep .step > .fir{top:14px;left:260px}
+.dream_waystep .step > .sed{top:14px;left:485px}
+.dream_waystep .step > .thd{top:14px;left:730px;width:270px}
+.dream_waystep .step > .fou{top:238px;left:830px}
+.dream_waystep .step > .fif{top:238px;left:630px}
+.dream_waystep .step > .six{top:238px;left:380px}
+.dream_waystep .step > .sev{top:238px;left:82px;width:260px}
+.dream_waystep .step dl{position:absolute;margin:0;width:210px}
+.dream_waystep .step dt{background-image:url(/images/front/sub/waystepdot.gif);background-repeat:no-repeat;background-position:0 0;color:#0079c0;font-size:16px;margin:0 0 10px 0;font-weight:bold;line-height:22px}
+.dream_waystep .step dt span{padding:20px 0 0 0;display:block}
+.dream_waystep .step dd{font-size:13px;line-height:18px}
+.dream_waystep .step dd p{margin:0 0 9px 0;line-height:18px;font-size:13px;letter-spacing:-0.03em}
+.dream_waystep .step dd .dotp{background-image:url(/images/front/sub_common/lidot.gif);background-repeat:no-repeat;background-position:0 7px;padding:0 0 0 10px}
+.dream_waystep .step dd .aml{color:#888;font-size:11px;line-height:15px;display:block;margin:2px 0 0 0}
+
+/* -------- 기자단-------- */
+.dream_dsg{height:143px}
+.dream_dsg .inner{width:1100px;margin:0 auto;position:relative;text-align:center;height:100%;background-position:98% 0}
+.dream_dsg .inner .circ{text-align:center;height:83px;padding:56px 0 0 0}
+.dream_dsg.dr_report{background-color:#9bc827}
+.dream_dsg.dr_report .inner{background-image:url(/images/front/sub/dream_repaback.gif);background-repeat:no-repeat}
+.dream_dsg.dr_prom{background-color:#ada8d3;margin:0 0 80px 0}
+.dream_dsg.dr_prom .inner{background-image:url(/images/front/sub/dream_repaback2.gif);background-repeat:no-repeat}
+.dream_dsg.dr_prot{background-color:#dd4888}
+.dream_dsg.dr_prot .inner{background-image:url(/images/front/sub/dream_repaback3.gif);background-repeat:no-repeat}
+.dream_dsg.dr_mission{background-color:#9aa1a7;margin:0 0 80px 0}
+.dream_dsg.dr_mission .inner{background-image:url(/images/front/sub/dream_repaback4.gif);background-repeat:no-repeat}
+.dream_dsg .inner > img{position:absolute;top:36px;left:20px}
+.dream_tab{border-bottom:1px solid #ccc;position:relative;margin:0 0 40px 0}
+.dream_tab .inner{width:1100px;margin:0 auto}
+.dream_tab .inner ul{margin:0}
+.dream_tab .inner li{float:left;height:55px;width:50%}
+.dream_tab .inner a{color:#999;font-weight:bold;display:block;height:100%;text-align:center;width:100%}
+.dream_tab .inner a span{padding:12px 0 0 0;display:block;font-size:20px;line-height:28px}
+.dream_tab .inner a:hover,.dream_tab .inner a:focus{text-decoration:none}
+.dream_tab.reprt .inner a.on,.dream_tab.reprt .inner a:hover{color:#ff7f00;background-image:url(/images/front/sub/dream_tabback01.gif);background-repeat:no-repeat;background-position:center bottom}
+
+#mediaspace_wrapper{width:1100px;margin:0 auto 7%;height:700px;position:relative}
+
+table.news{width:960px;margin:20px auto;border:3px solid #333333;-webkit-box-shadow:0px 8px 0px 0px rgba(227,227,227,1);-moz-box-shadow:0px 8px 0px 0px rgba(227,227,227,1);box-shadow:0px 8px 0px 0px rgba(227,227,227,1);box-sizing:border-box;border-collapse:separate}
+table.news thead th{height:93px;width:100%;background:url(/images/front/sub/sctitle_back.gif) repeat-x bottom;border-bottom:3px solid #333;line-height:85px;text-align:center;padding:0 0 8px 0}
+table.news thead th img{display:block;margin:0 auto}
+/* 170825 수정 (s) */
+table.news tbody td{padding:28px 1.5%;border:none;word-wrap:break-word;vertical-align:top;text-align: center !important;}
+/* 170825 수정 (e) */
+table.news tbody td strong{display:block;width:100%;height:228px;border:1px solid #ccc;text-align:center;max-width: 443px;margin: 0 auto;box-sizing:border-box;}
+table.news tbody td strong img{max-width:100%;height:226px;width:100%}
+table.news tbody td span{display:inline-block;width:100%;text-align:justify;color:#555;font-size:14px;line-height:23px;margin-top:25px;max-width: 443px}
+table.news tbody td.name_bottom div{/* width:100%; */background-color:#dddddd;font-size:13px;background-image:url(/images/front/sub/comm.gif);background-repeat:no-repeat;background-position:10px 10px;text-align:left;min-height: 38px;overflow: hidden;padding: 0 0 0 36px;}
+table.news tbody td.name_bottom div i{margin-left:12px;color:#555;line-height: 19px;padding: 9px 0 0 0;float: left;}
+table.news tbody td.name_bottom div b{padding: 9px 10px 0 0;font-weight:bold;line-height: 19px;float: left;}
+.dream-promban{position:relative;width:830px;margin:0 auto;overflow: hidden;}
+.dream-promban ul{margin:0}
+.dream-promban .prom_slider{position:relative;width:706px;margin:0 auto;border:1px solid #ddd;border-width:1px 1px 5px 1px;padding:15px 0}
+.dream-promban .prom_slider li{height:350px;padding:0;display: table;width: 100%}
+.dream-promban .prom_slider a{display: table-cell;text-align: center;width: 96%;height: 100%;vertical-align: middle;}
+.dream-promban .prom_slider img{max-width:660px;max-height: 350px;}
+.dream-promban .dotimg{width:706px;margin:15px auto 30px;border:1px solid #ddd;background:#ededed}
+.dream-promban .dotimg ul{height:140px;padding: 10px 0px 10px 0px;width: 520px;margin: 0 auto 0;overflow: hidden;}
+.dream-promban .dotimg li{width: 152px;height: 100%;margin: 0 10px 0 10px;float: left;display: table;/* vertical-align: middle; */}
+.dream-promban .dotimg li a{border:1px solid #ddd;display:block;width:100%;height:100%;background-color:#fff;display: table-cell;vertical-align: middle;text-align: center;}
+.dream-promban .dotimg img{max-width:149px;max-height: 120px;/* vertical-align: middle; */}
+.dream-promban .prom_prv{position:absolute;top:110px;left:0px;width:62px;height:124px;background-image:url(/images/front/sub/prom_prv.gif);margin:0;background-repeat:no-repeat;background-position:0 0;text-indent:-9999em}
+.dream-promban .prom_nex{position:absolute;top:110px;right:0;width:62px;height:124px;background-image:url(/images/front/sub/prom_nex.gif);margin:0;background-repeat:no-repeat;background-position:0 0;text-indent:-9999em}
+
+.dream_pledge{width:1100px;margin:0 auto;background-image:url(/images/front/sub/ulistdotted.gif);background-repeat:repeat-x;background-position:0 0}
+.dream_pledge ul{padding:30px 0 0 10px;margin:0}
+.dream_pledge ul li{float:left;width:47%;position:relative;margin:0 12px 30px 12px;border:1px solid #dddddd;border-bottom:3px solid #dddddd}
+.dream_pledge li .pledgestic{position:absolute;top:9px;right:9px}
+.dream_pledge .pledge_box{height:115px}
+.dream_pledge .pledge_box p{margin:0;line-height:22px;font-size:14px;letter-spacing:-0.04em;word-break:break-all;overflow-y:auto;height:100%;padding:12px 108px 12px 15px}
+.dream_pledge .pledge_info{border-top:1px solid #dddddd;background-color:#f5f5f5;height:38px}
+.dream_pledge .pledge_info p{margin:0}
+.dream_pledge .pledge_info .left{float:left;padding:7px 0 0 15px;position:relative}
+.dream_pledge .pledge_info .left >a{display:block;float:left;margin:0 8px 0 0}
+.dream_pledge .pledge_info .right{float:right;padding:7px 5px 0 0px}
+.dream_pledge .pledge_info .right span{padding:0 15px 0 17px}
+.dream_pledge .pledge_info .right .auth{background-image:url(/images/front/sub/dream_repwitauth2.gif);background-repeat:no-repeat;background-position:0 4px;padding:0 23px 0 16px;font-size:13px;line-height:21px}
+.dream_pledge .pledge_info .right .date{background-image:url(/images/front/sub/dream_repwitdate2.gif);background-repeat:no-repeat;background-position:0 4px;color:#969696}
+
+#survey_cnt{margin:0 auto 25px;border-bottom: 1px dashed #ddd}
+#survey_cnt .survey_wrap{position:relative;border:1px #c9c9c9}
+#survey_cnt .bottom{background:url(/images/front/sub/survey_btm_shadow.png) top left no-repeat;width:719px;height:3px}
+#survey_cnt .survey_wrap .imgcnt{position:absolute;top:5px;left:20px}
+/*#survey_cnt .survey_wrap .dashed{position:absolute;background:url(/images/front/sub/survey_dashed_bar.png) top left no-repeat;width:687px;height:1px;top:61px;left:20px}*/
+#survey_cnt .survey_wrap .survey_content{position:relative;margin-top:73px;margin-left:19px;width:674px}
+#survey_cnt .survey_wrap .gauge_container{width: 724px;height: 130px;background: url(/images/front/sub/survey_content_container.png) bottom left no-repeat;margin: 0 auto}
+.gauge_container .component_wrapper{position:relative;padding:10px 15px}
+.gauge_container .component_wrapper .level_cnt{width: 76%;position:relative;height:13px;margin:70px auto 0}
+.gauge_container .component_wrapper .level_cnt .level{position:absolute;width:100%;background:#cacaca;height:13px;top:0px;left:0px;z-index:4;text-indent:-9999em;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
+.gauge_container .component_wrapper .level_cnt .gauge_bg{position:absolute;background-color:#6cb1ff;width:80%;height:13px;top:0px;left:0px;z-index:10;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
+.gauge_container .component_wrapper .bubble{height:37px;max-width:50%;position:absolute;margin:0;text-align:left;padding:0}
+.gauge_container .component_wrapper .bubble.poslt{top:35px;left: 82px}
+.gauge_container .component_wrapper .bubble.posrt{top:35px;right: 98px;text-align:right}
+.gauge_container .component_wrapper .bubble .blt{height:37px;float:left;margin:0;padding:0}
+/*.gauge_container .component_wrapper .bubble .brt{background:url(/images/front/sub/survey_bubble_rt.png) top left no-repeat;height:37px;width:9px;float:left;margin:0;padding:0}
+.gauge_container .component_wrapper .bubble .bl{position:absolute;left:6px;bottom:0}
+.gauge_container .component_wrapper .bubble .br{position:absolute;right:6px;bottom:0}*/
+.gauge_container .component_wrapper .bubble .a1{color:#555555;font-weight:bold;line-height:28px}
+.gauge_container .component_wrapper .bubble .a2{color:#91a82f}
+.gauge_container .component_wrapper .bubble .a3{color:#a86ad4}
+.gauge_container .component_wrapper .bubble .i{font-weight:normal;line-height:28px}
+.gauge_container .component_wrapper .bubble .j{margin-left:16px}
+
+.dream_login{width:1100px;margin: 0 auto 6%;background-image:url(/images/front/sub/dream_login.jpg);background-repeat:no-repeat;background-position:0 0}
+.dream_login .inner{padding:0;text-align:center;float:right;width: 63%}
+.dream_login .inner a:hover{text-decoration:none}
+.dream_login h3{margin: 0px 0 45px 0;padding: 31px 0 45px 0;border-bottom:2px solid #333}
+.dream_login h3 b{font-size: 47px;font-family:Arial !important;font-weight:normal;line-height:44px}
+.dream_login h3 p{margin:7px 0 0 0;font-size:15px;color:#777;line-height:22px}
+.dream_login div.first{width: 560px;margin: 0 auto 0;position: relative}
+.lginguide {height:auto}
+.loginwbox{margin:0;position:relative;height:88px}
+.loginwbox li{padding: 0 0 30px 0;width: 76%;float: left}
+.loginwbox label{display:block;margin:12px 0px 0;padding: 0}
+.loginwbox label.first{margin:0}
+.loginwbox label em{font-size:16px;font-weight:bold;line-height:21px;padding:0;width: 72px;padding:6px 0 0 0;text-align: left;float:left}
+.loginwbox label input[type="text"],.loginwbox label input[type="password"]{height:38px;border: 0;margin:0;width: 78%;float:right;margin:0 0 0 9px;background-color: #e9e9e9;padding: 0 0 0 5px}
+.loginwbox .boxbtn{font-weight:bold;text-align:center;margin: 0 0 0 15px;padding:0;float: right;width: 20%;height: 89px}
+.loginwbox .boxbtn a{color:#fff;display:block;width: 100%;height: 89px;background:#ff7f00;float:left;line-height: 82px}
+.loginwbox .boxbtn a span{display:block;font-size: 17px;height: 100%}
+.dream_login .idsav{margin:0;text-align:right;padding: 0 11px 0 0}
+.dream_login .idsav label{margin:9px 0 0 0;padding:0}
+.dream_login .idsav input[type="checkbox"]{vertical-align:middle;margin:0}
+.dream_login .idsav label em{padding:0 0 0 6px;font-size:14px;float:none;font-weight:normal}
+.dream_login a:hover{text-decoration:none}
+.lginguide{border-top: 1px solid #ddd;clear: both;padding: 23px 0 0 0;height: 79px}
+.lginguide .findbtn{background-color: #777777;height: 40px;margin:0;font-size: 15px;line-height: 37px;width: 150px;/* position: absolute; *//* top: 20px; *//* right: 0; */float: right;color: #fff}
+.lginguide .findbtn span{display:block;height: 100%}
+.lginguide p{text-align: left;margin: 0;float: left;font-size: 14px;line-height: 22px;padding: 8px 0 0 0}
+
+.dream_find{width:1100px;margin:0 auto 30px}
+.dream_find h3{margin:0;font-size:20px;font-weight:bold;text-align:center;padding:13px 0 17px 0;line-height:22px;border-bottom:1px solid #dddddd}
+/* 170807 수정 */
+.dream_find div{width:49%;background-color:#f8f8f8;border:1px solid #ddd;position:relative;height:263px}
+/* // 170807 수정 */
+.dream_find .fidbox{float:left}
+.dream_find .fpwbox{float:right}
+.dream_find dl{margin:0;padding:15px 25px}
+.dream_find dt{float:left;clear:both;width:18%;font-size:14px;line-height:14px;padding:7px 0 0 0}
+.dream_find dd{float:right;width:81%;margin:0 0 10px 0}
+.dream_find dd input[type="text"]{width:100%;border:1px solid #dddddd;height:32px;padding: 0 0 0 2px}
+.dream_find dd select{border:1px solid #ddd;height:32px;width:31%}
+.dream_find dd input[type="text"].smleml{width:30%}
+/* 170807 수정 */
+.dream_find div > a{position:absolute;bottom:15px;right:10px}
+/* // 170807 수정 */
+.dream_find dt.last{padding:3px 0 0 0}
+.dream_find dd.last{margin:0;font-size:16px;color:#0079c0;font-weight:bold}
+
+.membersitu{text-align:right;width:1100px;margin:0 auto 10px;background-color:#f8f8f8}
+.membersitu span{display:inline-block;zoom:1;*display:inline;_display:inline;padding:15px 15px}
+.membersitu .sed a{font-weight:bold;color:#1470b1}
+.membersitu .thd a{font-weight:bold;color:#a7a7a7}
+.membersitu .last{background:none}
+.membersitu .last a{background-color:#8dab6a;border-bottom:3px solid #6d8a4b}
+
+.usclbtn{display:inline-block;zoom:1;background-color:#ff7f00;border-bottom:2px solid #e42000;color:#fff}
+.usclbtn span{display:block;padding:3px 6px 4px 6px;font-size:11px;line-height:14px}
+.usclbtn:hover{color:#fff;background-color:#e42000;text-decoration:none}
+
+.acticondition{font-size:13px;padding:2px 7px 2px 7px;line-height:22px;border:2px solid #36a7df;background:#ffffff;font-weight:bold;color:#525252;display:block}
+.acticondition img{vertical-align:middle;margin-right:8px}
+
+.actgrph{padding:20px 0 10px;margin-bottom:10px;overflow:hidden;width:1100px;margin:13px auto 13px}
+.actgrph .inner{width:700px;margin:0 auto;padding:0 0 6px;position:relative}
+.actgrph .barwrp{position:relative;height:20px;width:100%;overflow:hidden;background:#ffffff;border:1px solid #d4d4d4;margin-bottom:5px;-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px}
+.actgrph .barwrp > div{position:absolute;top:0;left:0;width:30%;height:100%;background:#36a7df}
+.actgrph .inner p{position:absolute;left:47%;bottom:4px;font-weight:bold;color:#0079c0}
+.actgrph ul{overflow:hidden;margin:0}
+.actgrph ul li{float:left;font-weight:bold;color:#5a5a5a;padding:0 0 9px}
+.actgrph ul li.last{float:right}
+
+.submiqst{padding:8px 0 0 0;font-size:14px}
+.submiqst strong{padding:0 16px 0 0}
+.submiqst label{font-weight:normal;margin:0 10px 3px 0}
+
+.progrs{color:#777;width:1100px;margin:0 auto 0}
+.progrs span{color:#ff0000;font-weight:bold;padding-left:4px}
+.progrs img{margin:0 10px 0 10px}
+
+.dream_history p.mnone{display:block}
+.dream_history p.mblock{display:none}
+
+/* 정보입력 */
+input[type="text"].w56per,input[type="text"].w85per{width:50%; margin:0; }
+.atg_btn.blbtn{background-color:#fff;color:#0079c0 !important;border:1px solid #0079c0;font-weight:bold}
+.atg_btn.tblsmlbtn01{display:inline-block;vertical-align:middle;overflow:hidden;padding:3px 12px 5px 12px;text-align:center;line-height:18px;font-size:13px;box-sizing:border-box !important;height:28px}
+
+
+@media all and (max-width:1400px){
+	table.news{width:100%;border:2px solid #333333}
+	table.news tbody td span{line-height:19px;text-align:center;font-size:12px;margin:10px 0 0 0}
+	table.news thead th img{width:277px}
+	table.news tbody td strong{height:140px}
+	table.news tbody td strong img{height:140px}
+	table.news tbody td{padding:15px 1.3%}
+}
+
+@media all and (max-width:1120px){
+	.dreamnb, .dreamob > .inner {width:97%}
+	.dream_ci li.full .last{background-size:29%;background-position:5px 5px;width:48%;height:150px}
+	.dream_ci li.full .last span{font-size:15px;line-height:25px;padding:4% 0 0 0;width:60%}
+	.dream_ci li.full .last span br{display:none}
+	.dream_ci li.full .fir{width:47%}
+	.dream_ci li{text-align:center;height:230px}
+	.dream_ci li.full{height:auto}
+	.dream_ci li >img{float:none;margin:0 auto 10px}
+	.dream_ci dl{left:inherit;position:inherit}
+	.dream_ci dd{padding:0 10px;font-size:13px}
+	.dream_ci dt{padding:0 10px;font-size:14px;line-height:23px;margin:0 0 5px 0}
+	.dream_waystep .step dl{width:170px}
+	.dream_waystep .step > .fir{top:14px;left:205px}
+	.dream_waystep .step > .sed{top:14px;left:400px}
+	.dream_waystep .step > .thd{top:14px;left:620px;width:270px}
+	.dream_waystep .step > .fou{top:238px;left:790px}
+	.dream_waystep .step > .fif{top:238px;left:590px}
+	.dream_waystep .step > .six{top:238px;left:350px;width:210px}
+	.dream_waystep .step > .sev{top:238px;left:52px;width:260px}
+	.dream_waystep> .inner{background-size:100% 236px}
+	#mediaspace_wrapper{width:97%}
+	.dream_dsg .inner,.dream_tab .inner{width:100%}
+	.dream_pledge{width:98%}
+	.dream_pledge .pledge_box{height:150px}
+	.dream_login{width:98%;background-size: 35% 420px}
+	.dream_find{width:98%}
+	.dream_find dd input[type="text"].smleml,.dream_find dd select.smleml{width:29%}
+	.membersitu{width:100%}
+	.actgrph{width:98%}
+	.actgrph .inner{width:90%}
+	.progrs{width:98%}
+}
+
+@media (max-width: 1024px){
+	.dream_intro{background-size:350px;padding: 20px 0 110px 0;}
+	.dream_intro dd{width: 96%;}
+	.dream_intro dl{padding: 0px 0 0 58px;}
+	.dream_intro p{font-size:16px;line-height:24px;padding:0 0 0 58px}
+	.dreamtit{margin:0 0 15px 0;font-size:21px;background-size:40px;height:48px}
+	.dreamtit span{padding:1px 0 0 56px}
+	.dream_goal strong{font-size:17px;background-size:15px;padding:0 5px 0 20px}
+	.dream_goal p{font-size:15px;line-height:23px}
+	.dream_tips ul li{width:200px;margin:0 0 30px 0}
+	.dream_tips img{width:105px}
+	.dream_tips p{margin:14px 0 0 0;font-size:14px;line-height:22px}
+	.dream_tips p br{display:none}
+	.dream_history p{padding:0;text-align:center}
+	.dream_history p img{width:83%}
+	.dream_goal ul{padding:0 0 0 58px}
+	.dream_ci ul{padding:0 0}
+	.dream_ci li.full .last{height:140px}
+	.dream_status .inner >p{left:120px}
+	.dream_status .inner >div{left:590px;top:123px}
+	.dream_status .inner>p img{width:433px}
+	.dream_status .inner{height:580px}
+	.dream_way li.last p br{display:none}
+	.dream_way ul{padding:0 0 0 60px}
+	.dream_waystep .step dl{width:155px}
+	.dream_waystep .step > .fir{top:14px;left:195px}
+	.dream_waystep .step > .sed{top:14px;left:370px}
+	.dream_waystep .step > .thd{top:14px;left:560px;width:270px}
+	.dream_waystep .step > .fou{top:238px;left:680px}
+	.dream_waystep .step > .fif{top:238px;left:520px}
+	.dream_waystep .step > .six{top:238px;left:310px;width:190px}
+	.dream_waystep .step > .sev{top:238px;left:52px;width:230px}
+	.dream_dsg .inner > img{width:290px;top:46px}
+	.dream_dsg .inner .circ img{width:120px}
+
+	.dream-promban{width:670px}
+	.dream-promban .prom_slider{width:546px}
+	.dream-promban .prom_slider li{height:280px}
+	.dream-promban .dotimg{width:550px}
+	.loginwbox .boxbtn{padding:0 0}
+	.dream_find dl{padding:15px 15px}
+	.dream_find dd input[type="text"].smleml,.dream_find dd select.smleml{width:29%}
+	.loginwbox label{padding: 0 0 0 16px}
+	.dream_dsg.dr_prom{margin:0 0 40px 0}
+	.dream_login div.first{width: 490px}
+	.loginwbox label input[type="text"]{width: 75%}
+	.dream_login h3{ margin: 0 0 30px 0;padding: 30px 0 20px 0}
+	.dream_login{background-size: 35% 380px}
+
+	/*.dream_tab{display: none}*/
+	.dream_dsg{/*margin: -15px 0 0 0;*/}
+
+	table.news tbody td.name_bottom div{height:auto;/* line-height: 25px; */}
+	table.news tbody td.name_bottom div b{display: block;float: none;}
+	table.news tbody td.name_bottom div i{display: block;margin-left: 0;padding: 3px 0 10px 0;float: none;}
+	.dream-promban .dotimg ul{width: 498px;}
+	.dream-promban .dotimg li {margin: 0 6px 0 6px;}
+	.dream-promban .prom_slider img {max-width: 490px;}
+
+}
+
+
+@media all and (max-width:900px){
+	.dream_ci li.full .last{height:120px}
+	.dream_status .inner >p{left:50px;top:90px}
+	.dream_status .inner >div{left:520px;top:113px}
+	.dream_way li{width:100%}
+	.dream_way li.fir img, .dream_way li.sed img{bottom:-32px;left:44%;width:25px}
+	.dream_way li.sed{padding:40px 0 0 0}
+	.dream_way li.last p{width:89%}
+	.dream_way li.last{margin:50px 0 0}
+	.dreamtit_2{position:inherit;top:inherit;left:inherit;margin:0 0 0 0;z-index:1}
+	.dream_waystep .step{height:auto;border-left:2px solid #ddd;margin: -10px 0 0 11px;padding:19px 0 10px 0}
+	.dream_waystep .step dl{position:inherit;left:inherit !important;top:inherit !important;margin:0 0 25px -8px;width:100% !important}
+	.dream_waystep> .inner{background:none;padding:25px 0 20px 0}
+	.dream_waystep .step dt span{padding:0px 0 0 19px}
+	.dream_waystep .step dt{background-position:0 5px}
+	.dream_waystep .step dd{padding:0 0 0 20px}
+	.dream_waystep .step dd .dotp br{display:none}
+	.dream_waystep .step dd .aml{display:inline-block;zoom:1;padding:0 0 0 8px}
+	.dream_pledge ul{padding:25px 0 0 0}
+	.dream_pledge ul li{width:100%;margin:0px 0 15px 0}
+	.dream_pledge .pledge_box{height:auto;min-height:115px}
+	.dream_find dd input[type="text"].smleml,.dream_find dd select.smleml{width:30%}
+	.dream_find dd select{width:30%}
+	.dream_find dt{width:21%;font-size:13px;padding:8px 7px 0px 0}
+	.dream_find dd{width:76%;margin:5px 0 8px 0}
+	.submiqst strong{display:block;padding:0 0 7px 0}
+	.dream_login div.first{width: 400px}
+	.loginwbox label input[type="text"]{width: 70%}
+}
+
+@media all and (max-width:820px){
+	.dream_find dd input[type="text"].smleml,.dream_find dd select.smleml{width:60%;margin:0 0 5px 0}
+	.dream_find dd select{width:36%}
+	.dream_find dd input[type="text"].smleml.first{width:90%}
+}
+
+@media all and (max-width:768px){
+	.dreamnb{padding:15px 0 25px 0}
+	.dreamob > .inner{padding:10px 0 20px 0;height:auto}
+	.dreamtit{font-size:18px;background-size:30px;height:35px;margin:0 0 10px 0;letter-spacing:-0.04em}
+	.dreamtit span{padding:0px 0 0 37px}
+	.dream_intro{background-size:240px;padding: 15px 0 89px 0;}
+	.dream_intro p{padding:0px 0 69px 40px;font-size:14px;line-height:21px}
+	.dream_intro p br{display:none}
+	.dream_goal ul{padding:0px 0 0 40px}
+	.dream_intro dl{padding: 0 0 0 40px;}
+	.dream_intro dt{font-size: 15px;}
+	.dream_intro dd{font-size: 14px;line-height: 22px;}
+	.dream_goal p{font-size:14px;line-height:22px}
+	.dream_goal strong{font-size:15px;background-size:13px;padding:0 2px 0 16px}
+	.dream_tips{padding:15px 0 0px 0}
+	.dream_history p img{width:94%}
+	.dream_ci ul{padding:0 0 0 00px}
+	.dream_ci li.full .fir{width:100%;margin:0}
+	.dream_ci li.full .last{width:100%;background:none;height:auto;background-color:#f8f8f8;padding:10px 0}
+	.dream_ci li.full .last span{width:100%;font-size:14px;line-height:21px;text-align:center;padding:0 0 0 0}
+	.dream_ci li.full{padding:0;height:auto;border-bottom:1px solid #e0e0e0}
+	.dream_ci dd.last{display:none}
+	.dream_ci li{float:none;width:100%;border-bottom:1px dashed #ddd;height:auto;padding:15px 0 15px 0}
+	.dream_status .inner >p{width:100%;padding:0 0 15px 0;position:inherit;text-align:center;top:inherit;left:inherit}
+	.dream_status .inner >div{position:inherit;left:inherit;top:inherit;width:90%;padding:11px 11px 5px 11px;margin:0 auto}
+	.dream_status ul{float:left;width:48.5%;margin:0 0 9px 0}
+	.dream_status ul.last{float:right}
+	.dream_status .inner >div p{float:none;clear:both;padding:0 0 10px 0}
+	.dream_status .inner >p img{width: 98%;max-width: 510px;}
+	.dream_way ul{padding:0 0 0 35px}
+	.dream_way dl{width:95%}
+	.dream_way dt{padding:0 0 3px 0;font-size:15px;line-height:23px}
+	.dream_way dd{font-size:13px;line-height:21px;padding:3px 0 6px 0}
+	.dream_way li.last p span{padding:10px 7px 0 7px;font-size:14px;line-height:21px}
+	.dream_status li{font-size:13px;padding:3px 0 5px 0}
+	.dream_tips ul{padding:0 0 0 9%}
+	.dream_tips ul li{width:100%;text-align:left}
+	.dream_tips img{margin:0;width:14%;min-width:80px;float:left}
+	.dream_tips p{width:70%;float:left;text-align:left;padding:0 0 0 14px;margin:3% 0 0 0}
+
+	.dream_tab{margin:0 0 20px 0}
+	.dream_dsg{height:85px}
+	.dream_dsg.dr_mission{margin: 0 0 30px 0;}
+	.dream_dsg .inner .circ{padding:20px 0 0 0}
+	.dream_dsg .inner > img{width:213px;top:20px}
+	.dream_dsg .inner .circ img{width:90px;margin:0 0 0 15px}
+	.dream_dsg .inner{background-size:480px}
+	.dream_tab .inner li{height:44px}
+	.dream_tab .inner a span{font-size:15px;line-height:21px;padding:10px 0 0 0;letter-spacing:-0.05em}
+	.dream_dsg.dr_prom{margin:0 0 30px 0}
+
+	.dream-promban{width:100%}
+	.dream-promban .prom_slider{width:85%}
+	.dream-promban .prom_slider li{height:240px}
+	.dream-promban .prom_prv{width: 38px;height: 38px;top:105px;background-image:url(/images/front/sub/prom_prv2.gif);-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;}
+	.dream-promban .prom_nex{width: 38px;height: 38px;top:105px;background-image:url(/images/front/sub/prom_nex2.gif);background-position:right 0;-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;}
+	.dream-promban .dotimg{width: 85%;margin: 10px auto 30px;}
+	.dream-promban .dotimg ul{
+		width: 431px;
+	}
+	.dream-promban .dotimg li{/* margin: 0 5px 0 5px; */width: 130px;}
+
+	.dream_pledge li .pledgestic{width:60px;top:4px;right:6px}
+	.dream_pledge .pledge_box p{padding:12px 67px 12px 15px}
+	.dream_pledge .pledge_info .right span{font-size:12px !important;background:none !important;padding:0 8px 0 0 !important}
+	.dream_pledge .pledge_info .left >a img{width:23px}
+
+	#survey_cnt{width:100%}
+	#survey_cnt .survey_wrap .gauge_container{width:100%;margin:0;padding: 10px 0 0 0;background-size: 100%;background-position: 0 0}
+	.gauge_container .component_wrapper .bubble.poslt{left: 14%}
+	.gauge_container .component_wrapper .bubble.posrt{right: 16%}
+	.gauge_container .component_wrapper .level_cnt{width: 75%;margin:9px auto 0}
+	.gauge_container .component_wrapper .bubble .j{margin:0}
+
+	.dream_find dl{padding:10px 13px}
+	.dream_find h3{font-size:16px;padding:7px 0 10px 0}
+	.dream_login{background-image:none}
+	.dream_login .inner{width: 81%;height: auto;margin: 0 auto;float: none}
+	.dream_login div.first{width:100%;margin: 0 auto 0}
+	.loginwbox .boxbtn{width:100%;float:none;height: 50px;margin: 0}
+	.loginwbox .boxbtn a{height: 47px;line-height: 42px}
+	.dream_login h3{margin: 0 0 25px 0}
+	.loginwbox li{width:100%;float: none;padding: 0 0 20px 0}
+	.dream_history p.mnone{display:none}
+	.dream_history p.mblock{display:block}
+	.loginwbox label input[type="text"]{width: 80%}
+
+	.dream_dsg.dr_mission{margin:0 0 40px 0;}
+
+	.dream-promban .prom_slider img {max-width: 450px;}
+	.dream-promban .dotimg img{max-width: 123px}
+}
+
+@media all and (max-width:640px){
+
+	.dream_dsg .inner > img{display:none}
+	.dream-promban .prom_slider li{height:200px}
+	.dream-promban .dotimg ul{height: 100px;padding: 10px 0 10px 0;width: 322px;}
+	.dream-promban .dotimg img{max-height: 80px;max-width: 90px;}
+	.dream-promban .dotimg li{margin: 0 0 0 10px;}
+	.dream-promban .dotimg li{margin: 0px 5px 0 5px;width: 97px;}
+	.dream_login{background-image:none}
+	.dream_login h3 b{font-size:26px;line-height:22px}
+	.loginwbox label em{font-size:13px;width:21%}
+	.loginwbox label input[type="text"]{width: 76%}
+	.loginwbox label{padding: 0 10px}
+	.dream_login .idsav{padding:0 7% 0 0}
+	.dream_login h3{padding:0 0 15px 0;margin:0 0 25px 0}
+	.loginwbox .boxbtn a{width:100%}
+	.loginwbox .boxbtn .findbtn{width:100%;margin:5px 0 0 0}
+	.loginwbox li{padding:0 0 20px 0}
+	/* 170807 수정 */
+	.dream_find div{width:100%;margin:0 auto 15px}
+	.dream_find div.fidbox{height:233px}
+	/* // 170807 수정 */
+	.mbdb{display:block}
+	.lginguide .findbtn{width: 90px;font-size: 12px;height: 32px;line-height: 28px}
+	.lginguide p{padding: 3px 0 0 0}
+	#survey_cnt .survey_wrap .gauge_container{height: 100px;padding: 0}
+	.dream-promban .prom_slider img {max-width: 370px;}
+}
+@media all and (max-width:480px){
+	.dream-promban .prom_slider img {max-width: 330px;}
+}
+
+@media all and (max-width:430px){
+	.dream_status ul{float:none;width:100%}
+	.dream_tips ul li{width:100%;margin:0 0 20px 0}
+	.dream_login .inner{width:98%}
+	.loginwbox label input[type="text"]{width: 74%}
+	#survey_cnt .survey_wrap .gauge_container{height:80px}
+
+	.dream-promban .dotimg ul{width: 251px;}
+	.dream-promban .dotimg li{width: 72px;}
+	.dream-promban .prom_slider img {max-width: 290px;}
+	.dream-promban .dotimg img {/* max-height: 31px; */max-width: 50px;}
+}
+
+@media all and (max-width:380px){
+	.dream-promban .dotimg ul{overflow:hidden;padding: 7px 0 10px 0;width: 225px;}
+	.dream-promban .dotimg li{margin: 0 3px 0 3px;/* width:29% */width: 68px;}
+	.dream-promban .prom_slider img {max-width: 260px;}
+
+}
