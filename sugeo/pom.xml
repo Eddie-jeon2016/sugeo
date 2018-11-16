@@ -11,7 +11,7 @@
 	<properties>
 		<spring.maven.artifact.version>4.0.9.RELEASE</spring.maven.artifact.version>
 		<egovframework.rte.version>3.5.0</egovframework.rte.version>
-		<springsecurity.version>4.1.1.RELEASE</springsecurity.version>
+		<springsecurity.version>4.0.2.RELEASE</springsecurity.version>
 	</properties>
 
 	<repositories>
@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
-			<version>1.18</version>
+			<version>1.8.1</version>
 		</dependency>
 
 		<dependency>
