@@ -4,11 +4,18 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<jsp:include page="/WEB-INF/jsp/front/include/head.jsp"/>
 
-<jsp:include page="include/head.jsp"/>
+<script type="text/javascript" src="/js/jquery.vticker.min.js"></script>
+	<script type="text/javascript">
+	  $(document).ready(function(){
+		$(".rolling_banner").vTicker(); 
+	   });
+	</script>
+
 <body>
 	<div id="wrap">
-	<jsp:include page="include/top.jsp"/>
+	<jsp:include page="/WEB-INF/jsp/front/include/top.jsp"/>
         <div class="container active"><!-- // [6개이상품목] item에 값이 있을때 클래스 .active 활성화 -->
         	<div class="main_Box">
             	<!-- item1 헌 의류 (S) -->
@@ -214,7 +221,7 @@
         
  		</div><!-- container (E) -->
  	</div><!-- wrap (E) -->
-<jsp:include page="include/hideMenu.jsp"/>    
+<jsp:include page="/WEB-INF/jsp/front/include/hideMenu.jsp"/>    
     
 
 </body>

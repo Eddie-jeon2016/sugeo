@@ -60,3 +60,8 @@ $(document).ready(function(){
 		$("#"+tab_id).addClass('current');
 	})
 })
+
+
+function toMain(){
+	location.href='/index.do';
+}
