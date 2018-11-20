@@ -5,23 +5,5 @@
 <jsp:include page="/WEB-INF/jsp/front/include/head.jsp" />
 </head>
 <body>
-	<div id="wrap">
-	<!-- 웹 접근성 -->
-      <ul id="skipToContent">
-        <li><a title="탑 메뉴 바로가기" href=".hdtop">탑 메뉴 바로가기</a></li>
-        <li><a title="주 메뉴 바로가기" href=".hdbtm">주 메뉴 바로가기</a></li>
-        <li><a title="본문 바로가기" href=".wrap">본문 바로가기</a></li>
-        <li><a title="하단 바로가기" href=".footer">하단 바로가기</a></li>
-      </ul>
-
- 		
-			<jsp:include page="/front/menu/top.do" />
-			<!-- CONTAINER (S) -->
-			<div class="wrap">
-				<jsp:include page="/front/menu/secondTop.do" />
-				<sitemesh:write property="body" />
-			</div>
-			<!-- //CONTAINER (E) -->
-			<jsp:include page="/WEB-INF/jsp/front/include/footer.jsp" />	
-		</div>	
+<sitemesh:write property="body" />
 </body>
