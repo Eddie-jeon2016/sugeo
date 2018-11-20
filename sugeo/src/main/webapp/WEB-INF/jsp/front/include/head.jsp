@@ -5,10 +5,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi">
 
-<title>수거짱::메인화면</title>
-
+<title>수거짱</title>
 <link rel="shortcut icon" type="image/x-icon" href="/images/common/pavi.ico"> 
 <link rel="icon" type="image/x-icon" href="/images/common/pavi.ico"> 
+
+<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script> 
+<script type="text/javascript" src="/js/common.js"></script>  
+<script type="text/javascript" src="/js/jquery.bpopup.min.js"></script>
 
 <!-- ### bootstrap plugIn(s) ### -->
 <link rel="stylesheet" type="text/css" href="http://weddingalice.com/resources/css/bootstrap/css/bootstrap.css" />
@@ -30,25 +33,14 @@
 <script type="text/javascript" src="http://weddingalice.com/resources/plugins/datetimepicker/bootstrap-datetimepicker.js" ></script>
 <!-- ### bootstrap plugIn(s) ### -->
 
-
 <link rel="stylesheet" type="text/css" href="/css/common.css"> 
 <link rel="stylesheet" type="text/css" href="/css/style.css"> 
 
-<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script> 
-<script type="text/javascript" src="/js/common.js"></script>  
 
-<script type="text/javascript" src="/js/jquery.bpopup.min.js"></script>
     <script type="text/javascript">
 		function go_popup(index){
 			$('#popup'+index).bPopup();
 			};
 	</script> 
 	
-<script type="text/javascript" src="/js/jquery.vticker.min.js"></script>
-	<script type="text/javascript">
-	  $(document).ready(function(){
-		$(".rolling_banner").vTicker(); 
-	   });
-	</script>
-
 </head>
