@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 		<div id="header" class="header">
         	<div class="top"> 
-        		 <a title="메인화면 바로가기" href="00_index.html" class="logo"><img src="images/common/logo.png" alt="수거짱 로고"> </a> 
+        		 <a title="메인화면 바로가기" href="/" class="logo"><img src="/images/common/logo.png" alt="수거짱 로고"> </a> 
         		 
  				<button type="button" class="btn_menu" onClick="openMobileMenu();">전체메뉴</button>
           	</div> 

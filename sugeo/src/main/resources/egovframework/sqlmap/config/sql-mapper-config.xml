@@ -6,7 +6,7 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
     <typeAliases>
-    
+   
     	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 		<typeAlias  alias="FileVO" type="egovframework.com.cmm.service.FileVO"/>
 		<typeAlias  alias="FileDefaultVO" type="egovframework.com.cmm.service.FileDefaultVO"/>
@@ -34,5 +34,9 @@
     	<typeAlias alias="AuthVO" type="four.mng.auth.service.AuthVO"/>
     	<typeAlias alias="WorkLogVO" type="egovframework.com.cmm.WorkLogVO"/>
     	
+<!--     	<typeAlias alias="ItemDefaultVO" type="four.com.item.service.ItemDefaultVO"/> -->
+    	<typeAlias alias="ItemVO" type="four.com.item.service.ItemVO"/>
+    	<typeAlias alias="OrderVO"  type="four.com.order.service.OrderVO"/>
+    	<typeAlias alias="OrderImgVO" type="four.com.order.service.OrderImgVO"/>
     </typeAliases>
 </configuration>

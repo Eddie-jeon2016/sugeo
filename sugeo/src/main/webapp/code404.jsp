@@ -7,25 +7,18 @@
 <meta charset="utf-8" />
 <!-- 브라우저별 최상의 렌더링 방식 -->
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="keywords" content="2017 이통사와 함꼐하는 개인정보보호캠페인" />
+	<meta name="keywords" content="수거짱" />
 
-	<title>2017 이통사와 함꼐하는 개인정보보호캠페인 - 404 Error</title> <script type="text/javascript"
-		language="javascript" src="/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" language="javascript"
-		src="/js/jquery.bxslider.min.js"></script>
-	<script type="text/javascript" language="javascript"
-		src="/js/jquery.dotdotdot.min.js"></script>
-	<script type="text/javascript" language="javascript"
-		src="/js/jquery.bpopup.min.js"></script>
-	<script type="text/javascript" language="javascript"
-		src="/js/common.js"></script>
+	<title>수거짱 - 404 Error</title> 
+	<script type="text/javascript" language="javascript" src="/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" language="javascript" src="/js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" language="javascript" src="/js/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" language="javascript" src="/js/jquery.bpopup.min.js"></script>
+	<script type="text/javascript" language="javascript" src="/js/common.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/css/front-base.css"
-		media="all">
-		<link rel="stylesheet" type="text/css" href="/css/front-main.css"
-			media="all">
-			<link rel="stylesheet" type="text/css" href="/css/front-sub.css"
-				media="all">
+	<link rel="stylesheet" type="text/css" href="/css/front-base.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/css/front-main.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/css/front-sub.css" media="all">
 
 	<script language="javascript">
 		function fncGoAfterErrorPage() {

@@ -6,7 +6,7 @@
         <button type="button">닫기</button>
       
         <div class="level">
-            <img src="images/common/bg_lv0.png" alt="로그인해주세요."> <!-- 등급따라 bg_lv1.png ~ bg_lv5.png 이미지 -->
+            <img src="/images/common/bg_lv0.png" alt="로그인해주세요."> <!-- 등급따라 bg_lv1.png ~ bg_lv5.png 이미지 -->
             
             <h1 style="display:block">로그인 해주세요.</h1> 
             
@@ -16,12 +16,12 @@
             </h1> 
         </div>
         <p class="btn_wrap"  style="display:">
-            <a title="로그인" class="btn_small" href="00_login.html">로그인</a> 
-            <a title="회원가입" class="btn_small" href="00_join.html">회원가입</a>
+            <a title="로그인" class="btn_small" href="/front/login.do">로그인</a> 
+            <a title="회원가입" class="btn_small" href="/front/join/st.do">회원가입</a>
         </p>
         <p class="btn_wrap" style="display:none"> <!-- 로그인 시 보여지는 버튼 -->
             <a title="마이 페이지" class="btn_small" href="00_mypage.html">마이 페이지</a> 
-            <a title="로그아웃" class="btn_small" href="#">로그아웃</a>
+            <a title="로그아웃" class="btn_small" href="/front/logout.do">로그아웃</a>
         </p>
     </div>
     
