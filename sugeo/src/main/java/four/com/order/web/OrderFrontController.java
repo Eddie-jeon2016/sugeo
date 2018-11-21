@@ -67,7 +67,6 @@ public class OrderFrontController {
 					itemNo = gubun[0];	//	수거품목 종류
 					String unit = gubun[2];		//	단위(개,kg)
 					if(itemNo.equals(itemList.get(i).getItemNo())) {
-						System.out.println("계산하는 곳");
 						totalPoint +=  Integer.parseInt(itemList.get(i).getPrice())* Integer.parseInt(gubun[1]);
 						if(unit.equals("개"))
 							itemCnt += Integer.parseInt(gubun[1]);
@@ -78,16 +77,12 @@ public class OrderFrontController {
 				}
 			}
 		}
-		System.out.println("컨트롤러에서 itemNo값 = " + itemNo);
-		System.out.println("컨트롤러에서 계산한 total값 = " + totalPoint);
-		System.out.println("컨트롤러에서 계산한 수량값 개= " + itemCnt);
-		System.out.println("컨트롤러에서 계산한 수량값  kg= " + itemKg);
 		
-		System.out.println("===================예약하는 곳 종료==================");
 		model.addAttribute("totalPoint", totalPoint);
 		model.addAttribute("itemCnt", itemCnt);
 		model.addAttribute("itemKg", itemKg);
 		model.addAttribute("itemNo", itemNo);
+		System.out.println("===================예약하는 곳 종료==================");
 		return "front/order/order";
 	}
 	
@@ -106,9 +101,6 @@ public class OrderFrontController {
 			result.put("result_code","200");
 			OrderVO resultOrderVO = orderService.selectOrderOne(orderVO);
 			result.put("resultOrderVO", resultOrderVO);
-			System.out.println("------------------");
-			System.out.println(resultOrderVO);
-			System.out.println("------------------");
 		}else {
 			result.put("result_code","500");
 			result.put("msg","수거요청에 실패하였습니다.");
@@ -122,10 +114,9 @@ public class OrderFrontController {
 	public String insertUploadOderView(Model model, @ModelAttribute ItemVO itemVO,
 			HttpServletRequest request) throws Exception{
 		System.out.println("===================견적하는 곳 시작==================");
-		System.out.println("itemVO = " + itemVO);
 		
-		System.out.println("===================견적하는 곳 종료==================");
 		model.addAttribute("itemNo", itemVO.getItemNo());
+		System.out.println("===================견적하는 곳 종료==================");
 		return "front/order/orderUpload";
 	}
 	
@@ -145,10 +136,8 @@ public class OrderFrontController {
 			
 			if(!files.isEmpty()) {
 				fileList = fileUtil.parseFileInf(files, "UPD_", 0,"",uploadFolder);
-				System.out.println("11111111111111");
 				for(FileVO fvo : fileList) {
 					if(fvo.getFieldName().indexOf("uploadFile")> -1) {
-						System.out.println("파일 세팅???");
 						OrderImgVO  imgVO = new OrderImgVO();
 						imgVO.setOrderNo(orderVO.getOrderNo());
 						imgVO.setImgNm(fvo.getOrignlfileName());
@@ -162,18 +151,16 @@ public class OrderFrontController {
 	                String addFileId = fileMngService.insertFileInfs(addFileList);
 	            }*/
 			}
-			System.out.println("22222222");
+
 			orderVO.setMemNo("0");
 			orderVO.setMemNm("문의하는 사람이름");
 			orderVO.setAddr("견적문의하는 사람의 주소");
 			orderVO.setMobile("01056144367");
 			orderVO.setRegMemNo("0");
-			System.out.println("3333333");
+
 			int cnt = orderService.insertUploadOrder(orderVO);
 			
-			System.out.println("4444444");
 			OrderVO resultOrderVO = orderService.selectOrderOne(orderVO);
-			System.out.println("요청번호가 있는 vo" + resultOrderVO);
 			for(int i = 0; i < addFileList.size(); i++) {
 				addFileList.get(i).setOrderNo(resultOrderVO.getOrderNo());
 				orderImgService.insertOrderImg(addFileList.get(i));

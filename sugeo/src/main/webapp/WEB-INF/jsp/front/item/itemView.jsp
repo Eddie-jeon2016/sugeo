@@ -141,7 +141,7 @@ $(document).ready(function(){
         			<div class="inquiryBox"  id="popup${status.count}" style="display:  ;">
  						<div class="inqu_top item1"> <!-- // .item1 ~ .item6 현재 시안기준 -->
                     		<p><strong>${item.itemNm}</strong> <i>${item.price}P / ${item.unit}</i></p>
-                    		<span class="b-close"><img src="images/icon/btn_del.png" alt="닫기" height="15"></span>
+                    		<span class="b-close"><img src="/images/icon/btn_del.png" alt="닫기" height="15"></span>
                     	</div>
                     
                     	<dl>
@@ -151,7 +151,7 @@ $(document).ready(function(){
 	                    	<dt>${item.itemDescArr[2]}</dt>
 	                        <dd>${item.itemDescArr[3]}</dd>
 	                        
-	                        <dt class="inqu_bottom"><img src="images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
+	                        <dt class="inqu_bottom"><img src="/images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
 	                        <dd class="inqu_bottom">헌 옷을 주시면 새 옷으로 드립니다.</dd>                        
                     	</dl>
 				</div>
