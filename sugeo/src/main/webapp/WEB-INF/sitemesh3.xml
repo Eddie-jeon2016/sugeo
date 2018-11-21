@@ -34,6 +34,7 @@
     <mapping path="/access/accessDeny.do" exclue="true"/>
     <mapping path="/cmm/fms/*" exclue="true"/>
     <mapping path="/front/join/*" exclue="true"/>
+    <mapping path="/front/login.do" exclue="true"/>
     
 <!--     <mapping path="/" exclue="true"/> -->
 <!--     <mapping path=" /validator.do" exclue="true"/> -->
