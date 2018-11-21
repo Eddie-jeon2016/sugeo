@@ -13,6 +13,9 @@
 <script type="text/javascript" src="/js/common.js"></script>  
 <script type="text/javascript" src="/js/jquery.bpopup.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.min.js"></script>
+<script type="text/javascript" src="/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="/js/jquery.vticker.min.js"></script>
+
 
 <!-- ### bootstrap plugIn(s) ### -->
 <link rel="stylesheet" type="text/css" href="http://weddingalice.com/resources/css/bootstrap/css/bootstrap.css" />
@@ -36,12 +39,17 @@
 
 <link rel="stylesheet" type="text/css" href="/css/common.css"> 
 <link rel="stylesheet" type="text/css" href="/css/style.css"> 
+<link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
+
 
 
     <script type="text/javascript">
 		function go_popup(index){
 			$('#popup'+index).bPopup();
 			};
+	  $(document).ready(function(){
+			$(".rolling_banner").vTicker(); 
+		   });
 	</script> 
 	
 </head>

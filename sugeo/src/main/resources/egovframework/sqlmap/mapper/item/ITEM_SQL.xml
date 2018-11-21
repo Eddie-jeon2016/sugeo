@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ItemDAO">
+	
+	<select id="ItemDAO.selectVideoMngList" resultType="ItemVO">
+		SELECT ITEM_NO, ITEM_TP, ITEM_NM, ITEM_ICON, ITEM_SIMP_DESC, ITEM_DESC,
+				PRICE, UNIT, USE_YN, REG_DTTM, REG_MEM_NO, DEL_YN
+		FROM R_ITEM
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		AND DEL_YN = 'N'
+	</select>
+			
+</mapper>

@@ -6,7 +6,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <script>
 function next(){
-	alert("수거예약하러 ㄱㄱ");
+	var total = $("#total").text();
+	total = Number(total);
+
+	if(total < 5000) {
+		alert("5000P이상 수거가능합니다.");
+		return ;
+	}
 	$("#itemForm").attr("action","/front/order/insertOrderView.do");
 	$("#itemForm").submit();
 }

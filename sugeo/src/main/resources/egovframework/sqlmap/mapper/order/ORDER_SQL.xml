@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderDAO">
+	
+	<insert id="OrderDAO.insertOrder" parameterType="OrderVO">
+		INSERT INTO R_ORDER(ITEM_NO, MEM_NO, MEM_NM, MOBILE, ADDR, VISIT_DTTM,
+							REQ_DESC, EXP_RECYCLE_QUTY, EXP_POINT, CMPY_NO,
+							CMPY_NM, REG_DTTM, REG_MEM_NO, DEL_YN)
+					VALUES(#{itemNo},#{memNo},#{memNm},#{mobile},#{addr},#{visitDttm},
+						   #{reqDesc},#{expRecycleQuty},#{expPoint},#{cmpyNo},
+						   #{cmpyNm},NOW(),#{memNo},'N')
+
+	</insert>
+	
+	<insert id="OrderDAO.insertUploadOrder" parameterType="OrderVO">
+		INSERT INTO R_ORDER(ITEM_NO, MEM_NO, MEM_NM, MOBILE, ADDR,
+							REQ_DESC, REG_DTTM, REG_MEM_NO, DEL_YN)
+					VALUES(#{itemNo},#{memNo},#{memNm},#{mobile},#{addr},
+						   #{reqDesc},NOW(),#{regMemNo},'N')
+						   
+	</insert>
+	
+	
+	
+	<select id="OrderDAO.selectOrderOne" parameterType="OrderVO" resultType="OrderVO">
+		SELECT *
+		FROM R_ORDER
+		WHERE 1=1
+		AND MEM_NM = #{memNm}
+		AND MOBILE = #{mobile}
+		AND ADDR = #{addr}
+		<if test="reqDesc !=null and reqDesc != ''">
+		AND REQ_DESC = #{reqDesc}
+		</if>
+	</select>
+			
+</mapper>
