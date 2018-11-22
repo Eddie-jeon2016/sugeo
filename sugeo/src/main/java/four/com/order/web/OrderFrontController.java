@@ -1,7 +1,11 @@
 package four.com.order.web;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,7 @@ import com.google.gson.Gson;
 import egovframework.com.cmm.service.FileMngService;
 import egovframework.com.cmm.service.FileMngUtil;
 import egovframework.com.cmm.service.FileVO;
+import egovframework.com.cmm.service.GlobalsProperties;
 import four.com.item.service.ItemService;
 import four.com.item.service.ItemVO;
 import four.com.order.service.OrderImgService;
@@ -130,14 +135,53 @@ public class OrderFrontController {
 		HashMap<String, Object> result = new HashMap<>();
 
 		try{
-			Map<String, MultipartFile> files = multiRequest.getFileMap();
+			//Map<String, MultipartFile> files = multiRequest.getFileMap();
 			List<FileVO> fileList = new ArrayList<>();
 			List<OrderImgVO> addFileList = new ArrayList<>();
+			String now = new SimpleDateFormat("yyyy_MM").format(new Date());  //현재시간
+			String storePathString = GlobalsProperties.getProperty("Globals.fileStorePath");
+			storePathString += now+"/";
+			String newFileName ="";
 			
+			File dir = new File(storePathString);
+			if(!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			Iterator<String> files = multiRequest.getFileNames();
+			while(files.hasNext()){
+	            String uploadFile = files.next();
+	            OrderImgVO  imgVO = new OrderImgVO();
+	            
+	            MultipartFile mFile = multiRequest.getFile(uploadFile);
+	            
+	            //실제 파일 이름
+	            String fileName = mFile.getOriginalFilename();
+
+	            // 저장될 새로운 이름
+	            newFileName = System.currentTimeMillis()+"."
+	                    +fileName.substring(fileName.lastIndexOf(".")+1);
+
+	            
+	            try {
+	                mFile.transferTo(new File(storePathString+newFileName));
+
+	                imgVO.setRegMemNo("0");
+	                imgVO.setImgNm(fileName);
+	                imgVO.setImgPath(storePathString+newFileName);
+	                
+	                //수거요청 번호가 아직 없기 때문에 설정만 하고 리스트에 넣어줌
+	                addFileList.add(imgVO);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+/*			
 			if(!files.isEmpty()) {
 				fileList = fileUtil.parseFileInf(files, "UPD_", 0,"",uploadFolder);
 				for(FileVO fvo : fileList) {
 					if(fvo.getFieldName().indexOf("uploadFile")> -1) {
+						System.out.println("cours = "+fvo.getFileStreCours());
+						System.out.println("strefilename = "+fvo.getStrefileName());
 						OrderImgVO  imgVO = new OrderImgVO();
 						imgVO.setOrderNo(orderVO.getOrderNo());
 						imgVO.setImgNm(fvo.getOrignlfileName());
@@ -146,12 +190,13 @@ public class OrderFrontController {
 						addFileList.add(imgVO);
 					}
 				}
-/*				
+				
 				if(addFileList.size()>0){
 	                String addFileId = fileMngService.insertFileInfs(addFileList);
-	            }*/
+	            }
 			}
-
+*/
+			// 로그인한 정보를 세팅해준 부분
 			orderVO.setMemNo("0");
 			orderVO.setMemNm("문의하는 사람이름");
 			orderVO.setAddr("견적문의하는 사람의 주소");
@@ -161,14 +206,15 @@ public class OrderFrontController {
 			int cnt = orderService.insertUploadOrder(orderVO);
 			
 			OrderVO resultOrderVO = orderService.selectOrderOne(orderVO);
-			for(int i = 0; i < addFileList.size(); i++) {
-				addFileList.get(i).setOrderNo(resultOrderVO.getOrderNo());
-				orderImgService.insertOrderImg(addFileList.get(i));
-			}
 			
 			if(cnt == 1) {
 				result.put("result_code", "200");
 				result.put("msg", "견적문의가 완료되었습니다.");
+				// 견적문의가 들어갔으면 이미지에 대한 정보도 디비에 넣는 작업
+				for(int i = 0; i < addFileList.size(); i++) {
+					addFileList.get(i).setOrderNo(resultOrderVO.getOrderNo());
+					orderImgService.insertOrderImg(addFileList.get(i));
+				}
 			}else {
 				result.put("result_code", "500");
 				result.put("msg", "견적문의에 실패했습니다..");

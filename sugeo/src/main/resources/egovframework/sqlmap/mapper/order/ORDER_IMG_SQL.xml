@@ -4,8 +4,8 @@
 <mapper namespace="OrderImgDAO">
 	
 	<insert id="OrderImgDAO.insertOrderImg" parameterType="OrderImgVO">
-		INSERT INTO R_ORDER_ING(ORDER_NO, IMG_NM, REG_DTTM, REG_MEM_NO, DEL_YN)
-					VALUES(#{orderNo}, #{imgNm}, NOW(), #{regMemNo}, 'N')
+		INSERT INTO R_ORDER_ING(ORDER_NO, IMG_NM, IMG_PATH, REG_DTTM, REG_MEM_NO, DEL_YN)
+					VALUES(#{orderNo}, #{imgNm}, #{imgPath}, NOW(), #{regMemNo}, 'N')
 	</insert>
 			
 </mapper>

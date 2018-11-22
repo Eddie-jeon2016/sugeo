@@ -31,12 +31,6 @@ public class ItemFrontController {
 		System.out.println("==================아이템메인화면 시작=================");
 		List<ItemVO> itemList = itemService.selectItemFrontList();
 
-		for(int i = 0; i < itemList.size(); i++) {
-			if(itemList.get(i).getItemDesc() != null && !itemList.get(i).getItemDesc().equals("")) {
-				String desc = itemList.get(i).getItemDesc();
-				itemList.get(i).setItemDescArr(desc.split("\n"));
-			}
-		}
 		model.addAttribute("itemList", itemList);
 		System.out.println("==================아이템메인화면 종료=================");
 		return "front/item/itemView";

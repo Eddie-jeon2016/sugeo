@@ -1,5 +1,9 @@
 package four.com.order.service;
 
+/**
+ * @author 포뎁스2
+ *
+ */
 public class OrderImgVO {
 	
 	private String imgNo;
@@ -7,6 +11,8 @@ public class OrderImgVO {
 	private String orderNo;
 	
 	private String imgNm;
+	
+	private String imgPath;
 	
 	private String regDttm;
 	
@@ -82,11 +88,21 @@ public class OrderImgVO {
 		this.delYn = delYn;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderImgVO [imgNo=" + imgNo + ", orderNo=" + orderNo + ", imgNm=" + imgNm + ", regDttm=" + regDttm
-				+ ",\n regMemNo=" + regMemNo + ", updateDttm=" + updateDttm + ", updateMemNo=" + updateMemNo + ", delYn="
-				+ delYn + "]";
+		return "OrderImgVO [imgNo=" + imgNo + ", orderNo=" + orderNo + ", imgNm=" + imgNm + ", imgPath=" + imgPath
+				+ ",\n regDttm=" + regDttm + ", regMemNo=" + regMemNo + ", updateDttm=" + updateDttm + ", updateMemNo="
+				+ updateMemNo + ", delYn=" + delYn + "]";
 	}
+
+	
 	
 }

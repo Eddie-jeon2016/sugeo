@@ -77,14 +77,7 @@ public class FrontMainController {
 		List<ItemVO> itemList = itemService.selectItemFrontList();
 		
 		System.out.println("디비에서 가져온 아이템 갯수 = " + itemList.size());
-		for(int i = 0; i < itemList.size(); i++) {
-			if(itemList.get(i).getItemDesc() != null && !itemList.get(i).getItemDesc().equals("")) {
-				String desc = itemList.get(i).getItemDesc();
-				itemList.get(i).setItemDescArr(desc.split("\n"));
-				System.out.println("배열의 사이즈 = " + itemList.get(i).getItemDescArr().length);
-			}
-			System.out.println(itemList.get(i).getItemDesc());
-		}
+
 		model.addAttribute("itemList", itemList);
 		System.out.println("==================메인화면 종료=================");
 		

@@ -1,5 +1,7 @@
 package four.com.item.service;
 
+import java.util.Arrays;
+
 public class ItemVO {
 	
 	/** 품목 번호*/
@@ -18,7 +20,10 @@ public class ItemVO {
 	private String itemSimpDesc;
 	
 	/** 품목 설명*/
-	private String itemDesc;
+	private String itemDesc1;
+	
+	/** 품목 설명*/
+	private String itemDesc2;
 	
 	/** 단가*/
 	private String price;
@@ -89,12 +94,20 @@ public class ItemVO {
 		this.itemSimpDesc = itemSimpDesc;
 	}
 
-	public String getItemDesc() {
-		return itemDesc;
+	public String getItemDesc1() {
+		return itemDesc1;
 	}
 
-	public void setItemDesc(String itemDesc) {
-		this.itemDesc = itemDesc;
+	public void setItemDesc1(String itemDesc1) {
+		this.itemDesc1 = itemDesc1;
+	}
+
+	public String getItemDesc2() {
+		return itemDesc2;
+	}
+
+	public void setItemDesc2(String itemDesc2) {
+		this.itemDesc2 = itemDesc2;
 	}
 
 	public String getPrice() {
@@ -179,16 +192,10 @@ public class ItemVO {
 
 	@Override
 	public String toString() {
-		return "itemVO [itemNo=" + itemNo + ", itemTp=" + itemTp + ", itemNm=" + itemNm + ", itemIcon=" + itemIcon
-				+ ",\n itemSimpDesc=" + itemSimpDesc + ", itemDesc=" + itemDesc + ", price=" + price + ", unit=" + unit
-				+ ",\n useYn=" + useYn + ", regDttm=" + regDttm + ", regMemNo=" + regMemNo + ", updateDttm=" + updateDttm
-				+ ",\n updateMemNo=" + updateMemNo + ", delYn=" + delYn + "]";
-	}
-	
-	
-	
-	
-	
-	
-	
+		return "ItemVO [itemNo=" + itemNo + ", itemTp=" + itemTp + ", itemNm=" + itemNm + ", itemIcon=" + itemIcon
+				+ ",\n itemSimpDesc=" + itemSimpDesc + ", itemDesc1=" + itemDesc1 + ", itemDesc2=" + itemDesc2
+				+ ",\n price=" + price + ", unit=" + unit + ", useYn=" + useYn + ", regDttm=" + regDttm + ", regMemNo="
+				+ regMemNo + ",\n updateDttm=" + updateDttm + ", updateMemNo=" + updateMemNo + ", delYn=" + delYn
+				+ ",\n itemDescArr=" + Arrays.toString(itemDescArr) + ", params=" + Arrays.toString(params) + "]";
+	}	
 }

@@ -145,11 +145,11 @@ $(document).ready(function(){
                     	</div>
                     
                     	<dl>
-	                    	<dt>${item.itemDescArr[0]}</dt>
-	                        <dd>${item.itemDescArr[1]}</dd>
+	                    	<dt>수거 가능 품목</dt>
+	                        <dd>${item.itemDesc1}</dd>
 	                    
-	                    	<dt>${item.itemDescArr[2]}</dt>
-	                        <dd>${item.itemDescArr[3]}</dd>
+	                    	<dt>수거 불가능 품목</dt>
+	                        <dd>${item.itemDesc2}</dd>
 	                        
 	                        <dt class="inqu_bottom"><img src="/images/icon/bg_pop_txt.png" alt="두껍아 두껍아 헌 옷 줄게 새 옷 다오~!" height="16"></dt>
 	                        <dd class="inqu_bottom">헌 옷을 주시면 새 옷으로 드립니다.</dd>                        
